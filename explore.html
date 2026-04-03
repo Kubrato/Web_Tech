@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore — Istanbul Cinema Tourism</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-brand" href="index.html" aria-label="Home">
+      <span class="nav-brand-title">Istanbul</span>
+      <span class="nav-brand-sub">Cinema Tourism</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a class="nav-link" href="index.html">Cover</a></li>
+      <li><a class="nav-link" href="map.html">Map</a></li>
+      <li><a class="nav-link active" href="explore.html">Explore</a></li>
+      <li><a class="nav-link" href="about.html">About</a></li>
+      <li><a class="nav-link" href="docs.html">Documentation</a></li>
+      <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
+    </ul>
+
+    <div class="nav-narrative-badge" id="navNarrativeBadge" aria-live="polite">
+      <div class="narrative-dot" id="navNarrativeDot"></div>
+      <span class="nav-narrative-name" id="navNarrativeName"></span>
+    </div>
+  </nav>
+
+  <!-- ── EXPLORE APP ────────────────────────────────────────────────────── -->
+  <div class="explore-wrapper" role="main">
+
+    <!-- Narrative Toggle Bar -->
+    <div class="narrative-toggle-bar" role="toolbar" aria-label="Narrative selection and progress">
+      <div class="narrative-toggle" role="group" aria-label="Select narrative">
+        <button class="narrative-toggle-btn"
+                data-narrative="espionage"
+                id="toggleEspionage"
+                aria-pressed="false">
+          ◈ Espionage &amp; Pursuit
+        </button>
+        <button class="narrative-toggle-btn"
+                data-narrative="timeline"
+                id="toggleTimeline"
+                aria-pressed="false">
+          ◇ Through Time
+        </button>
+      </div>
+
+      <div class="progress-indicator" aria-live="polite" aria-label="Progress">
+        <span id="progressText">1 / 8</span>
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressBarWrap">
+          <div class="progress-fill" id="progressFill" style="width:12.5%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapter Strip -->
+    <div class="chapter-strip" role="navigation" aria-label="Chapters" id="chapterStrip">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Location Viewer -->
+    <div class="location-viewer" id="locationViewer" aria-label="Location detail">
+
+      <!-- Left: Visual Panel -->
+      <div class="location-visual" id="locationVisual">
+        <div class="location-image-placeholder" id="locationImagePlaceholder" data-location="">
+          <span class="location-image-icon" id="locationImageIcon" aria-hidden="true">◉</span>
+          <div class="location-film-tag" id="locationFilmTag" aria-label="Film"></div>
+          <div class="location-coords mono" id="locationCoords" aria-label="Coordinates"></div>
+        </div>
+
+        <div class="location-info-panel">
+          <h1 class="location-name-large" id="locationName"></h1>
+          <div class="location-scene" id="locationScene"></div>
+          <div class="location-chapter-row">
+            <span class="chapter-badge" id="locationChapterBadge"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Narrative Panel -->
+      <div class="location-narrative">
+        <div class="narrative-content" id="narrativeContent" role="region" aria-label="Narrative text" aria-live="polite">
+          <blockquote class="narrative-quote" id="narrativeQuote"></blockquote>
+          <p class="narrative-body" id="narrativeBody"></p>
+          <div class="narrative-note-block" id="narrativeNoteBlock">
+            <div class="narrative-note-label">Narrative Note</div>
+            <p class="narrative-note-text" id="narrativeNoteText"></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="explore-controls" role="navigation" aria-label="Location navigation">
+      <button class="explore-nav-btn" id="btnPrev" aria-label="Previous location" disabled>
+        <span class="arrow" aria-hidden="true">←</span>
+        Previous
+      </button>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-sm);">
+        <div class="location-dots" id="locationDots" role="tablist" aria-label="Location dots"></div>
+        <div class="location-counter">
+          <div class="location-counter-fraction" id="counterFraction">1 / 8</div>
+          <div class="location-counter-label">Locations</div>
+        </div>
+      </div>
+
+      <button class="explore-nav-btn" id="btnNext" aria-label="Next location">
+        Next
+        <span class="arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/explore.js"></script>
+
+  <script>
+    // Mobile nav toggle
+    document.addEventListener("DOMContentLoaded", () => {
+      const navToggle = document.getElementById("navToggle");
+      const navLinks  = document.getElementById("navLinks");
+      navToggle.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(open));
+      });
+    });
+  </script>
+
+</body>
+</html>

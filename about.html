@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Istanbul Cinema Tourism</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-brand" href="index.html" aria-label="Home">
+      <span class="nav-brand-title">Istanbul</span>
+      <span class="nav-brand-sub">Cinema Tourism</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a class="nav-link" href="index.html">Cover</a></li>
+      <li><a class="nav-link" href="map.html">Map</a></li>
+      <li><a class="nav-link" href="explore.html">Explore</a></li>
+      <li><a class="nav-link active" href="about.html">About</a></li>
+      <li><a class="nav-link" href="docs.html">Documentation</a></li>
+      <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
+    </ul>
+    <div class="nav-narrative-badge" id="navNarrativeBadge">
+      <div class="narrative-dot" id="navNarrativeDot"></div>
+      <span class="nav-narrative-name" id="navNarrativeName"></span>
+    </div>
+  </nav>
+
+  <!-- ── CONTENT ────────────────────────────────────────────────────────── -->
+  <main class="text-page" role="main">
+
+    <header class="text-page-header">
+      <p class="text-page-eyebrow">About This Project</p>
+      <h1 class="text-page-title">Istanbul: A Stage of Espionage<br>and Global Conflict</h1>
+      <p class="text-page-intro">
+        A web-based cinematic tourism experience built as a final project for the
+        Master's Degree in Digital Humanities and Digital Knowledge, University of Bologna.
+        The project explores Istanbul's role as a recurring setting for spy films, action
+        thrillers, and mysteries across six decades of cinema.
+      </p>
+    </header>
+
+    <div class="text-page-body">
+
+      <!-- Project Overview -->
+      <section class="doc-section" aria-labelledby="section-overview">
+        <p class="doc-section-number">01</p>
+        <h2 class="doc-section-title" id="section-overview">Project Overview</h2>
+        <div class="doc-section-body">
+          <p>
+            This exhibition presents Istanbul not merely as a backdrop for international cinema,
+            but as an active participant — a city whose geography, history, and cultural identity
+            have shaped some of the most memorable sequences in spy and thriller filmmaking from
+            1963 to 2016.
+          </p>
+          <p>
+            Rather than presenting a conventional film database or tourist guide, the project
+            structures its content around two distinct <em>narratives</em> — interpretive frameworks
+            through which the same locations can be experienced differently. The first, <strong>Espionage
+            & Pursuit</strong>, follows a dramatic, action-driven arc through eight key locations.
+            The second, <strong>Istanbul Through Time in Cinema</strong>, takes an analytical approach,
+            comparing how the same sites have been filmed and framed across six decades.
+          </p>
+          <p>
+            The goal is to support both pre-visit planning (at home, using the interactive map and
+            narrative explorer) and on-site exploration (following the narrative sequence through
+            real Istanbul streets and monuments).
+          </p>
+        </div>
+      </section>
+
+      <!-- Selected Films -->
+      <section class="doc-section" aria-labelledby="section-films">
+        <p class="doc-section-number">02</p>
+        <h2 class="doc-section-title" id="section-films">Selected Films</h2>
+        <div class="doc-section-body">
+          <p>
+            Five films were selected for their significant use of real Istanbul locations,
+            their span across the 1963–2016 period, and their representation of different genres
+            and approaches to the city's cinematic potential.
+          </p>
+        </div>
+
+        <!-- Film detail cards -->
+        <div style="display:grid;gap:var(--space-md);margin-top:var(--space-lg);" id="filmsDetailGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Narratives -->
+      <section class="doc-section" aria-labelledby="section-narratives">
+        <p class="doc-section-number">03</p>
+        <h2 class="doc-section-title" id="section-narratives">The Two Narratives</h2>
+
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title" style="color:var(--accent-blue);">◈ Espionage &amp; Pursuit</p>
+            <p class="doc-grid-item-body">
+              An action-driven, immersive journey structured around four chapters:
+              <strong>Surveillance → Escape → Hideouts → Confrontation</strong>.
+              Eight locations are visited in sequence, each presented with scene-specific
+              narrative text and espionage tradecraft notes. The experience is designed
+              to feel like being inside the films — following the same routes, using the
+              same geography.
+            </p>
+            <p class="doc-grid-item-body" style="margin-top:var(--space-sm);">
+              Films: From Russia with Love · Topkapi · Taken 2 · Skyfall · Inferno
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title" style="color:var(--accent-gold);">◇ Istanbul Through Time</p>
+            <p class="doc-grid-item-body">
+              An analytical, comparative journey through seven locations organized by era:
+              <strong>1960s → 2012 → 2016</strong>. The same locations — Hagia Sophia,
+              the Grand Bazaar, Topkapi Palace — are examined across different films and
+              decades, revealing how Western cinema's perception of Istanbul evolved from
+              Cold War exoticism to global modernity.
+            </p>
+            <p class="doc-grid-item-body" style="margin-top:var(--space-sm);">
+              Films: From Russia with Love · Topkapi · Skyfall · Taken 2 · Inferno
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Academic Context -->
+      <section class="doc-section" aria-labelledby="section-academic">
+        <p class="doc-section-number">04</p>
+        <h2 class="doc-section-title" id="section-academic">Academic Context</h2>
+        <div class="doc-section-body">
+          <p>
+            This project was developed within the framework of the course
+            <strong>Information Modeling and Web Technologies</strong> at the
+            University of Bologna's Master's Degree in Digital Humanities and Digital Knowledge.
+          </p>
+          <p>
+            The project engages with several core concerns of digital humanities practice:
+            how narrative structures can organize complex cultural datasets; how interactive
+            interfaces can support both scholarly and tourist modes of engagement; and how
+            web technologies can be used to create experiences that are simultaneously
+            informative, interpretive, and aesthetically compelling.
+          </p>
+          <p>
+            The selection of cinematic tourism as a domain reflects the growing scholarly
+            interest in film-induced tourism and the ways that popular cinema shapes
+            place-attachment, destination image, and cultural memory at specific locations.
+          </p>
+        </div>
+      </section>
+
+      <!-- Team -->
+      <section class="doc-section" aria-labelledby="section-team">
+        <p class="doc-section-number">05</p>
+        <h2 class="doc-section-title" id="section-team">Project Information</h2>
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="team-card-avatar" aria-hidden="true">◈</div>
+            <div class="team-card-name">Project Team</div>
+            <div class="team-card-role">Digital Humanities Students</div>
+            <div class="team-card-info">
+              Master's Degree in Digital Humanities<br>
+              and Digital Knowledge<br>
+              University of Bologna
+            </div>
+          </div>
+          <div class="team-card">
+            <div class="team-card-avatar" aria-hidden="true">◇</div>
+            <div class="team-card-name">Prof. Fabio Vitali</div>
+            <div class="team-card-role">Course Supervisor</div>
+            <div class="team-card-info">
+              Information Modeling<br>
+              and Web Technologies<br>
+              University of Bologna
+            </div>
+          </div>
+          <div class="team-card">
+            <div class="team-card-avatar" aria-hidden="true">◉</div>
+            <div class="team-card-name">Academic Year</div>
+            <div class="team-card-role">Course Project</div>
+            <div class="team-card-info">
+              End-of-course project for<br>
+              Information Modeling and<br>
+              Web Technologies
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <div style="display:flex;gap:var(--space-md);flex-wrap:wrap;padding-top:var(--space-lg);">
+        <a href="explore.html" class="btn btn-primary">Begin Exploration</a>
+        <a href="map.html"     class="btn btn-secondary">View Map</a>
+        <a href="docs.html"    class="btn btn-ghost">Documentation</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-brand">Istanbul: A Stage of Espionage and Global Conflict</div>
+    <div class="footer-meta">University of Bologna · Digital Humanities · Information Modeling and Web Technologies</div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Mobile nav
+      const navToggle = document.getElementById("navToggle");
+      const navLinks  = document.getElementById("navLinks");
+      navToggle.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(open));
+      });
+
+      // Nav badge
+      const id = App.getNarrative();
+      document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
+      document.getElementById("navNarrativeName").textContent =
+        id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+
+      // Populate films
+      const grid = document.getElementById("filmsDetailGrid");
+      APP_DATA.films.forEach(film => {
+        const card = document.createElement("article");
+        card.style.cssText = "background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:var(--space-lg);display:grid;grid-template-columns:80px 1fr;gap:var(--space-lg);";
+        card.innerHTML = `
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--accent-gold);line-height:1;">${film.year}</div>
+            <div style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">${film.genre}</div>
+          </div>
+          <div>
+            <h3 style="font-family:var(--font-serif);font-size:1.1rem;color:var(--text-primary);margin-bottom:4px;">${film.title}</h3>
+            <p style="font-size:0.72rem;color:var(--text-muted);margin-bottom:var(--space-sm);">Dir. ${film.director}</p>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.7;margin-bottom:var(--space-sm);">${film.synopsis}</p>
+            <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.65;font-style:italic;">${film.istanbulRole}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    });
+  </script>
+
+</body>
+</html>

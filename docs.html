@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — Istanbul Cinema Tourism</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-brand" href="index.html" aria-label="Home">
+      <span class="nav-brand-title">Istanbul</span>
+      <span class="nav-brand-sub">Cinema Tourism</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a class="nav-link" href="index.html">Cover</a></li>
+      <li><a class="nav-link" href="map.html">Map</a></li>
+      <li><a class="nav-link" href="explore.html">Explore</a></li>
+      <li><a class="nav-link" href="about.html">About</a></li>
+      <li><a class="nav-link active" href="docs.html">Documentation</a></li>
+      <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
+    </ul>
+    <div class="nav-narrative-badge" id="navNarrativeBadge">
+      <div class="narrative-dot" id="navNarrativeDot"></div>
+      <span class="nav-narrative-name" id="navNarrativeName"></span>
+    </div>
+  </nav>
+
+  <!-- ── CONTENT ────────────────────────────────────────────────────────── -->
+  <main class="text-page" role="main">
+
+    <header class="text-page-header">
+      <p class="text-page-eyebrow">Design Documentation</p>
+      <h1 class="text-page-title">How This Was Built</h1>
+      <p class="text-page-intro">
+        A record of the design decisions, technical architecture, and user experience
+        principles that shaped this cinematic tourism exhibition — from concept to code.
+      </p>
+    </header>
+
+    <div class="text-page-body">
+
+      <!-- 1. Concept & Structure -->
+      <section class="doc-section" aria-labelledby="doc-concept">
+        <p class="doc-section-number">01</p>
+        <h2 class="doc-section-title" id="doc-concept">Concept &amp; Information Architecture</h2>
+        <div class="doc-section-body">
+          <p>
+            The core challenge was avoiding the twin traps of the genre: the film database
+            (comprehensive but inert) and the tourist guide (useful but shallow). The solution
+            was to impose a <strong>narrative layer</strong> over the location data — organizing the
+            same factual content into two distinct interpretive journeys.
+          </p>
+          <p>
+            This dual-narrative structure required an information architecture where the same
+            location object could carry different content, different ordering, and a different
+            atmospheric register depending on the selected narrative. Rather than duplicate
+            location pages, the application uses a single data model with narrative-specific
+            text attached to each location entry.
+          </p>
+          <p>
+            The site is organized into six pages: Cover (landing/selection), Map (spatial
+            overview), Explore (narrative experience), About, Documentation, and Disclaimer.
+            Navigation between pages is linear and hierarchical, but the Explore page provides
+            a self-contained app-like experience with its own internal navigation.
+          </p>
+        </div>
+
+        <div class="doc-grid" style="margin-top:var(--space-lg);">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Data Model</p>
+            <p class="doc-grid-item-body">
+              All content is stored in a single <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">data.js</code> file
+              as structured JavaScript objects. This separates content from presentation and
+              allows the UI to be driven entirely by data. Location entries contain per-narrative
+              text arrays, making switching instantaneous.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">State Management</p>
+            <p class="doc-grid-item-body">
+              Application state (active narrative, active location index) is persisted in
+              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">localStorage</code>,
+              allowing users to navigate between pages without losing their position.
+              A centralized <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">App</code>
+              module exposes a clean API for state reads and writes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. UX Design -->
+      <section class="doc-section" aria-labelledby="doc-ux">
+        <p class="doc-section-number">02</p>
+        <h2 class="doc-section-title" id="doc-ux">UX Design Principles</h2>
+        <div class="doc-section-body">
+          <p>
+            The design prioritizes <strong>immersion over information density</strong>. Each screen
+            presents a single location with generous space for the narrative text — resisting the
+            temptation to show everything at once. The user is guided through the experience
+            sequentially, like chapters of a book or scenes of a film.
+          </p>
+          <p>
+            Three interaction modes were designed for different user contexts:
+          </p>
+        </div>
+
+        <ul class="timeline-list" style="margin-top:var(--space-lg);">
+          <li>
+            <strong>Planning mode (home):</strong> Use the Cover page to select a narrative,
+            the Map to get spatial orientation, then the Explore page to read through locations
+            in sequence. Keyboard arrow keys support quick navigation.
+          </li>
+          <li>
+            <strong>On-site mode (field):</strong> Use the Map page to identify nearby locations
+            and navigate to the Explore page for contextual narrative. The chapter strip allows
+            quick jumping between thematic sections without sequential browsing.
+          </li>
+          <li>
+            <strong>Research mode (desktop):</strong> The Documentation and About pages support
+            a scholarly reading of the project's methodology. All location texts include
+            "Narrative Notes" — analytical commentary that goes beyond the cinematic surface.
+          </li>
+        </ul>
+
+        <div class="doc-grid" style="margin-top:var(--space-xl);">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Navigation Patterns</p>
+            <p class="doc-grid-item-body">
+              Previous/Next buttons for linear traversal. Dot indicators for quick
+              overview and direct access. Chapter strip for semantic jumping. Keyboard
+              arrows (← →) supported on the Explore page. Narrative toggle preserves
+              the current location index where possible.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Progressive Disclosure</p>
+            <p class="doc-grid-item-body">
+              Information is layered: film tag and location name first, then scene context,
+              then the atmospheric quote, then the full description, then the analytical
+              narrative note. Users can read at whatever depth suits them without being
+              overwhelmed on arrival.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Responsive Layout</p>
+            <p class="doc-grid-item-body">
+              The Explore page uses a two-column split layout on desktop
+              (visual left, narrative right) that stacks vertically on mobile.
+              The Map sidebar adapts to a horizontal strip on small screens.
+              Touch targets meet WCAG 2.1 minimum size requirements.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Narrative Transition</p>
+            <p class="doc-grid-item-body">
+              Switching between narratives triggers a subtle fade-transition on the content
+              panel (opacity + translateY), providing temporal feedback that the content has
+              changed without being distracting. The transition takes 350ms — fast enough
+              to feel responsive, slow enough to read as intentional.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Visual Design -->
+      <section class="doc-section" aria-labelledby="doc-visual">
+        <p class="doc-section-number">03</p>
+        <h2 class="doc-section-title" id="doc-visual">Visual Design System</h2>
+        <div class="doc-section-body">
+          <p>
+            The visual language draws from cinematic conventions: dark projection-room
+            backgrounds, high-contrast typography, and a color palette inspired by the
+            visual grammar of the spy film genre. The design system is built on CSS custom
+            properties for consistency and easy theming.
+          </p>
+        </div>
+
+        <!-- Color palette -->
+        <p class="label" style="margin-top:var(--space-xl);margin-bottom:var(--space-md);">Color Palette</p>
+        <div class="color-swatches">
+          <div class="color-swatch">
+            <div class="color-swatch-box" style="background:#0a0a12;"></div>
+            <span class="color-swatch-name">BG Primary<br>#0a0a12</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" style="background:#1a1a2a;"></div>
+            <span class="color-swatch-name">BG Card<br>#1a1a2a</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" style="background:#c9a55a;"></div>
+            <span class="color-swatch-name">Gold<br>#c9a55a</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" style="background:#4a8bb5;"></div>
+            <span class="color-swatch-name">Blue<br>#4a8bb5</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" style="background:#e8ddd0;"></div>
+            <span class="color-swatch-name">Text Primary<br>#e8ddd0</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" style="background:#9090a8;"></div>
+            <span class="color-swatch-name">Text Secondary<br>#9090a8</span>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <p class="label" style="margin-top:var(--space-xl);margin-bottom:var(--space-md);">Typography</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Playfair Display</p>
+            <p style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text-primary);margin-bottom:4px;">Headings &amp; Titles</p>
+            <p class="doc-grid-item-body">
+              A transitional serif with strong optical contrast. Its literary associations
+              and cinematic weight make it ideal for location names, section headers, and
+              atmospheric quotes. Used at weights 400 (regular italic) and 600–700 (display).
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Inter</p>
+            <p style="font-family:'Inter',sans-serif;font-size:1rem;color:var(--text-secondary);margin-bottom:4px;">Body Text &amp; UI</p>
+            <p class="doc-grid-item-body">
+              A humanist sans-serif optimized for screen readability. Its clean geometry
+              balances the ornamental quality of Playfair Display. Used at weights
+              300–400 for body text, 500–600 for UI labels and navigation.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">JetBrains Mono</p>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text-muted);margin-bottom:4px;">Coordinates &amp; Data</p>
+            <p class="doc-grid-item-body">
+              Used for GPS coordinates, film years, and technical data. Its monospaced
+              character creates a deliberate contrast between the narrative text
+              and factual information, reinforcing the dual nature of the experience.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Type Scale</p>
+            <p class="doc-grid-item-body">
+              Fluid type sizes using <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">clamp()</code>
+              for responsive scaling without media query breakpoints. Base unit: 16px.
+              Scale: 0.62rem (labels) → 0.9rem (body) → 4.5rem (hero title).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Technical Architecture -->
+      <section class="doc-section" aria-labelledby="doc-tech">
+        <p class="doc-section-number">04</p>
+        <h2 class="doc-section-title" id="doc-tech">Technical Architecture</h2>
+        <div class="doc-section-body">
+          <p>
+            The project is built as a multi-page static website using vanilla HTML, CSS,
+            and JavaScript — no build tools, no frameworks, no server required. This
+            choice reflects the course context (accessibility, comprehensibility, portability)
+            and the content (a static exhibition does not require dynamic server infrastructure).
+          </p>
+        </div>
+
+        <div class="doc-grid" style="margin-top:var(--space-lg);">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">File Structure</p>
+            <p class="doc-grid-item-body" style="font-family:var(--font-mono);font-size:0.78rem;line-height:2;white-space:pre;">
+index.html        ← Cover/landing
+map.html          ← Interactive map
+explore.html      ← Narrative explorer
+about.html        ← About page
+docs.html         ← This page
+disclaimer.html   ← Disclaimer
+css/style.css     ← Design system
+js/data.js        ← All content data
+js/app.js         ← Shared state/logic
+js/map.js         ← Leaflet map
+js/explore.js     ← Explore logic</p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Dependencies</p>
+            <p class="doc-grid-item-body">
+              <strong>Leaflet.js 1.9.4</strong> — interactive map library (via CDN, no API key required).<br><br>
+              <strong>CARTO Dark Matter</strong> — free dark tile layer compatible with OpenStreetMap data, no registration required.<br><br>
+              <strong>Google Fonts</strong> — Playfair Display + Inter + JetBrains Mono (via CDN).<br><br>
+              No other external dependencies. No npm, no bundler, no framework.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Semantic HTML</p>
+            <p class="doc-grid-item-body">
+              All pages use semantic HTML5 elements: <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;nav&gt;</code>,
+              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;main&gt;</code>,
+              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;section&gt;</code>,
+              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;article&gt;</code>,
+              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;header&gt;</code>,
+              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;footer&gt;</code>,
+              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;blockquote&gt;</code>.
+              ARIA attributes provide accessibility context for interactive components.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">CSS Architecture</p>
+            <p class="doc-grid-item-body">
+              Single stylesheet with clear section comments. Design tokens in
+              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">:root</code>
+              CSS custom properties. Mobile-first media queries. No preprocessor required.
+              Utility classes for animation and spacing. Component classes follow a
+              BEM-influenced naming convention without strict enforcement.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Content Strategy -->
+      <section class="doc-section" aria-labelledby="doc-content">
+        <p class="doc-section-number">05</p>
+        <h2 class="doc-section-title" id="doc-content">Content Strategy</h2>
+        <div class="doc-section-body">
+          <p>
+            Each location entry contains four distinct content layers, each serving a
+            different user need and register:
+          </p>
+        </div>
+
+        <ul class="timeline-list" style="margin-top:var(--space-lg);">
+          <li>
+            <strong>Atmospheric Quote</strong> — a single evocative sentence in italics.
+            Functions as a threshold: introduces the mood of the location before the
+            reader commits to the full text. Short enough to read in passing.
+          </li>
+          <li>
+            <strong>Narrative Description</strong> — 100–150 words. Describes the scene
+            from within its narrative context, as if experienced from the film's perspective.
+            Written in present tense for immediacy. References specific film sequences
+            with precise geographic detail.
+          </li>
+          <li>
+            <strong>Narrative Note</strong> — 60–100 words. An analytical commentary
+            that steps outside the film's perspective to provide historical, geographic,
+            or cinematic context. Suitable for readers with scholarly interests.
+          </li>
+          <li>
+            <strong>Film Tag &amp; Coordinates</strong> — factual anchors always visible
+            on the visual panel. The GPS coordinates connect the cinematic text to the
+            physical reality of the location, supporting on-site use.
+          </li>
+        </ul>
+      </section>
+
+      <!-- 6. Accessibility -->
+      <section class="doc-section" aria-labelledby="doc-a11y">
+        <p class="doc-section-number">06</p>
+        <h2 class="doc-section-title" id="doc-a11y">Accessibility Considerations</h2>
+        <div class="doc-section-body">
+          <p>
+            The project targets WCAG 2.1 Level AA compliance. Key measures include:
+          </p>
+        </div>
+        <ul class="timeline-list" style="margin-top:var(--space-lg);">
+          <li><strong>ARIA labels</strong> on all interactive elements, landmark regions, and live regions. Navigation buttons have descriptive <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">aria-label</code> attributes.</li>
+          <li><strong>Keyboard navigation</strong> — full keyboard operability on the Explore page, including arrow-key location traversal and focus management.</li>
+          <li><strong>Color contrast</strong> — primary text on dark backgrounds exceeds 4.5:1 ratio. Muted text is used only for supplementary information, never for primary content.</li>
+          <li><strong>Live regions</strong> (<code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">aria-live="polite"</code>) on the narrative content and navigation badge, ensuring screen reader users are notified of content changes without interruption.</li>
+          <li><strong>Semantic structure</strong> with proper heading hierarchy (h1→h2→h3) on all pages.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-brand">Istanbul: A Stage of Espionage and Global Conflict</div>
+    <div class="footer-meta">University of Bologna · Digital Humanities · Information Modeling and Web Technologies</div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const navToggle = document.getElementById("navToggle");
+      const navLinks  = document.getElementById("navLinks");
+      navToggle.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(open));
+      });
+      const id = App.getNarrative();
+      document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
+      document.getElementById("navNarrativeName").textContent =
+        id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+    });
+  </script>
+
+</body>
+</html>

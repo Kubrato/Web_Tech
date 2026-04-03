@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map — Istanbul Cinema Tourism</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Leaflet CSS (no SRI — file:// protocol blocks SRI checks) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-brand" href="index.html" aria-label="Home">
+      <span class="nav-brand-title">Istanbul</span>
+      <span class="nav-brand-sub">Cinema Tourism</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a class="nav-link" href="index.html">Cover</a></li>
+      <li><a class="nav-link active" href="map.html">Map</a></li>
+      <li><a class="nav-link" href="explore.html">Explore</a></li>
+      <li><a class="nav-link" href="about.html">About</a></li>
+      <li><a class="nav-link" href="docs.html">Documentation</a></li>
+      <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
+    </ul>
+
+    <div class="nav-narrative-badge" id="navNarrativeBadge" aria-live="polite">
+      <div class="narrative-dot" id="navNarrativeDot"></div>
+      <span class="nav-narrative-name" id="navNarrativeName"></span>
+    </div>
+  </nav>
+
+  <!-- ── MAP APP ────────────────────────────────────────────────────────── -->
+  <div class="map-wrapper" role="main">
+
+    <!-- Sidebar -->
+    <aside class="map-sidebar" aria-label="Location list and filters">
+
+      <div class="map-sidebar-header">
+        <h1 class="map-sidebar-title">Film Locations</h1>
+        <p class="label" style="margin-bottom:var(--space-sm);">Filter by narrative</p>
+        <div class="map-filter-pills" role="group" aria-label="Filter locations">
+          <button class="map-filter-pill active-all" data-filter="all"        id="filterAll">All</button>
+          <button class="map-filter-pill"             data-filter="espionage" id="filterEspionage">◈ Espionage</button>
+          <button class="map-filter-pill"             data-filter="timeline"  id="filterTimeline">◇ Timeline</button>
+        </div>
+      </div>
+
+      <div class="map-location-list" id="mapLocationList" role="list" aria-label="Location list">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="map-location-detail hidden" id="mapLocationDetail" role="region" aria-label="Location detail" aria-live="polite">
+        <h2 class="map-detail-name" id="detailName"></h2>
+        <div class="map-detail-film" id="detailFilm"></div>
+        <p class="map-detail-desc"  id="detailDesc"></p>
+        <div id="detailNarrativeTags" class="popup-narrative-tags"></div>
+        <a href="explore.html" class="map-detail-link" id="detailExploreLink" style="margin-top:var(--space-md);">
+          Explore this location →
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- Map -->
+    <div class="map-container" role="application" aria-label="Interactive map of Istanbul film locations">
+      <div id="map"></div>
+    </div>
+
+  </div>
+
+  <!-- Legend -->
+  <div style="position:fixed;bottom:var(--space-md);right:var(--space-md);z-index:500;background:rgba(10,10,18,0.9);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:6px;padding:var(--space-md);display:flex;flex-direction:column;gap:var(--space-xs);" aria-label="Map legend">
+    <p class="label" style="margin-bottom:4px;">Map Legend</p>
+    <div style="display:flex;align-items:center;gap:var(--space-sm);">
+      <div style="width:12px;height:12px;border-radius:50%;background:var(--accent-blue);"></div>
+      <span style="font-size:0.72rem;color:var(--text-secondary);">Espionage & Pursuit</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:var(--space-sm);">
+      <div style="width:12px;height:12px;border-radius:50%;background:var(--accent-gold);"></div>
+      <span style="font-size:0.72rem;color:var(--text-secondary);">Through Time</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:var(--space-sm);">
+      <div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue) 50%,var(--accent-gold) 50%);"></div>
+      <span style="font-size:0.72rem;color:var(--text-secondary);">Both Narratives</span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/map.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Mobile nav toggle
+      const navToggle = document.getElementById("navToggle");
+      const navLinks  = document.getElementById("navLinks");
+      navToggle.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(open));
+      });
+
+      // Nav badge
+      const id = App.getNarrative();
+      document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
+      document.getElementById("navNarrativeName").textContent =
+        id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+    });
+  </script>
+
+</body>
+</html>
