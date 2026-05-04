@@ -30,6 +30,11 @@
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
 
+    <div class="theme-switcher" role="group" aria-label="Select visual theme">
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme" title="Cinematic — XXI c. screen">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"  title="Heritage — XIX c. print">❦</button>
+    </div>
+
     <div class="nav-narrative-badge" id="navNarrativeBadge" aria-live="polite">
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
@@ -64,9 +69,37 @@
       </div>
     </div>
 
+    <!-- Variant Toolbar (PDF p.15 — length × competence × mode switches) -->
+    <div class="variant-toolbar" role="toolbar" aria-label="Text presentation controls">
+      <div class="variant-group" role="group" aria-label="Text length">
+        <span class="variant-group-label">Length</span>
+        <button class="variant-btn" id="btnTellLess"  aria-label="Tell me less — shorter text">− Tell me less</button>
+        <span class="variant-indicator" id="variantIndicator" aria-live="polite">MID</span>
+        <button class="variant-btn" id="btnTellMore"  aria-label="Tell me more — longer text">+ Tell me more</button>
+      </div>
+
+      <div class="variant-group" role="group" aria-label="Text difficulty">
+        <span class="variant-group-label">Level</span>
+        <button class="variant-btn" id="btnSimpler"  aria-label="This text is too difficult — simpler version">↓ Too difficult</button>
+        <button class="variant-btn" id="btnHarder"   aria-label="This text is too simple — more advanced version">↑ Too simple</button>
+      </div>
+
+      <div class="variant-group" role="group" aria-label="Reading mode">
+        <span class="variant-group-label">Mode</span>
+        <button class="variant-btn" id="btnModeStory"  data-mode="story"   aria-pressed="true">☰ Story</button>
+        <button class="variant-btn" id="btnModeDetails" data-mode="details" aria-pressed="false">⊞ Details &amp; QR</button>
+      </div>
+    </div>
+
     <!-- Chapter Strip -->
     <div class="chapter-strip" role="navigation" aria-label="Chapters" id="chapterStrip">
       <!-- Populated by JS -->
+    </div>
+
+    <!-- Chapter Intro Banner — narrative transition prose (PDF p.9) -->
+    <div class="chapter-intro-banner hidden" id="chapterIntroBanner" role="region" aria-live="polite">
+      <strong id="chapterIntroChapter">Chapter</strong>
+      <span id="chapterIntroText"></span>
     </div>
 
     <!-- Location Viewer -->
@@ -75,6 +108,7 @@
       <!-- Left: Visual Panel -->
       <div class="location-visual" id="locationVisual">
         <div class="location-image-placeholder" id="locationImagePlaceholder" data-location="">
+          <img class="location-image" id="locationImage" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;" />
           <span class="location-image-icon" id="locationImageIcon" aria-hidden="true">◉</span>
           <div class="location-film-tag" id="locationFilmTag" aria-label="Film"></div>
           <div class="location-coords mono" id="locationCoords" aria-label="Coordinates"></div>
@@ -103,6 +137,38 @@
 
     </div>
 
+    <!-- Details Panel (QR code + camera specifications — PDF p.8 + p.15) -->
+    <div class="details-panel hidden" id="detailsPanel" role="region" aria-label="Shot details and QR code">
+      <div class="details-grid">
+        <div class="details-qr">
+          <div class="details-qr-box" id="detailsQRBox" aria-label="QR code linking to this location"></div>
+          <div class="details-qr-label">Scan to share<br>this location</div>
+        </div>
+        <div>
+          <div class="variant-group-label" style="margin-bottom:var(--space-sm);">Shot Geometry &amp; Camera Orientation</div>
+          <div class="camera-specs">
+            <div class="camera-spec">
+              <div class="camera-spec-label">Facing</div>
+              <div class="camera-spec-value" id="camFacing"></div>
+            </div>
+            <div class="camera-spec">
+              <div class="camera-spec-label">Elevation</div>
+              <div class="camera-spec-value" id="camElevation"></div>
+            </div>
+            <div class="camera-spec">
+              <div class="camera-spec-label">Focal Length</div>
+              <div class="camera-spec-value" id="camFocal"></div>
+            </div>
+            <div class="camera-spec">
+              <div class="camera-spec-label">Shot Type</div>
+              <div class="camera-spec-value" id="camShotType"></div>
+            </div>
+            <div class="camera-spec-note" id="camNote"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Navigation Controls -->
     <div class="explore-controls" role="navigation" aria-label="Location navigation">
       <button class="explore-nav-btn" id="btnPrev" aria-label="Previous location" disabled>
@@ -127,12 +193,16 @@
   </div>
 
   <!-- Scripts -->
+  <!-- qrcode.js (davidshimjs/qrcodejs, MIT) — for per-location QR codes.
+       Hosted on cdnjs for stability. Falls back gracefully if the CDN is blocked:
+       the Details panel will show the camera data only and a minimal notice. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/explore.js"></script>
 
   <script>
-    // Mobile nav toggle
+    // Mobile nav toggle + theme switcher wiring
     document.addEventListener("DOMContentLoaded", () => {
       const navToggle = document.getElementById("navToggle");
       const navLinks  = document.getElementById("navLinks");
@@ -140,6 +210,22 @@
         const open = navLinks.classList.toggle("open");
         navToggle.setAttribute("aria-expanded", String(open));
       });
+
+      function syncThemeButtons() {
+        const active = App.getTheme();
+        document.querySelectorAll(".theme-btn").forEach(btn => {
+          const isActive = btn.dataset.themeChoice === active;
+          btn.classList.toggle("active", isActive);
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+      document.querySelectorAll(".theme-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          App.setTheme(btn.dataset.themeChoice);
+          syncThemeButtons();
+        });
+      });
+      syncThemeButtons();
     });
   </script>
 

@@ -32,6 +32,11 @@
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
 
+    <div class="theme-switcher" role="group" aria-label="Select visual theme">
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme (XXI century screen)" title="Cinematic — XXI c. screen">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme (XIX century print)"  title="Heritage — XIX c. print">❦</button>
+    </div>
+
     <div class="nav-narrative-badge" id="navNarrativeBadge" aria-live="polite">
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName">Loading…</span>
@@ -188,6 +193,18 @@
         </div>
       </div>
     </section>
+
+    <!-- Site-wide prev/next page navigation (PDF p.18) -->
+    <nav class="page-nav" role="navigation" aria-label="Previous and next pages">
+      <a href="disclaimer.html" class="page-nav-btn">
+        <span class="page-nav-btn-label">↺ Loop back</span>
+        <span class="page-nav-btn-title">Disclaimer</span>
+      </a>
+      <a href="map.html" class="page-nav-btn align-end">
+        <span class="page-nav-btn-label">Next Page →</span>
+        <span class="page-nav-btn-title">Map</span>
+      </a>
+    </nav>
   </main>
 
   <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
@@ -258,6 +275,36 @@
           <div class="film-card-director">Dir. ${film.director}</div>
         `;
         grid.appendChild(card);
+      });
+
+      // Theme switcher wiring (shared pattern across all pages)
+      function syncThemeButtons() {
+        const active = App.getTheme();
+        document.querySelectorAll(".theme-btn").forEach(btn => {
+          const isActive = btn.dataset.themeChoice === active;
+          btn.classList.toggle("active", isActive);
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+      document.querySelectorAll(".theme-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          App.setTheme(btn.dataset.themeChoice);
+          syncThemeButtons();
+        });
+      });
+      syncThemeButtons();
+
+      // Inject page-specific JSON-LD (Dataset descriptor + CreativeWork for cover)
+      App.injectJSONLD("jsonld-dataset", App.datasetJSONLD());
+      App.injectJSONLD("jsonld-page", {
+        "@context": "https://schema.org",
+        "@type":    "CreativeWork",
+        "name":     "Istanbul: A Stage of Espionage and Global Conflict",
+        "description": "Cover page of the LMML exhibition.",
+        "author":   { "@type": "Person", "name": "Kübra Topçuoğlu" },
+        "datePublished": "2026",
+        "educationalLevel": "Master's Degree",
+        "learningResourceType": "Digital exhibition"
       });
 
     });

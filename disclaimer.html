@@ -27,6 +27,11 @@
       <li><a class="nav-link" href="docs.html">Documentation</a></li>
       <li><a class="nav-link active" href="disclaimer.html">Disclaimer</a></li>
     </ul>
+    <div class="theme-switcher" role="group" aria-label="Select visual theme">
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme" title="Cinematic — XXI c. screen">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"  title="Heritage — XIX c. print">❦</button>
+    </div>
+
     <div class="nav-narrative-badge" id="navNarrativeBadge">
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
@@ -100,48 +105,73 @@
           </p>
         </div>
 
-        <!-- Placeholder Copyright Links -->
-        <div class="copyright-links" role="list" aria-label="Copyright and license links">
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="OpenStreetMap copyright information">
-            © OpenStreetMap Contributors
+        <!-- Licenses and technology sources -->
+        <div class="copyright-links" role="list" aria-label="Technology and license links">
+          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" class="copyright-link" role="listitem">
+            © OpenStreetMap Contributors ↗
           </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="CARTO attribution">
-            © CARTO
+          <a href="https://carto.com/attribution/" target="_blank" rel="noopener" class="copyright-link" role="listitem">
+            © CARTO ↗
           </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="Google Fonts license">
-            © Google Fonts
+          <a href="https://fonts.google.com/knowledge/glossary/licensing" target="_blank" rel="noopener" class="copyright-link" role="listitem">
+            © Google Fonts (SIL OFL) ↗
           </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="Leaflet.js license">
-            © Leaflet.js (BSD 2-Clause)
+          <a href="https://github.com/Leaflet/Leaflet/blob/main/LICENSE" target="_blank" rel="noopener" class="copyright-link" role="listitem">
+            © Leaflet.js (BSD 2-Clause) ↗
           </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="James Bond film series copyright">
-            James Bond™ © Danjaq LLC &amp; MGM
+          <a href="https://github.com/davidshimjs/qrcodejs" target="_blank" rel="noopener" class="copyright-link" role="listitem">
+            © qrcode.js (MIT) ↗
           </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="Skyfall copyright">
-            Skyfall © Danjaq LLC, Metro-Goldwyn-Mayer Pictures
-          </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="From Russia with Love copyright">
-            From Russia with Love © Danjaq LLC
-          </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="Topkapi copyright">
-            Topkapi © Filmways Pictures
-          </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="Taken 2 copyright">
-            Taken 2 © Twentieth Century Fox Film Corporation
-          </a>
-          <a href="#" class="copyright-link" role="listitem"
-             aria-label="Inferno copyright">
-            Inferno © Columbia Pictures
-          </a>
+        </div>
+      </section>
+
+      <!-- Original Content Sources (PDF p.19 requirement) -->
+      <section class="doc-section" aria-labelledby="disc-sources">
+        <p class="doc-section-number">2.1</p>
+        <h2 class="doc-section-title" id="disc-sources">Original Sources for Film Content</h2>
+        <div class="doc-section-body">
+          <p>
+            The documents and film references contained in this web site have been selected for their
+            relevance to cinematic representations of Istanbul. Their publication here is not intended
+            to be an alternative to or a replacement for their original sources:
+          </p>
+        </div>
+        <ul class="source-list" aria-label="Film source references">
+          <li>
+            <strong>From Russia with Love (1963)</strong> · dir. Terence Young · Eon Productions / United Artists ·
+            <a href="https://www.imdb.com/title/tt0057076/" target="_blank" rel="noopener">IMDb ↗</a> ·
+            <a href="https://en.wikipedia.org/wiki/From_Russia_with_Love_(film)" target="_blank" rel="noopener">Wikipedia ↗</a>
+          </li>
+          <li>
+            <strong>Topkapi (1964)</strong> · dir. Jules Dassin · Filmways / United Artists ·
+            <a href="https://www.imdb.com/title/tt0058700/" target="_blank" rel="noopener">IMDb ↗</a> ·
+            <a href="https://en.wikipedia.org/wiki/Topkapi_(film)" target="_blank" rel="noopener">Wikipedia ↗</a>
+          </li>
+          <li>
+            <strong>Taken 2 (2012)</strong> · dir. Olivier Megaton · 20th Century Fox ·
+            <a href="https://www.imdb.com/title/tt1397280/" target="_blank" rel="noopener">IMDb ↗</a> ·
+            <a href="https://en.wikipedia.org/wiki/Taken_2" target="_blank" rel="noopener">Wikipedia ↗</a>
+          </li>
+          <li>
+            <strong>Skyfall (2012)</strong> · dir. Sam Mendes · Eon Productions / MGM / Sony ·
+            <a href="https://www.imdb.com/title/tt1074638/" target="_blank" rel="noopener">IMDb ↗</a> ·
+            <a href="https://en.wikipedia.org/wiki/Skyfall" target="_blank" rel="noopener">Wikipedia ↗</a>
+          </li>
+          <li>
+            <strong>Inferno (2016)</strong> · dir. Ron Howard · Columbia Pictures / Sony ·
+            <a href="https://www.imdb.com/title/tt3062096/" target="_blank" rel="noopener">IMDb ↗</a> ·
+            <a href="https://en.wikipedia.org/wiki/Inferno_(2016_film)" target="_blank" rel="noopener">Wikipedia ↗</a>
+          </li>
+        </ul>
+
+        <div class="doc-section-body" style="margin-top:var(--space-lg);">
+          <p style="font-style:italic;color:var(--text-muted);font-size:0.85rem;">
+            Copyright and related rights on the content remain with their original owners.
+            James Bond™ © Danjaq LLC and Metro-Goldwyn-Mayer. Taken 2 © Twentieth Century Fox.
+            Topkapi © Filmways Pictures. Inferno © Columbia Pictures.
+            Copyright on the typographic and layout choices presented here are 2026 ©
+            Kübra Topçuoğlu, Master in Digital Humanities and Digital Knowledge, Università di Bologna.
+          </p>
         </div>
       </section>
 
@@ -212,12 +242,19 @@
         </div>
       </section>
 
-      <!-- Navigation back -->
-      <div style="padding-top:var(--space-md);">
-        <a href="index.html" class="btn btn-secondary">← Return to Cover</a>
-      </div>
-
     </div>
+
+    <!-- Site-wide prev/next page navigation (PDF p.18) -->
+    <nav class="page-nav" role="navigation" aria-label="Previous and next pages">
+      <a href="docs.html" class="page-nav-btn">
+        <span class="page-nav-btn-label">← Previous Page</span>
+        <span class="page-nav-btn-title">Documentation</span>
+      </a>
+      <a href="index.html" class="page-nav-btn align-end">
+        <span class="page-nav-btn-label">Back to Start ↺</span>
+        <span class="page-nav-btn-title">Cover</span>
+      </a>
+    </nav>
   </main>
 
   <!-- Footer -->
@@ -240,6 +277,35 @@
       document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
       document.getElementById("navNarrativeName").textContent =
         id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+
+      // Theme switcher wiring
+      function syncThemeButtons() {
+        const active = App.getTheme();
+        document.querySelectorAll(".theme-btn").forEach(btn => {
+          const isActive = btn.dataset.themeChoice === active;
+          btn.classList.toggle("active", isActive);
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+      document.querySelectorAll(".theme-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          App.setTheme(btn.dataset.themeChoice);
+          syncThemeButtons();
+        });
+      });
+      syncThemeButtons();
+
+      // Page JSON-LD: Disclaimer as legal/academic notice
+      App.injectJSONLD("jsonld-page", {
+        "@context": "https://schema.org",
+        "@type":    "CreativeWork",
+        "name":     "Disclaimer — Istanbul Cinema Tourism",
+        "description": "Legal and academic notice: purpose, copyright, limitations, and original sources.",
+        "isPartOf": { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
+        "license":  "Academic fair use under University of Bologna educational context",
+        "copyrightHolder": { "@type": "Person", "name": "Kübra Topçuoğlu" },
+        "copyrightYear":   "2026"
+      });
     });
   </script>
 

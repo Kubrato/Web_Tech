@@ -27,6 +27,11 @@
       <li><a class="nav-link active" href="docs.html">Documentation</a></li>
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
+    <div class="theme-switcher" role="group" aria-label="Select visual theme">
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme" title="Cinematic — XXI c. screen">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"  title="Heritage — XIX c. print">❦</button>
+    </div>
+
     <div class="nav-narrative-badge" id="navNarrativeBadge">
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
@@ -372,6 +377,18 @@ js/explore.js     ← Explore logic</p>
       </section>
 
     </div>
+
+    <!-- Site-wide prev/next page navigation (PDF p.18) -->
+    <nav class="page-nav" role="navigation" aria-label="Previous and next pages">
+      <a href="about.html" class="page-nav-btn">
+        <span class="page-nav-btn-label">← Previous Page</span>
+        <span class="page-nav-btn-title">About</span>
+      </a>
+      <a href="disclaimer.html" class="page-nav-btn align-end">
+        <span class="page-nav-btn-label">Next Page →</span>
+        <span class="page-nav-btn-title">Disclaimer</span>
+      </a>
+    </nav>
   </main>
 
   <!-- Footer -->
@@ -394,6 +411,34 @@ js/explore.js     ← Explore logic</p>
       document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
       document.getElementById("navNarrativeName").textContent =
         id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+
+      // Theme switcher wiring
+      function syncThemeButtons() {
+        const active = App.getTheme();
+        document.querySelectorAll(".theme-btn").forEach(btn => {
+          const isActive = btn.dataset.themeChoice === active;
+          btn.classList.toggle("active", isActive);
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+      document.querySelectorAll(".theme-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          App.setTheme(btn.dataset.themeChoice);
+          syncThemeButtons();
+        });
+      });
+      syncThemeButtons();
+
+      // Page JSON-LD: Docs page
+      App.injectJSONLD("jsonld-page", {
+        "@context": "https://schema.org",
+        "@type":    "TechArticle",
+        "name":     "Documentation — Istanbul Cinema Tourism",
+        "description": "Design decisions, technical architecture, typographic and UX principles.",
+        "isPartOf": { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
+        "author":   { "@type": "Person", "name": "Kübra Topçuoğlu" },
+        "about":    ["Typography", "Information Architecture", "Accessibility", "Schema.org metadata"]
+      });
     });
   </script>
 

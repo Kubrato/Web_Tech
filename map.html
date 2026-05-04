@@ -32,6 +32,11 @@
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
 
+    <div class="theme-switcher" role="group" aria-label="Select visual theme">
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme" title="Cinematic — XXI c. screen">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"  title="Heritage — XIX c. print">❦</button>
+    </div>
+
     <div class="nav-narrative-badge" id="navNarrativeBadge" aria-live="polite">
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
@@ -66,6 +71,12 @@
         <a href="explore.html" class="map-detail-link" id="detailExploreLink" style="margin-top:var(--space-md);">
           Explore this location →
         </a>
+      </div>
+
+      <!-- Prev/Next page navigation within the map sidebar (PDF p.18) -->
+      <div style="display:flex;gap:var(--space-xs);padding:var(--space-sm);border-top:1px solid var(--border);flex-shrink:0;" aria-label="Page navigation">
+        <a href="index.html"   class="btn btn-ghost" style="flex:1;padding:8px;font-size:0.7rem;justify-content:center;">← Cover</a>
+        <a href="explore.html" class="btn btn-ghost" style="flex:1;padding:8px;font-size:0.7rem;justify-content:center;">Explore →</a>
       </div>
 
     </aside>
@@ -115,6 +126,26 @@
       document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
       document.getElementById("navNarrativeName").textContent =
         id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+
+      // Theme switcher wiring
+      function syncThemeButtons() {
+        const active = App.getTheme();
+        document.querySelectorAll(".theme-btn").forEach(btn => {
+          const isActive = btn.dataset.themeChoice === active;
+          btn.classList.toggle("active", isActive);
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+      document.querySelectorAll(".theme-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          App.setTheme(btn.dataset.themeChoice);
+          syncThemeButtons();
+        });
+      });
+      syncThemeButtons();
+
+      // Page-level JSON-LD: full dataset (map is the dataset entry point)
+      App.injectJSONLD("jsonld-page", App.datasetJSONLD());
     });
   </script>
 

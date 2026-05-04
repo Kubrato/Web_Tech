@@ -27,6 +27,11 @@
       <li><a class="nav-link" href="docs.html">Documentation</a></li>
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
+    <div class="theme-switcher" role="group" aria-label="Select visual theme">
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme" title="Cinematic — XXI c. screen">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"  title="Heritage — XIX c. print">❦</button>
+    </div>
+
     <div class="nav-narrative-badge" id="navNarrativeBadge">
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
@@ -201,6 +206,18 @@
       </div>
 
     </div>
+
+    <!-- Site-wide prev/next page navigation (PDF p.18) -->
+    <nav class="page-nav" role="navigation" aria-label="Previous and next pages">
+      <a href="explore.html" class="page-nav-btn">
+        <span class="page-nav-btn-label">← Previous Page</span>
+        <span class="page-nav-btn-title">Explore</span>
+      </a>
+      <a href="docs.html" class="page-nav-btn align-end">
+        <span class="page-nav-btn-label">Next Page →</span>
+        <span class="page-nav-btn-title">Documentation</span>
+      </a>
+    </nav>
   </main>
 
   <!-- Footer -->
@@ -245,6 +262,33 @@
           </div>
         `;
         grid.appendChild(card);
+      });
+
+      // Theme switcher wiring
+      function syncThemeButtons() {
+        const active = App.getTheme();
+        document.querySelectorAll(".theme-btn").forEach(btn => {
+          const isActive = btn.dataset.themeChoice === active;
+          btn.classList.toggle("active", isActive);
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+      }
+      document.querySelectorAll(".theme-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          App.setTheme(btn.dataset.themeChoice);
+          syncThemeButtons();
+        });
+      });
+      syncThemeButtons();
+
+      // Page JSON-LD: About page is an AboutPage CreativeWork
+      App.injectJSONLD("jsonld-page", {
+        "@context": "https://schema.org",
+        "@type":    "AboutPage",
+        "name":     "About — Istanbul Cinema Tourism",
+        "description": "Project context, film selection rationale, academic framing.",
+        "isPartOf": { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
+        "author":   { "@type": "Person", "name": "Kübra Topçuoğlu" }
       });
     });
   </script>
