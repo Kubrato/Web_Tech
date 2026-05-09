@@ -69,9 +69,6 @@
 </head>
 <body>
 
-  <!-- Film grain overlay -->
-  <div class="grain-overlay" aria-hidden="true"></div>
-
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
   <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Istanbul Cinema Tourism home">
@@ -93,14 +90,10 @@
     </ul>
 
     <div class="theme-switcher" role="group" aria-label="Select visual theme">
-      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme (XXI century screen)" title="Cinematic — XXI c. screen">◉</button>
-      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme (XIX century print)"  title="Heritage — XIX c. print">❦</button>
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Mid-Century Cinema theme (Second half of XX Century print)" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme (XIX Century print)"                      title="Heritage — XIX Century print">❦</button>
     </div>
 
-    <div class="nav-narrative-badge" id="navNarrativeBadge" aria-live="polite">
-      <div class="narrative-dot" id="navNarrativeDot"></div>
-      <span class="nav-narrative-name" id="navNarrativeName">Loading…</span>
-    </div>
   </div>
 
   <!-- ── HERO / COVER ───────────────────────────────────────────────────── -->
@@ -108,28 +101,27 @@
     <div class="hero" aria-label="Exhibition introduction">
       <div class="hero-bg" aria-hidden="true">
         <div class="hero-bg-gradient"></div>
-        <div class="hero-skyline"></div>
       </div>
 
       <div class="hero-content">
-        <div class="hero-eyebrow animate-fadeInUp">
+        <div class="hero-eyebrow">
           <div class="hero-eyebrow-line"></div>
           <span class="hero-eyebrow-text">Cinematic Tourism Exhibition</span>
         </div>
 
-        <h1 class="hero-title animate-fadeInUp delay-1">
+        <h1 class="hero-title">
           Istanbul on Film:
           <em>Foreign Cinema<br>in the City</em>
         </h1>
 
-        <p class="hero-subtitle animate-fadeInUp delay-2">
+        <p class="hero-subtitle">
           Five international productions. Six decades of cinema. One city filmed by spies,
           fugitives, fathers and scholars. This exhibition walks you through the real Istanbul
           locations behind From Russia with Love, Taken 2, Skyfall, The Water Diviner and
           Inferno — on screen and on foot.
         </p>
 
-        <div class="hero-meta animate-fadeInUp delay-3">
+        <div class="hero-meta">
           <div class="hero-meta-item">
             <span class="hero-meta-value">5</span>
             <span class="hero-meta-label">Films</span>
@@ -148,7 +140,7 @@
           </div>
         </div>
 
-        <div class="hero-actions animate-fadeInUp delay-4">
+        <div class="hero-actions">
           <a href="explore.html" class="btn btn-primary" id="heroExploreBtn">
             <span class="btn-icon">▶</span>
             Begin Journey
@@ -164,7 +156,7 @@
     <!-- ── NARRATIVE SELECTION ────────────────────────────────────────────── -->
     <div class="narrative-cards" aria-label="Choose your narrative">
       <a href="explore.html"
-         class="narrative-card espionage animate-fadeInUp delay-2"
+         class="narrative-card espionage"
          data-narrative="pursuit"
          id="cardEspionage"
          aria-label="Begin Pursuit and Passage narrative">
@@ -193,7 +185,7 @@
       </a>
 
       <a href="explore.html"
-         class="narrative-card timeline animate-fadeInUp delay-3"
+         class="narrative-card timeline"
          data-narrative="timeline"
          id="cardTimeline"
          aria-label="Begin Istanbul Through Time narrative">
@@ -224,7 +216,7 @@
     </div>
 
     <!-- ── FILMS GRID ─────────────────────────────────────────────────────── -->
-    <div class="films-section animate-fadeInUp delay-3" aria-label="Featured films">
+    <div class="films-section" aria-label="Featured films">
       <div class="section-header">
         <h2 class="section-title">Featured Films</h2>
         <div class="section-line" aria-hidden="true"></div>
@@ -283,23 +275,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
 
-      // ---- 1. Narrative badge in the top nav ----
-      function updateNavBadge() {
-        const id   = App.getNarrative();
-        const dot  = document.getElementById("navNarrativeDot");
-        const name = document.getElementById("navNarrativeName");
-
-        if (id === "pursuit") {
-          dot.classList.remove("timeline");
-          name.textContent = "Pursuit & Passage";
-        } else {
-          dot.classList.add("timeline");
-          name.textContent = "Through Time";
-        }
-      }
-      updateNavBadge();
-
-      // ---- 2. Mobile nav toggle ----
+      // ---- 1. Mobile nav toggle ----
       const navToggle = document.getElementById("navToggle");
       const navLinks  = document.getElementById("navLinks");
       navToggle.addEventListener("click", () => {
@@ -307,7 +283,7 @@
         navToggle.setAttribute("aria-expanded", String(open));
       });
 
-      // ---- 3. Narrative cards: set the narrative then go to explore ----
+      // ---- 2. Narrative cards: set the narrative then go to explore ----
       document.getElementById("cardEspionage").addEventListener("click", (e) => {
         e.preventDefault();
         App.setNarrative("pursuit");
@@ -325,7 +301,7 @@
         window.location.href = "explore.html";
       });
 
-      // ---- 4. Build the films grid from APP_DATA.films ----
+      // ---- 3. Build the films grid from APP_DATA.films ----
       const grid = document.getElementById("filmsGrid");
       APP_DATA.films.forEach(film => {
         const card = document.createElement("div");
@@ -338,7 +314,7 @@
         grid.appendChild(card);
       });
 
-      // ---- 5. Theme switcher buttons ----
+      // ---- 4. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {

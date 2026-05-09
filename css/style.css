@@ -33,8 +33,8 @@
    ============================================================================ */
 
 /* 1. Imports
-   Cinematic theme uses: Playfair Display + Inter + JetBrains Mono
-   Heritage theme  uses: Cormorant Garamond + EB Garamond + Alegreya Sans SC */
+   Mid-Century Cinema theme uses: Playfair Display + Inter + JetBrains Mono
+   Heritage theme            uses: Cormorant Garamond + EB Garamond + Alegreya Sans SC */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Alegreya+Sans+SC:wght@400;500;700&display=swap');
 
 /* 2. Design tokens — variables for both themes */
@@ -234,28 +234,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 .nav-link:hover { color: var(--text-primary); background: var(--bg-card); }
 .nav-link.active { color: var(--accent-gold); }
 
-.nav-narrative-badge {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-.narrative-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--accent-gold);
-  transition: background var(--transition-normal);
-}
-.narrative-dot.timeline { background: var(--accent-blue); }
-.nav-narrative-name {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
 /* Mobile nav toggle */
 .nav-toggle {
   display: none;
@@ -270,16 +248,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   width: 22px; height: 2px;
   background: var(--text-secondary);
   transition: all var(--transition-fast);
-}
-
-/* 8. Film-grain overlay */
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
 /* 10. Hero / cover page */
@@ -308,25 +276,6 @@ strong { color: var(--text-primary); font-weight: 600; }
     radial-gradient(ellipse 80% 60% at 70% 50%, rgba(74,139,181,0.08) 0%, transparent 60%),
     radial-gradient(ellipse 60% 80% at 20% 80%, rgba(201,165,90,0.06) 0%, transparent 50%),
     linear-gradient(180deg, rgba(10,10,18,0.3) 0%, rgba(10,10,18,0.7) 60%, var(--bg-primary) 100%);
-}
-
-/* Animated silhouette of Istanbul skyline (CSS art) */
-.hero-skyline {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 35vh;
-  background:
-    /* Minarets and domes - simplified CSS cityscape */
-    radial-gradient(ellipse 3% 12% at 25% 100%, var(--bg-secondary) 100%, transparent 100%),
-    radial-gradient(ellipse 5% 15% at 30% 100%, var(--bg-secondary) 100%, transparent 100%),
-    radial-gradient(ellipse 8% 20% at 38% 100%, rgba(26,26,42,0.9) 100%, transparent 100%),
-    radial-gradient(ellipse 3% 12% at 45% 100%, var(--bg-secondary) 100%, transparent 100%),
-    radial-gradient(ellipse 12% 25% at 55% 100%, rgba(26,26,42,0.8) 100%, transparent 100%),
-    radial-gradient(ellipse 3% 8% at 63% 100%, var(--bg-secondary) 100%, transparent 100%),
-    radial-gradient(ellipse 6% 18% at 70% 100%, rgba(26,26,42,0.9) 100%, transparent 100%),
-    radial-gradient(ellipse 3% 10% at 78% 100%, var(--bg-secondary) 100%, transparent 100%),
-    linear-gradient(0deg, var(--bg-primary) 15%, transparent 100%);
-  opacity: 0.6;
 }
 
 .hero-content {
@@ -1552,19 +1501,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 .footer-brand { font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-secondary); }
 .footer-meta { font-size: 0.72rem; color: var(--text-muted); }
 
-/* 19. Animations */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fadeInUp { animation: fadeInUp 0.6s ease both; }
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-
 /* 20. Responsive breakpoints */
 @media (max-width: 900px) {
   :root { --sidebar-width: 240px; }
@@ -1620,7 +1556,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 
 /* 21. Print */
 @media print {
-  .main-nav, .grain-overlay, .explore-controls, .narrative-toggle-bar { display: none; }
+  .main-nav, .explore-controls, .narrative-toggle-bar { display: none; }
   body { background: white; color: black; }
 }
 
@@ -2114,12 +2050,6 @@ strong { color: var(--text-primary); font-weight: 600; }
     ) center / 100% 100%;
 }
 
-/* Grain overlay off — clean paper texture instead */
-[data-theme="heritage"] .grain-overlay {
-  opacity: 0.04;
-  filter: invert(1) sepia(0.3);
-}
-
 /* Headings: lighter weight, italic emphasis on h1 */
 [data-theme="heritage"] h1, [data-theme="heritage"] h2, [data-theme="heritage"] h3, [data-theme="heritage"] h4 {
   font-weight: 500;
@@ -2176,7 +2106,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 [data-theme="heritage"] .btn-secondary:hover { background: var(--accent-red); color: var(--bg-primary); }
 
-/* Hero: CENTERED layout (vs. left-aligned in Cinematic). Ornamental rule instead of skyline. */
+/* Hero: CENTERED layout (vs. left-aligned in Mid-Century Cinema). Ornamental rule instead of cinematic asymmetry. */
 [data-theme="heritage"] .hero {
   align-items: center;
   text-align: center;
@@ -2185,7 +2115,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 [data-theme="heritage"] .hero-eyebrow { justify-content: center; }
 [data-theme="heritage"] .hero-eyebrow-line { background: var(--accent-red); }
 [data-theme="heritage"] .hero-eyebrow-text { color: var(--accent-red); font-family: var(--font-sans); }
-[data-theme="heritage"] .hero-skyline { display: none; }
 [data-theme="heritage"] .hero-bg-gradient {
   background:
     radial-gradient(ellipse 80% 50% at 50% 40%, rgba(138,90,46,0.08) 0%, transparent 70%),

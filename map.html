@@ -54,8 +54,6 @@
 </head>
 <body>
 
-  <div class="grain-overlay" aria-hidden="true"></div>
-
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
   <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Home">
@@ -77,14 +75,10 @@
     </ul>
 
     <div class="theme-switcher" role="group" aria-label="Select visual theme">
-      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme" title="Cinematic — XXI c. screen">◉</button>
-      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"  title="Heritage — XIX c. print">❦</button>
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Mid-Century Cinema theme" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"           title="Heritage — XIX Century print">❦</button>
     </div>
 
-    <div class="nav-narrative-badge" id="navNarrativeBadge" aria-live="polite">
-      <div class="narrative-dot" id="navNarrativeDot"></div>
-      <span class="nav-narrative-name" id="navNarrativeName"></span>
-    </div>
   </div>
 
   <!-- ── MAP APP ────────────────────────────────────────────────────────── -->
@@ -166,13 +160,7 @@
         navToggle.setAttribute("aria-expanded", String(open));
       });
 
-      // ---- 2. Narrative badge in the top nav ----
-      const id = App.getNarrative();
-      document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
-      document.getElementById("navNarrativeName").textContent =
-        id === "pursuit" ? "Pursuit & Passage" : "Through Time";
-
-      // ---- 3. Theme switcher buttons ----
+      // ---- 2. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {

@@ -38,8 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressText     = document.getElementById("progressText");
   const progressFill     = document.getElementById("progressFill");
   const counterFraction  = document.getElementById("counterFraction");
-  const navNarrativeDot  = document.getElementById("navNarrativeDot");
-  const navNarrativeName = document.getElementById("navNarrativeName");
 
   // Location display
   const locationImagePlaceholder = document.getElementById("locationImagePlaceholder");
@@ -126,9 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleTimeline.classList.toggle("active", !isPursuit);
     toggleEspionage.setAttribute("aria-pressed", String(isPursuit));
     toggleTimeline.setAttribute("aria-pressed", String(!isPursuit));
-
-    navNarrativeDot.classList.toggle("timeline", !isPursuit);
-    navNarrativeName.textContent = isPursuit ? "Pursuit & Passage" : "Through Time";
   }
 
   toggleEspionage.addEventListener("click", () => {

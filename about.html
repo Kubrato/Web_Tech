@@ -44,8 +44,6 @@
 </head>
 <body>
 
-  <div class="grain-overlay" aria-hidden="true"></div>
-
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
   <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Home">
@@ -64,14 +62,10 @@
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
     <div class="theme-switcher" role="group" aria-label="Select visual theme">
-      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme" title="Cinematic — XXI c. screen">◉</button>
-      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"  title="Heritage — XIX c. print">❦</button>
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Mid-Century Cinema theme" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"           title="Heritage — XIX Century print">❦</button>
     </div>
 
-    <div class="nav-narrative-badge" id="navNarrativeBadge">
-      <div class="narrative-dot" id="navNarrativeDot"></div>
-      <span class="nav-narrative-name" id="navNarrativeName"></span>
-    </div>
   </div>
 
   <!-- ── CONTENT ────────────────────────────────────────────────────────── -->
@@ -121,7 +115,7 @@
 
         <p class="author-row-text">
           This is a <strong>1-person individual project</strong>. The
-          two-theme design (<em>Cinematic</em> / <em>Heritage</em>) and the
+          two-theme design (<em>Mid-Century Cinema</em> / <em>Heritage</em>) and the
           two-narrative structure (<em>Pursuit &amp; Passage</em> /
           <em>Through Time</em>) are deliberate scope choices for a solo
           project: two coherent authorial voices rather than one diluted
@@ -449,13 +443,7 @@
         navToggle.setAttribute("aria-expanded", String(open));
       });
 
-      // ---- 2. Narrative badge in the top nav ----
-      const id = App.getNarrative();
-      document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
-      document.getElementById("navNarrativeName").textContent =
-        id === "pursuit" ? "Pursuit & Passage" : "Through Time";
-
-      // ---- 3. Build the films detail grid ----
+      // ---- 2. Build the films detail grid ----
       const grid = document.getElementById("filmsDetailGrid");
       APP_DATA.films.forEach(film => {
         const card = document.createElement("div");
@@ -474,7 +462,7 @@
         grid.appendChild(card);
       });
 
-      // ---- 4. Theme switcher buttons ----
+      // ---- 3. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {

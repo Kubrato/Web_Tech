@@ -44,8 +44,6 @@
 </head>
 <body>
 
-  <div class="grain-overlay" aria-hidden="true"></div>
-
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
   <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Home">
@@ -64,14 +62,10 @@
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
     <div class="theme-switcher" role="group" aria-label="Select visual theme">
-      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Cinematic theme" title="Cinematic — XXI c. screen">◉</button>
-      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"  title="Heritage — XIX c. print">❦</button>
+      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Mid-Century Cinema theme" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"           title="Heritage — XIX Century print">❦</button>
     </div>
 
-    <div class="nav-narrative-badge" id="navNarrativeBadge">
-      <div class="narrative-dot" id="navNarrativeDot"></div>
-      <span class="nav-narrative-name" id="navNarrativeName"></span>
-    </div>
   </div>
 
   <!-- ── CONTENT ────────────────────────────────────────────────────────── -->
@@ -233,28 +227,35 @@
           </p>
         </div>
 
-        <!-- ─── Theme A: Cinematic ─────────────────────────────────────── -->
-        <p class="label" data-mt="xl" data-mb="md">Theme A — Cinematic (XXI-century screen)</p>
+        <!-- ─── Theme A: Mid-Century Cinema (Second half of XX Century print) ── -->
+        <p class="label" data-mt="xl" data-mb="md">Theme A — Mid-Century Cinema (Second half of XX Century print)</p>
         <div class="doc-section-body">
           <p>
-            <strong>Why this theme exists.</strong> The Pursuit &amp; Passage
-            narrative and the 2012 / 2014 / 2016 chapters of the Through Time
-            narrative are dominated by post-2010 digital cinema — Skyfall,
-            Taken 2, The Water Diviner, Inferno. These films share a darker
-            palette, anamorphic framing, and a kinetic, on-screen feel. The
-            Cinematic theme matches that register: a dark "projection room"
-            background, strong contrast typography, and an asymmetric
-            left-anchored hero that imitates a widescreen title card.
+            <strong>Why this theme exists.</strong> The project opens in 1963
+            with <em>From Russia with Love</em> — the Bond film that defined
+            mid-century cinematic Istanbul. Mid-Century Cinema anchors the
+            site in the print culture of that era: the bold dark-grounded
+            film posters of the 1960s spy cycle, the lobby cards and one-sheets
+            distributed in cinema foyers, and the design language of
+            mid-century film-criticism quarterlies such as <em>Cahiers du
+            Cinéma</em> (relaunched 1964), <em>Sight &amp; Sound</em> and
+            <em>Films and Filming</em>. A dark "projection room" ground,
+            high-contrast title-card typography, and an asymmetric
+            left-anchored hero recall the printed page of that period rather
+            than a contemporary screen interface.
           </p>
           <p>
             <strong>Background image.</strong> A pure-CSS pattern on
             <code>body::before</code>: two thin filmstrip-perforation columns
-            on the left and right edges, plus a soft radial vignette, evoking
-            an unreeled 35mm strip and the screen falloff of a dark cinema.
+            on the left and right edges, plus a soft radial vignette. The 35mm
+            perforation is a deliberately historical reference — the medium on
+            which all five featured films were originally exhibited, and the
+            single most recognisable graphic motif of mid-century cinema print
+            advertising.
           </p>
         </div>
 
-        <p class="label" data-mt="lg" data-mb="md">Cinematic palette</p>
+        <p class="label" data-mt="lg" data-mb="md">Mid-Century Cinema palette</p>
         <div class="color-swatches">
           <div class="color-swatch">
             <div class="color-swatch-box" data-swatch="cinematic-bg-primary"></div>
@@ -282,23 +283,29 @@
           </div>
         </div>
 
-        <p class="label" data-mt="lg" data-mb="md">Cinematic typography</p>
+        <p class="label" data-mt="lg" data-mb="md">Mid-Century Cinema typography</p>
         <div class="doc-grid">
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Playfair Display</p>
             <p class="type-sample-cinema-h">Headings &amp; Titles</p>
             <p class="doc-grid-item-body">
-              A high-contrast serif with cinematic, title-card energy. Used for
-              location names, section titles and pull quotes, in regular italic
-              (400) and bold (600–700).
+              A high-contrast serif in the lineage of mid-XVIII-century
+              transitional types (Baskerville, Bodoni) revived through the
+              twentieth century for poster and title-card use. The
+              high-contrast modulation matches the bold display lettering of
+              1960s film one-sheets. Used for location names, section titles
+              and pull quotes.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Inter</p>
             <p class="type-sample-cinema-body">Body Text &amp; UI</p>
             <p class="doc-grid-item-body">
-              A clean, screen-optimised sans-serif. Balances the decorative
-              Playfair, keeps body text and UI controls legible at small sizes.
+              A neo-grotesque sans in the lineage of Helvetica (1957) and
+              Univers (1957) — the dominant body and signage faces of the
+              second half of the twentieth century, including the long-form
+              copy of the period's film-criticism magazines. Used for body
+              text and UI controls.
             </p>
           </div>
           <div class="doc-grid-item">
@@ -313,35 +320,38 @@
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Layout signature</p>
             <p class="doc-grid-item-body">
-              Asymmetric, <strong>left-anchored</strong> hero with skyline
-              silhouette. Explore page: <strong>image left, narrative right</strong>.
+              Asymmetric, <strong>left-anchored</strong> hero with deep
+              negative space and a soft cinematic vignette. Explore page:
+              <strong>image left, narrative right</strong>.
               Inside the visual column: <strong>image → gallery → info panel</strong>
               (image opens, caption follows).
             </p>
           </div>
         </div>
 
-        <!-- ─── Theme B: Heritage ─────────────────────────────────────── -->
-        <p class="label" data-mt="2xl" data-mb="md">Theme B — Heritage (XIX-century print &amp; 1960s academic press)</p>
+        <!-- ─── Theme B: Heritage (XIX Century print) ─────────────────── -->
+        <p class="label" data-mt="2xl" data-mb="md">Theme B — Heritage (XIX Century print)</p>
         <div class="doc-section-body">
           <p>
-            <strong>Why this theme exists.</strong> The 1960s chapter of the
-            Through Time narrative — From Russia with Love (1963), and the
-            "tourist Istanbul" gaze it established — belongs to a slower,
-            documentary, mid-century European cinema. Reading those locations
-            on a black "spy" background flattens that history. The Heritage
-            theme places them on parchment, in a transitional serif, with a
-            centred, book-style measure. It is also the better register for
-            scholarly long-form reading: the doc, about and disclaimer pages
-            gain a drop-cap and ornamental section breaks.
+            <strong>Why this theme exists.</strong> Mid-Century Cinema reads
+            Istanbul as a screening to attend; Heritage reads it as a printed
+            book of the city. The reference is the XIX-century European
+            travel-book and architectural-history publishing tradition — the
+            era of Murray's <em>Handbook for Travellers in Constantinople</em>
+            (first edition 1840) and the great illustrated histories of
+            Ottoman monuments. The theme places the same exhibition on
+            parchment, in a transitional serif, with a centred, book-style
+            measure, a drop-cap on the first paragraph, and ornamental
+            section breaks. It is the better register for long-form
+            scholarly reading on the docs, about and disclaimer pages.
           </p>
           <p>
             <strong>Background image.</strong> A pure-CSS pattern on
             <code>body::before</code>: three soft sienna/oxblood radial washes
             laid over a faint diagonal weave, evoking <em>ebru</em> (Turkish
             marbled paper) endpapers — a deliberate Ottoman/Levantine
-            geographic anchor that ties the typographic tradition to the
-            project's actual subject city.
+            geographic anchor that ties the XIX-century European typographic
+            tradition to the project's actual subject city.
           </p>
         </div>
 
@@ -410,7 +420,7 @@
               <strong>Centred</strong> hero with an ornamental rule (❦) under
               the title; double-rule section breaks. Explore page:
               <strong>narrative left, image right</strong> (mirrored from
-              Cinematic). Inside the visual column the order is also
+              Mid-Century Cinema). Inside the visual column the order is also
               re-sequenced — <strong>info panel → image → gallery</strong> —
               so the heading and scene caption introduce the figure, like a
               plate in a printed book.
@@ -433,13 +443,13 @@
         <div class="doc-grid-item meta-table-wrap">
           <table class="meta-table meta-table-small">
             <thead>
-              <tr><th>Aspect</th><th>Cinematic</th><th>Heritage</th></tr>
+              <tr><th>Aspect</th><th>Mid-Century Cinema</th><th>Heritage</th></tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Period anchor</strong></td>
-                <td>2010s digital cinema</td>
-                <td>1950s–60s European print + Ottoman ebru</td>
+                <td>1960s–70s film-poster &amp; film-criticism print</td>
+                <td>XIX-century European print + Ottoman ebru</td>
               </tr>
               <tr>
                 <td><strong>Best fit</strong></td>
@@ -468,7 +478,7 @@
               </tr>
               <tr>
                 <td><strong>Hero alignment</strong></td>
-                <td>Left-anchored, asymmetric, skyline silhouette</td>
+                <td>Left-anchored, asymmetric, deep negative space</td>
                 <td>Centred, ornamental rule (❦) under title</td>
               </tr>
               <tr>
@@ -852,12 +862,15 @@ js/explore.js     ← Explore logic</p>
             </p>
           </div>
           <div class="doc-grid-item">
-            <p class="doc-grid-item-title">Q. Why Playfair Display for the Cinematic theme?</p>
+            <p class="doc-grid-item-title">Q. Why Playfair Display for the Mid-Century Cinema theme?</p>
             <p class="doc-grid-item-body">
               <strong>A.</strong> Playfair is a high-contrast Didone serif —
-              the same family used on contemporary movie posters and on
-              modern film title cards. It signals "cinema" instantly. Pairs
-              with Inter for screen-optimised body text. See § 3.
+              the same family used on the bold display lettering of mid-century
+              film posters and one-sheets, in the lineage of Bodoni and the
+              XIX-century display cuts. It signals "cinema title card"
+              instantly. Pairs with Inter as a neo-grotesque body face
+              consistent with the second-half-of-XX-century print register.
+              See § 3.
             </p>
           </div>
           <div class="doc-grid-item">
@@ -933,14 +946,14 @@ js/explore.js     ← Explore logic</p>
               <em>function</em> (<code>--accent-gold</code>,
               <code>--accent-blue</code>), not its hex — so the Heritage theme
               redefines them to sienna and prussian blue without renaming.
-              See § 3.2 Cinematic palette.
+              See § 3.2 Mid-Century Cinema palette.
             </p>
           </div>
           <div class="doc-grid-item">
-            <p class="doc-grid-item-title">Q. Why a dark Cinematic palette and a light Heritage palette?</p>
+            <p class="doc-grid-item-title">Q. Why a dark Mid-Century Cinema palette and a light Heritage palette?</p>
             <p class="doc-grid-item-body">
               <strong>A.</strong> Two reasons:
-              (1) Cinematic imitates a darkened cinema/projection room;
+              (1) Mid-Century Cinema imitates a darkened cinema/projection room;
               Heritage imitates a printed book on archival paper.
               (2) Light versus dark is the most legible difference between
               two themes at first glance — and the brief explicitly asks the
@@ -991,7 +1004,7 @@ js/explore.js     ← Explore logic</p>
             </p>
           </div>
           <div class="doc-grid-item">
-            <p class="doc-grid-item-title">Q. Why image-left / narrative-right on the Explore page (Cinematic)?</p>
+            <p class="doc-grid-item-title">Q. Why image-left / narrative-right on the Explore page (Mid-Century Cinema)?</p>
             <p class="doc-grid-item-body">
               <strong>A.</strong> Cinema is a visual medium — the still leads
               the eye, the text supports it. Mirrors the convention in
@@ -1001,7 +1014,7 @@ js/explore.js     ← Explore logic</p>
             </p>
           </div>
           <div class="doc-grid-item">
-            <p class="doc-grid-item-title">Q. Why is the cover hero left-anchored in Cinematic but centred in Heritage?</p>
+            <p class="doc-grid-item-title">Q. Why is the cover hero left-anchored in Mid-Century Cinema but centred in Heritage?</p>
             <p class="doc-grid-item-body">
               <strong>A.</strong> Asymmetric left-anchored layout dominates
               21st-century cinema and streaming UIs (Netflix, Criterion
@@ -1038,9 +1051,11 @@ js/explore.js     ← Explore logic</p>
             <p class="doc-grid-item-body">
               <strong>A.</strong> The brief asks for two themes that differ on
               colours, fonts, layout, ordering, and look-and-feel — not just
-              colour. Each theme also serves a different reader: Cinematic
-              for casual browsers of the post-2010 pursuit narrative;
-              Heritage for scholars / heritage readers of the 1960s timeline.
+              colour. Each theme also serves a different reader: Mid-Century
+              Cinema, in the graphic register of 1960s film posters and
+              criticism magazines, frames the visit as a screening to attend;
+              Heritage, in the register of XIX-century European print and
+              Ottoman ebru endpapers, frames it as a scholarly book to read.
               See § 3.
             </p>
           </div>
@@ -1095,9 +1110,10 @@ js/explore.js     ← Explore logic</p>
             <p class="doc-grid-item-body">
               <strong>A.</strong> localStorage survives page navigation and
               reload, matching user expectation: "I was on location 4; when
-              I come back I want to be on location 4 again." URL parameters
-              (<code>?n=pursuit&amp;loc=galata-tower</code>) were added on
-              top for shareable deep links.
+              I come back I want to be on location 4 again." Each page reads
+              the saved keys (<code>activeNarrative</code>,
+              <code>activeLocationIndex</code>, <code>theme</code>, &hellip;)
+              once on load through <code>App.init()</code>.
             </p>
           </div>
           <div class="doc-grid-item">
@@ -1280,13 +1296,7 @@ js/explore.js     ← Explore logic</p>
         navToggle.setAttribute("aria-expanded", String(open));
       });
 
-      // ---- 2. Narrative badge in the top nav ----
-      const id = App.getNarrative();
-      document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
-      document.getElementById("navNarrativeName").textContent =
-        id === "pursuit" ? "Pursuit & Passage" : "Through Time";
-
-      // ---- 3. Theme switcher buttons ----
+      // ---- 2. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {

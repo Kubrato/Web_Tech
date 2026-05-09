@@ -201,30 +201,9 @@ const App = (() => {
   }
 
 
-  // ---- 12. Deep link support: ?n=pursuit&loc=galata-tower ----
-  function consumeDeepLink() {
-    const params = new URLSearchParams(window.location.search);
-    const narrId = params.get("n");
-    const locId  = params.get("loc");
-
-    if (narrId === "pursuit" || narrId === "timeline") {
-      state.activeNarrative = narrId;
-      localStorage.setItem("activeNarrative", narrId);
-    }
-    if (locId) {
-      const idx = getLocations().findIndex(l => l.id === locId);
-      if (idx !== -1) {
-        state.activeLocationIndex = idx;
-        localStorage.setItem("activeLocationIndex", String(idx));
-      }
-    }
-  }
-
-
-  // ---- 13. Init (runs once per page) ----
+  // ---- 12. Init (runs once per page) ----
   function init() {
     applyTheme();
-    consumeDeepLink();
 
     // Make sure the saved index is still valid for the current narrative.
     const locs = getLocations();
@@ -237,7 +216,7 @@ const App = (() => {
   }
 
 
-  // ---- 14. Public API ----
+  // ---- 13. Public API ----
   return {
     state,
     // narrative
@@ -259,8 +238,8 @@ const App = (() => {
     highlightActiveNav,
     // utilities
     chapterColorClass, formatCoords,
-    // QR + deep link
-    generateLocationQR, consumeDeepLink,
+    // QR
+    generateLocationQR,
     // init
     init
   };
