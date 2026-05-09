@@ -1032,25 +1032,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   margin-top: 2px;
 }
 
-/* Dot navigation */
-.location-dots {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.location-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--border);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-.location-dot.active {
-  background: var(--accent-gold);
-  transform: scale(1.4);
-}
-.location-dot:hover { background: var(--text-muted); }
-
 /* 16. Map page */
 .map-wrapper {
   position: fixed;
@@ -1259,6 +1240,31 @@ strong { color: var(--text-primary); font-weight: 600; }
   margin-bottom: var(--space-md);
 }
 .doc-section-body p:last-child { margin-bottom: 0; }
+
+.doc-figure {
+  margin: var(--space-md) auto;
+  padding: var(--space-sm);
+  max-width: 520px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+.doc-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+.doc-figure-caption {
+  margin-top: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  text-align: center;
+}
 
 /* Two-column doc grid */
 .doc-grid {
@@ -1547,7 +1553,17 @@ strong { color: var(--text-primary); font-weight: 600; }
   .map-location-detail { min-width: 200px; }
 
   .narrative-toggle-bar { padding: var(--space-xs) var(--space-md); }
-  .explore-controls { padding: var(--space-sm) var(--space-md); }
+  .explore-controls {
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-sm);
+  }
+  .explore-controls-center { flex: 1 1 0; min-width: 0; }
+  .location-directions { max-width: 100%; }
+  .explore-nav-btn {
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
   .narrative-content { padding: var(--space-md); }
 
   .text-page-header { padding: var(--space-2xl) var(--space-md) var(--space-xl); }
@@ -1887,14 +1903,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 .location-directions .directions-arrow {
   color: var(--accent-gold);
   margin: 0 4px;
-}
-.location-directions .directions-bearing {
-  color: var(--accent-gold);
-  font-weight: 600;
-  margin: 0 4px;
-}
-.location-directions .directions-target {
-  color: var(--text-secondary);
 }
 
 /* 26. Theme switcher (appears in the nav on every page) */
@@ -2667,11 +2675,9 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 .map-legend-row    { display: flex; align-items: center; gap: var(--space-sm); }
 .map-legend-dot    { width: 12px; height: 12px; border-radius: 50%; }
-.map-legend-dot[data-narr="pursuit"]  { background: var(--accent-blue); }
-.map-legend-dot[data-narr="timeline"] { background: var(--accent-gold); }
-.map-legend-dot[data-narr="both"] {
-  background: linear-gradient(135deg, var(--accent-blue) 50%, var(--accent-gold) 50%);
-}
+.map-legend-dot[data-narr="pursuit"]  { background: #4a8bb5; }
+.map-legend-dot[data-narr="timeline"] { background: #c9a55a; }
+.map-legend-dot[data-narr="both"]     { background: #8a8a6a; }
 .map-legend-text { font-size: 0.72rem; color: var(--text-secondary); }
 
 /* map.html — sidebar prev/next button row */

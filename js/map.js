@@ -1,44 +1,30 @@
-/*
-  map.js — interactive map page.
+// map.js — code for the interactive Map page
+// I use Leaflet.js (a free map library) and CARTO's free dark map tiles.
 
-  Uses Leaflet.js with a free CARTO Dark Matter tile layer (no API key).
-  Sections:
-    1. map setup
-    2. marker styling
-    3. sidebar detail panel
-    4. sidebar list of locations
-    5. select / activate one location
-    6. dashed line that connects locations in narrative order
-    7. add markers for the chosen filter
-    8. filter buttons (All / Pursuit / Timeline)
-    9. init
-*/
+document.addEventListener("DOMContentLoaded", function() {
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  // ============================================================
-  // 1. Map setup
-  // ============================================================
-  // If Leaflet failed to load, show a friendly message and stop.
+  // ===== 1. Set up the map =====
+  // If Leaflet did not load (no internet, etc.), show a message and stop.
   if (typeof L === "undefined") {
     document.getElementById("map").innerHTML =
       '<div class="map-unavailable">' +
         '<span class="map-unavailable-icon">◉</span>' +
         '<span>Map unavailable — check your internet connection and reload.</span>' +
       '</div>';
-    buildSidebarList("all");
     return;
   }
 
-  const map = L.map("map", {
-    center: [41.0082, 28.9784], // Istanbul city center
+  // Create the map and centre it on Istanbul.
+  var map = L.map("map", {
+    center: [41.0082, 28.9784],
     zoom: 14,
-    zoomControl: false,
-    attributionControl: true
+    zoomControl: false
   });
 
+  // Move the zoom buttons to the bottom-right corner.
   L.control.zoom({ position: "bottomright" }).addTo(map);
 
+  // Add the dark tile layer (CARTO Dark Matter — free, no API key).
   L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" style="color:#c9a55a">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" style="color:#c9a55a">CARTO</a>',
     subdomains: "abcd",
@@ -46,112 +32,88 @@ document.addEventListener("DOMContentLoaded", () => {
   }).addTo(map);
 
 
-  // ============================================================
-  // 2. Marker styling
-  // ============================================================
-  let activeFilter = "all";
-  let activeMarkerId = null;
-  let markers = {}; // id -> { marker, data }
+  // ===== 2. Marker style =====
+  // Each marker is a simple coloured circle.
+  // Blue for Pursuit, gold for Timeline, and a mid-tone for locations
+  // that appear in both narratives.
 
-  const NARR_BLUE = "#4a8bb5";
-  const NARR_GOLD = "#c9a55a";
+  var NARR_BLUE = "#4a8bb5";
+  var NARR_GOLD = "#c9a55a";
+  var NARR_BOTH = "#8a8a6a";
 
-  // A location can belong to one narrative or both. Pick a class accordingly.
-  function getMarkerClass(narratives) {
-    if (narratives.includes("pursuit") && narratives.includes("timeline")) return "both";
-    if (narratives.includes("pursuit")) return "pursuit";
-    return "timeline";
-  }
+  var activeMarkerId = null;
+  var markers = {};   // I store markers by location id
 
-  function getMarkerBackground(cls) {
-    if (cls === "timeline") return NARR_GOLD;
-    if (cls === "both") {
-      return "linear-gradient(135deg, " + NARR_BLUE + " 0%, " + NARR_BLUE + " 50%, " + NARR_GOLD + " 50%, " + NARR_GOLD + " 100%)";
-    }
-    return NARR_BLUE;
-  }
-
-  function getMarkerGlow(cls) {
-    if (cls === "timeline" || cls === "both") return NARR_GOLD;
-    return NARR_BLUE;
-  }
-
-  // Build a teardrop-shaped marker as an HTML element (no image needed).
-  function createMarkerIcon(cls, isActive) {
-    const bg   = getMarkerBackground(cls);
-    const glow = getMarkerGlow(cls);
-    const size = isActive ? 36 : 28;
-
-    const html =
-      '<div style="' +
-        'width:' + size + 'px;height:' + size + 'px;' +
-        'border-radius:50% 50% 50% 0;' +
-        'transform:rotate(-45deg);' +
-        'background:' + bg + ';' +
-        'border:2px solid rgba(255,255,255,' + (isActive ? 0.5 : 0.2) + ');' +
-        'box-shadow:0 4px 12px rgba(0,0,0,0.5)' + (isActive ? ',0 0 0 3px ' + glow + '44' : '') + ';' +
-        'display:flex;align-items:center;justify-content:center;' +
-        'transition:all 0.2s ease;">' +
-        '<div style="transform:rotate(45deg);color:white;font-size:' + (isActive ? 12 : 10) + 'px;line-height:1;text-shadow:0 1px 2px rgba(0,0,0,0.6);">◉</div>' +
-      '</div>';
-
-    return L.divIcon({
-      html,
-      className: "",
-      iconSize:    [size, size],
-      iconAnchor:  [size / 2, size],
-      popupAnchor: [0, -size]
-    });
+  // Pick a colour for a marker based on which narratives it is in.
+  function getMarkerColor(narratives) {
+    var hasPursuit  = narratives.indexOf("pursuit") !== -1;
+    var hasTimeline = narratives.indexOf("timeline") !== -1;
+    if (hasPursuit && hasTimeline) return NARR_BOTH;
+    if (hasPursuit) return NARR_BLUE;
+    return NARR_GOLD;
   }
 
 
-  // ============================================================
-  // 3. Sidebar detail panel
-  // ============================================================
-  const detailPanel = document.getElementById("mapLocationDetail");
-  const detailName  = document.getElementById("detailName");
-  const detailFilm  = document.getElementById("detailFilm");
-  const detailDesc  = document.getElementById("detailDesc");
-  const detailTags  = document.getElementById("detailNarrativeTags");
-  const detailLink  = document.getElementById("detailExploreLink");
+  // ===== 3. Sidebar detail panel =====
+  var detailPanel = document.getElementById("mapLocationDetail");
+  var detailName  = document.getElementById("detailName");
+  var detailFilm  = document.getElementById("detailFilm");
+  var detailDesc  = document.getElementById("detailDesc");
+  var detailTags  = document.getElementById("detailNarrativeTags");
+  var detailLink  = document.getElementById("detailExploreLink");
 
   function showLocationDetail(locData) {
     detailName.textContent = locData.name;
     detailFilm.textContent = locData.films.join(" · ");
 
-    // Find the short description from pursuit or timeline data.
-    let desc = "";
-    if (locData.narratives.includes("pursuit")) {
-      const pLoc = APP_DATA.pursuitLocations.find(l => l.name === locData.name);
-      if (pLoc && pLoc.texts) desc = pLoc.texts.brief;
+    // find a short description from one of the two narratives
+    var desc = "";
+    if (locData.narratives.indexOf("pursuit") !== -1) {
+      for (var i = 0; i < APP_DATA.pursuitLocations.length; i++) {
+        var p = APP_DATA.pursuitLocations[i];
+        if (p.name === locData.name && p.texts) {
+          desc = p.texts.brief;
+          break;
+        }
+      }
     }
-    if (!desc && locData.narratives.includes("timeline")) {
-      const tLoc = APP_DATA.timelineLocations.find(l => l.name === locData.name);
-      if (tLoc && tLoc.texts) desc = tLoc.texts.brief;
+    if (!desc && locData.narratives.indexOf("timeline") !== -1) {
+      for (var j = 0; j < APP_DATA.timelineLocations.length; j++) {
+        var t = APP_DATA.timelineLocations[j];
+        if (t.name === locData.name && t.texts) {
+          desc = t.texts.brief;
+          break;
+        }
+      }
     }
     detailDesc.textContent = desc || "A key filming location in Istanbul's cinematic geography.";
 
-    // Narrative tags.
+    // narrative tags
     detailTags.innerHTML = "";
-    locData.narratives.forEach(n => {
-      const tag = document.createElement("span");
+    for (var k = 0; k < locData.narratives.length; k++) {
+      var n = locData.narratives[k];
+      var tag = document.createElement("span");
       tag.className = "popup-tag " + n;
-      tag.textContent = n === "pursuit" ? "◈ Pursuit" : "◇ Timeline";
+      tag.textContent = (n === "pursuit") ? "◈ Pursuit" : "◇ Timeline";
       detailTags.appendChild(tag);
-    });
+    }
 
-    // "Open in Explore" link: set the narrative + index, then go.
-    detailLink.addEventListener("click", (e) => {
+    // "Open in Explore" button: set the narrative + index, then go to explore.html
+    detailLink.onclick = function(e) {
       e.preventDefault();
       if (locData.narratives.length > 0) {
-        const narrativeId = locData.narratives[0];
+        var narrativeId = locData.narratives[0];
         App.setNarrative(narrativeId);
-        const locs = App.getLocations();
-        const idx  = locs.findIndex(l => l.name === locData.name);
-        if (idx !== -1) App.setLocationIndex(idx);
+        var locs = App.getLocations();
+        for (var m = 0; m < locs.length; m++) {
+          if (locs[m].name === locData.name) {
+            App.setLocationIndex(m);
+            break;
+          }
+        }
       }
       window.location.href = "explore.html";
-    }, { once: true });
+    };
 
     detailPanel.classList.remove("hidden");
   }
@@ -161,55 +123,67 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // ============================================================
-  // 4. Sidebar list of locations
-  // ============================================================
-  const locationList = document.getElementById("mapLocationList");
+  // ===== 4. Sidebar list of locations =====
+  var locationList = document.getElementById("mapLocationList");
 
   function buildSidebarList(filter) {
     locationList.innerHTML = "";
-    const filtered = APP_DATA.mapLocations.filter(loc => {
-      if (filter === "all") return true;
-      return loc.narratives.includes(filter);
-    });
+    for (var i = 0; i < APP_DATA.mapLocations.length; i++) {
+      var loc = APP_DATA.mapLocations[i];
+      // skip locations that don't match the filter
+      if (filter !== "all" && loc.narratives.indexOf(filter) === -1) continue;
 
-    filtered.forEach(loc => {
-      const item = document.createElement("div");
+      var item = document.createElement("div");
       item.className = "map-location-item";
       item.setAttribute("role", "listitem");
       item.dataset.id = loc.id;
       item.innerHTML =
         '<div class="map-location-name">' + loc.name + '</div>' +
         '<div class="map-location-films">' + loc.films.join(" · ") + '</div>';
-      item.addEventListener("click", () => selectLocation(loc.id));
+
+      item.addEventListener("click", sidebarItemClicked);
       locationList.appendChild(item);
-    });
+    }
+  }
+
+  function sidebarItemClicked(e) {
+    selectLocation(e.currentTarget.dataset.id);
   }
 
   function updateSidebarActive(id) {
-    document.querySelectorAll(".map-location-item").forEach(item => {
-      item.classList.toggle("active", item.dataset.id === id);
-    });
+    var items = document.querySelectorAll(".map-location-item");
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].dataset.id === id) {
+        items[i].classList.add("active");
+      } else {
+        items[i].classList.remove("active");
+      }
+    }
   }
 
 
-  // ============================================================
-  // 5. Select / activate one location
-  // ============================================================
+  // ===== 5. Select / activate a location =====
   function selectLocation(id) {
-    const locData = APP_DATA.mapLocations.find(l => l.id === id);
+    // find the location by id
+    var locData = null;
+    for (var i = 0; i < APP_DATA.mapLocations.length; i++) {
+      if (APP_DATA.mapLocations[i].id === id) {
+        locData = APP_DATA.mapLocations[i];
+        break;
+      }
+    }
     if (!locData) return;
 
-    // Reset the previously active marker (if any).
+    // reset the previously active marker
     if (activeMarkerId && markers[activeMarkerId]) {
-      const prev = markers[activeMarkerId];
-      prev.marker.setIcon(createMarkerIcon(getMarkerClass(prev.data.narratives), false));
+      markers[activeMarkerId].marker.setStyle({ radius: 7 });
     }
 
-    // Highlight + center on the new one.
+    // highlight + center on the new one
     if (markers[id]) {
-      markers[id].marker.setIcon(createMarkerIcon(getMarkerClass(locData.narratives), true));
-      map.setView(locData.coordinates, Math.max(map.getZoom(), 15), { animate: true });
+      markers[id].marker.setStyle({ radius: 11 });
+      var newZoom = Math.max(map.getZoom(), 15);
+      map.setView(locData.coordinates, newZoom, { animate: true });
       markers[id].marker.openPopup();
     }
 
@@ -219,84 +193,58 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // ============================================================
-  // 6. Dashed line that connects locations in narrative order
-  // ============================================================
-  // Pursuit goes 1 -> 12, Timeline goes 1 -> 16. The "all" filter mixes
-  // both narratives so there is no single order — the line is hidden.
-  let routeLine = null;
-
-  function drawRoute(filter) {
-    if (routeLine) {
-      map.removeLayer(routeLine);
-      routeLine = null;
-    }
-    if (filter !== "pursuit" && filter !== "timeline") return;
-
-    const ordered = filter === "pursuit"
-      ? APP_DATA.pursuitLocations
-      : APP_DATA.timelineLocations;
-    const path  = ordered.map(l => l.coordinates);
-    const color = filter === "pursuit" ? NARR_BLUE : NARR_GOLD;
-
-    routeLine = L.polyline(path, {
-      color,
-      weight: 3,
-      opacity: 0.65,
-      dashArray: "6 8",
-      lineCap: "round",
-      lineJoin: "round",
-      interactive: false
-    }).addTo(map);
-    routeLine.bringToBack();
-  }
-
-
-  // ============================================================
-  // 7. Add markers for the chosen filter
-  // ============================================================
+  // ===== 6. Add markers for the chosen filter =====
   function addMarkers(filter) {
-    // Remove old markers first.
-    Object.values(markers).forEach(({ marker }) => map.removeLayer(marker));
+    // remove old markers first
+    for (var key in markers) {
+      map.removeLayer(markers[key].marker);
+    }
     markers = {};
 
-    const filtered = APP_DATA.mapLocations.filter(loc => {
-      if (filter === "all") return true;
-      return loc.narratives.includes(filter);
-    });
+    for (var i = 0; i < APP_DATA.mapLocations.length; i++) {
+      var loc = APP_DATA.mapLocations[i];
+      if (filter !== "all" && loc.narratives.indexOf(filter) === -1) continue;
 
-    filtered.forEach(loc => {
-      const cls      = getMarkerClass(loc.narratives);
-      const isActive = loc.id === activeMarkerId;
-      const icon     = createMarkerIcon(cls, isActive);
+      var color    = getMarkerColor(loc.narratives);
+      var isActive = (loc.id === activeMarkerId);
 
-      const marker = L.marker(loc.coordinates, { icon, title: loc.name }).addTo(map);
+      var marker = L.circleMarker(loc.coordinates, {
+        radius: isActive ? 11 : 7,
+        color: "#ffffff",
+        weight: 2,
+        fillColor: color,
+        fillOpacity: 0.95
+      }).addTo(map);
 
-      const popupContent =
+      // build the popup HTML
+      var popupHtml =
         '<div>' +
           '<div class="popup-location-name">' + loc.name + '</div>' +
           '<div class="popup-film-tag">' + loc.films.join(" · ") + '</div>' +
-          '<div class="popup-narrative-tags">' +
-            loc.narratives.map(n =>
-              '<span class="popup-tag ' + n + '">' + (n === "pursuit" ? "◈ Pursuit" : "◇ Timeline") + '</span>'
-            ).join("") +
-          '</div>' +
-        '</div>';
+          '<div class="popup-narrative-tags">';
+      for (var j = 0; j < loc.narratives.length; j++) {
+        var n = loc.narratives[j];
+        var label = (n === "pursuit") ? "◈ Pursuit" : "◇ Timeline";
+        popupHtml += '<span class="popup-tag ' + n + '">' + label + '</span>';
+      }
+      popupHtml += '</div></div>';
 
-      marker.bindPopup(popupContent, { maxWidth: 280, className: "cinema-popup" });
-      marker.on("click", () => selectLocation(loc.id));
+      marker.bindPopup(popupHtml, { maxWidth: 280, className: "cinema-popup" });
 
-      markers[loc.id] = { marker, data: loc };
-    });
+      // attach the click handler — wrap in a closure so each marker remembers its id
+      (function(thisId) {
+        marker.on("click", function() { selectLocation(thisId); });
+      })(loc.id);
+
+      markers[loc.id] = { marker: marker, data: loc };
+    }
   }
 
 
-  // ============================================================
-  // 8. Filter buttons (All / Pursuit / Timeline)
-  // ============================================================
-  const filterAll       = document.getElementById("filterAll");
-  const filterEspionage = document.getElementById("filterEspionage"); // filters on "pursuit"
-  const filterTimeline  = document.getElementById("filterTimeline");
+  // ===== 7. Filter buttons =====
+  var filterAll       = document.getElementById("filterAll");
+  var filterEspionage = document.getElementById("filterEspionage");  // = "pursuit"
+  var filterTimeline  = document.getElementById("filterTimeline");
 
   function clearFilterActive() {
     filterAll.className       = "map-filter-pill";
@@ -307,37 +255,37 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyFilter(name, button, activeClass) {
     clearFilterActive();
     button.className = "map-filter-pill " + activeClass;
-    activeFilter = name;
     addMarkers(name);
-    drawRoute(name);
     buildSidebarList(name);
     hideLocationDetail();
     activeMarkerId = null;
   }
 
-  filterAll.addEventListener("click",       () => applyFilter("all",      filterAll,       "active-all"));
-  filterEspionage.addEventListener("click", () => applyFilter("pursuit",  filterEspionage, "active-espionage"));
-  filterTimeline.addEventListener("click",  () => applyFilter("timeline", filterTimeline,  "active-timeline"));
+  filterAll.addEventListener("click", function() {
+    applyFilter("all", filterAll, "active-all");
+  });
+  filterEspionage.addEventListener("click", function() {
+    applyFilter("pursuit", filterEspionage, "active-espionage");
+  });
+  filterTimeline.addEventListener("click", function() {
+    applyFilter("timeline", filterTimeline, "active-timeline");
+  });
 
 
-  // ============================================================
-  // 9. Init
-  // ============================================================
+  // ===== 8. First-time setup =====
   buildSidebarList("all");
   addMarkers("all");
-  drawRoute("all");
 
-  // Auto-select the first location after a short delay so the sidebar
-  // panel has something to show on first paint.
-  setTimeout(() => {
+  // After 600ms, auto-select the first location so the sidebar has something to show.
+  setTimeout(function() {
     if (APP_DATA.mapLocations.length > 0) {
       selectLocation(APP_DATA.mapLocations[0].id);
     }
   }, 600);
 
-  // Recalculate map size on window resize and once after layout settles
-  // (Leaflet sometimes mis-sizes when placed inside flex containers).
-  window.addEventListener("resize", () => map.invalidateSize());
-  setTimeout(() => map.invalidateSize(), 100);
+  // Recalculate the map size if the user resizes the window. Leaflet sometimes
+  // mis-sizes itself inside flex containers, so I also call invalidateSize once.
+  window.addEventListener("resize", function() { map.invalidateSize(); });
+  setTimeout(function() { map.invalidateSize(); }, 100);
 
 });

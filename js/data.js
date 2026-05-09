@@ -715,7 +715,8 @@ const APP_DATA = {
         adult:   "In Taken 2 (2012), Liam Neeson's Bryan Mills enters the 1664 Spice Bazaar with the careful eyes of a former spy, reading the L-shaped Ottoman arcade for exits and threats.",
         scholar: "Olivier Megaton's POV handheld camera reads the 1664 Mısır Çarşısı as tactical terrain — a layered Ottoman vaulted space whose 88-shop L-plan has historically favored exactly the kind of intelligence work the film stages."
       },
-      narrativeNote: "Crowded markets are classic spy territory. The noise and the crowd make electronic surveillance almost impossible. Mills' careful walk is a quiet echo of four centuries of intelligence work in this exact building."
+      narrativeNote: "Crowded markets are classic spy territory. The noise and the crowd make electronic surveillance almost impossible. Mills' careful walk is a quiet echo of four centuries of intelligence work in this exact building.",
+      nextDirection: "Walk 2.9 km E to Maiden's Tower."
     },
     {
       id: "maidens-tower",
@@ -747,7 +748,8 @@ const APP_DATA = {
         adult:   "From Russia with Love (1963) makes the 12th-century Maiden's Tower one of the first Bosphorus images in international cinema, framing it as quiet cover for Bond's surveillance of Tania.",
         scholar: "Ted Moore's available-light camera treats the 1763 Baroque-era tower as atmospheric anchor: a real place rather than a postcard, locating Bond's surveillance inside an 800-year history of Bosphorus crossings."
       },
-      narrativeNote: "This was one of the first times a Western film treated the Bosphorus as a real place rather than an idea. The Maiden's Tower became a cinematic shorthand for Istanbul that later films (including The Water Diviner) would also use."
+      narrativeNote: "This was one of the first times a Western film treated the Bosphorus as a real place rather than an idea. The Maiden's Tower became a cinematic shorthand for Istanbul that later films (including The Water Diviner) would also use.",
+      nextDirection: "Walk 3.2 km W to Grand Bazaar."
     },
     {
       id: "grand-bazaar-skyfall",
@@ -779,7 +781,8 @@ const APP_DATA = {
         adult:   "Skyfall (2012) launches its iconic motorcycle pursuit through the 15th-century Grand Bazaar, Sam Mendes converting the merchant maze into the most famous Istanbul chase in modern cinema.",
         scholar: "Mendes and Deakins negotiate eighteen months with the merchant guild to stage their motorcycle Steadicam through Mehmed II's 31,000 m² covered market — a chase that exploits the building's intentionally disorienting Ottoman commercial geometry."
       },
-      narrativeNote: "This is the only location in Pursuit & Passage that bridges two chapters. The Grand Bazaar opens as surveillance and ends as a chase. Mendes uses the bazaar's confusing layout to make watching and running feel like the same thing."
+      narrativeNote: "This is the only location in Pursuit & Passage that bridges two chapters. The Grand Bazaar opens as surveillance and ends as a chase. Mendes uses the bazaar's confusing layout to make watching and running feel like the same thing.",
+      nextDirection: "Walk 50 m NE to Grand Bazaar Rooftop."
     },
     {
       id: "skyfall-rooftop",
@@ -811,7 +814,8 @@ const APP_DATA = {
         adult:   "Skyfall's rooftop sequence reveals the lead-covered upper world of the Grand Bazaar — a normally invisible vertical city of merchants and pigeons, suddenly on global screens.",
         scholar: "Deakins's combination of motorcycle GoPros, helicopter aerials and Steadicam transforms the lead roofs above Kalpakçılar Caddesi into legible geography, making the bazaar's previously unfilmed upper surface part of 21st-century international visual culture."
       },
-      narrativeNote: "The bazaar's rooftops are normally invisible to tourists. Skyfall briefly shows global audiences what merchants, restorers and pigeons have always known: there is a second city above the first."
+      narrativeNote: "The bazaar's rooftops are normally invisible to tourists. Skyfall briefly shows global audiences what merchants, restorers and pigeons have always known: there is a second city above the first.",
+      nextDirection: "Walk 830 m NE to Galata Bridge."
     },
     {
       id: "galata-bridge",
@@ -843,7 +847,8 @@ const APP_DATA = {
         adult:   "Taken 2 (2012) uses the 1994 Galata Bridge as a long, narrow chase corridor between continents — its two-level deck offering Romain Lacourbas vertical compositions rare in action filmmaking.",
         scholar: "Lacourbas exploits the bridge's deliberate two-tier engineering to stack multiple action plates inside a single 490-meter envelope, with the indifferent fishermen along the upper deck functioning as a quiet civil chorus."
       },
-      narrativeNote: "The bridge is both a moment of pure speed and a marker of the city's geography. Every Istanbul story has to cross this water at some point — Mills, Bond, even Connor in The Water Diviner. The Golden Horn defines the dramatic structure of the city."
+      narrativeNote: "The bridge is both a moment of pure speed and a marker of the city's geography. Every Istanbul story has to cross this water at some point — Mills, Bond, even Connor in The Water Diviner. The Golden Horn defines the dramatic structure of the city.",
+      nextDirection: "Walk 60 m SE to Eminönü Square."
     },
     {
       id: "eminonu-square",
@@ -875,7 +880,8 @@ const APP_DATA = {
         adult:   "In Taken 2 (2012), Eminönü Square — Istanbul's main ferry hub since Byzantine times — becomes the chase's escape valve, where streets give way to boats and pursuit becomes ambiguous.",
         scholar: "Megaton anchors the chase on the legible triangle of New Mosque (1664), Galata Bridge and the 1913–58 ferry piers, exploiting the same maritime escape geometry that has defined this customs hinge since the Byzantine Neorion harbor."
       },
-      narrativeNote: "The waterfront has always been Istanbul's release valve. Empires have changed, ferries have replaced caiques, but the basic logic is the same: when the streets close in, you head for the water."
+      narrativeNote: "The waterfront has always been Istanbul's release valve. Empires have changed, ferries have replaced caiques, but the basic logic is the same: when the streets close in, you head for the water.",
+      nextDirection: "Walk 130 m S to Legacy Ottoman Hotel."
     },
     {
       id: "legacy-ottoman",
@@ -907,7 +913,8 @@ const APP_DATA = {
         adult:   "Taken 2 (2012) inverts thriller convention by making the restored neo-Ottoman Legacy Ottoman Hotel the site of loss rather than safety, opening the Search chapter with absence.",
         scholar: "The film stages its emotional pivot inside a precisely 2010s Istanbul object: a late-19th-century Sirkeci hotel that survived neglect and reopened in the boutique-restoration wave, its layered courtyard architecture used by Megaton for sudden-threat sight-lines."
       },
-      narrativeNote: "Hotels are usually the safest space in a thriller. Taken 2 turns this convention upside down — the hotel becomes the place where the loss happens. The Search chapter begins not with action, but with absence."
+      narrativeNote: "Hotels are usually the safest space in a thriller. Taken 2 turns this convention upside down — the hotel becomes the place where the loss happens. The Search chapter begins not with action, but with absence.",
+      nextDirection: "Walk 1.2 km S to Sultan Ahmet Mosque."
     },
     {
       id: "sultan-ahmet-mosque",
@@ -939,7 +946,8 @@ const APP_DATA = {
         adult:   "The Water Diviner (2014) places its grieving Australian father (Russell Crowe) inside the 1617 Sultan Ahmet Mosque with extended silence — Hollywood's first major reverent treatment of an Istanbul mosque interior.",
         scholar: "Crowe's slow dolly through Sedefkâr Mehmed Ağa's six-minareted imperial mosque refuses exoticization: Connor's Christian foreigner sits inside a working sacred space, and the film treats his grief as commensurable with the building's own."
       },
-      narrativeNote: "This was one of the first major international films to take Turkish religious heritage seriously rather than as exotic background. Russell Crowe's reverence for the space is part of the film's argument: that the Anzac and Ottoman dead share a battlefield and a memory."
+      narrativeNote: "This was one of the first major international films to take Turkish religious heritage seriously rather than as exotic background. Russell Crowe's reverence for the space is part of the film's argument: that the Anzac and Ottoman dead share a battlefield and a memory.",
+      nextDirection: "Walk 3.7 km E to Haydarpaşa Train Station."
     },
     {
       id: "haydarpasa-station",
@@ -971,7 +979,8 @@ const APP_DATA = {
         adult:   "The Water Diviner (2014) stages Connor's eastward search from the 1908 Haydarpaşa Station — the Berlin–Baghdad Railway's neo-Renaissance terminal that physically embodies foreign architects working on Ottoman infrastructure.",
         scholar: "Crowe's slow tracking past Ritter and Cuno's facade locates the film's grief inside layered imperial geographies: a German neo-Renaissance station built on a thousand piles for an Anatolian Railway carrying Ottoman conscripts to fronts that took foreign sons."
       },
-      narrativeNote: "Haydarpaşa is the only major Istanbul building constructed by foreign architects on the Asian shore for an Ottoman state project. The film places Connor's grief in this complex history: a foreign architecture for a foreign passenger searching for his foreign-soldier sons."
+      narrativeNote: "Haydarpaşa is the only major Istanbul building constructed by foreign architects on the Asian shore for an Ottoman state project. The film places Connor's grief in this complex history: a foreign architecture for a foreign passenger searching for his foreign-soldier sons.",
+      nextDirection: "Walk 3.5 km W to Hagia Sophia."
     },
     {
       id: "hagia-sophia-inferno",
@@ -1003,7 +1012,8 @@ const APP_DATA = {
         adult:   "Inferno (2016) sends Robert Langdon into the 537 AD Hagia Sophia not to fight but to read, framing Justinian's cathedral-mosque-museum as a decodable information system.",
         scholar: "Howard's Steadicam reframes the same anchor under Anthemius and Isidore's 31.25 m floating dome that Terence Young used in 1963, but the sacred space now reads as a tourist heritage venue with smartphones in every plate."
       },
-      narrativeNote: "Inferno was filmed in 2015–2016, while Hagia Sophia was still operating as a state museum. After 2020, when the building was reconverted into an active mosque, this footage became unintentionally archival — a record of a version of the space that no longer exists in quite the same way."
+      narrativeNote: "Inferno was filmed in 2015–2016, while Hagia Sophia was still operating as a state museum. After 2020, when the building was reconverted into an active mosque, this footage became unintentionally archival — a record of a version of the space that no longer exists in quite the same way.",
+      nextDirection: "Walk 160 m W to Basilica Cistern."
     },
     {
       id: "basilica-cistern",
@@ -1035,7 +1045,8 @@ const APP_DATA = {
         adult:   "Inferno (2016) builds its climax inside Justinian's 532 AD Basilica Cistern — 138 × 65 meters, 336 recycled marble columns — the deepest, oldest beat of the entire Pursuit & Passage narrative.",
         scholar: "Howard's wide lenses preserve Petrus Gyllius's 1545 sense of cathedral-scale subterranean discovery, and the bioweapon threat makes the cistern's original Byzantine water-storage function the dramatic engine of its own peril."
       },
-      narrativeNote: "Inferno's biggest contribution to global cinema was bringing underground Istanbul to a worldwide audience. Most tourists used to stop at street level. After 2016, the Basilica Cistern's visitor numbers spiked — a textbook example of the Live Museum of Movie Locations effect."
+      narrativeNote: "Inferno's biggest contribution to global cinema was bringing underground Istanbul to a worldwide audience. Most tourists used to stop at street level. After 2016, the Basilica Cistern's visitor numbers spiked — a textbook example of the Live Museum of Movie Locations effect.",
+      nextDirection: "Walk 560 m N to Sirkeci Railway Station."
     },
     {
       id: "sirkeci-station",
@@ -1104,7 +1115,8 @@ const APP_DATA = {
         adult:   "From Russia with Love (1963) lets the small 1491 Firuz Aga Mosque sit quietly in the background of a Sultanahmet surveillance walk — atmosphere as 1960s cinema understood Istanbul.",
         scholar: "Terence Young uses Firuz Bey's modest single-domed mosque on Divanyolu as ambient real-world texture, exemplifying the 1960s 'serious location shoot' aesthetic that trusted unexplained Ottoman architecture to do its own narrative work."
       },
-      narrativeNote: "1960s Istanbul cinema treated mosques as background atmosphere, not foreground subjects. Compare this to The Water Diviner (2014), which films the Sultan Ahmet Mosque interior with deep reverence. The same kind of building, two completely different cinematic approaches."
+      narrativeNote: "1960s Istanbul cinema treated mosques as background atmosphere, not foreground subjects. Compare this to The Water Diviner (2014), which films the Sultan Ahmet Mosque interior with deep reverence. The same kind of building, two completely different cinematic approaches.",
+      nextDirection: "Walk 2.7 km NE to Maiden's Tower."
     },
     {
       id: "maidens-tower-1963",
@@ -1136,7 +1148,8 @@ const APP_DATA = {
         adult:   "From Russia with Love (1963) shows global audiences their first cinematic Bosphorus, with the Baroque-era Maiden's Tower drifting calmly behind a static ferry deck.",
         scholar: "Ted Moore's available-light deck shots of the 1763 islet tower establish the 1960s baseline for Western Istanbul cinema: long takes, no rapid cuts, the architecture trusted to be itself."
       },
-      narrativeNote: "Compare this to Skyfall's 2012 rooftop view of the Bosphorus from above — same water, same city, but the camera has changed dramatically. 1963 looks at the Bosphorus from sea level, in real time. 2012 flies over it."
+      narrativeNote: "Compare this to Skyfall's 2012 rooftop view of the Bosphorus from above — same water, same city, but the camera has changed dramatically. 1963 looks at the Bosphorus from sea level, in real time. 2012 flies over it.",
+      nextDirection: "Walk 2.3 km W to Sirkeci Railway Station."
     },
     {
       id: "sirkeci-1963",
@@ -1168,7 +1181,8 @@ const APP_DATA = {
         adult:   "From Russia with Love (1963) treats Jachmund's 1890 Moorish-revival Sirkeci Station with full atmospheric respect — the calm pre-train sequence that 1960s cinema preferred to action.",
         scholar: "Young's reverent dolly through the rose-windowed terminal records the late-Ottoman revivalist gesture as cinematic patrimony: a European rail function wrapped in deliberately Ottoman vocabulary, framed before the post-1977 decline of through-services."
       },
-      narrativeNote: "The last regular Orient Express service from Sirkeci ran in 1977; the final international through-service ended in 2009. The building still functions as a suburban rail terminus, and part of its interior now houses the Istanbul Railway Museum. Sirkeci has aged with quiet dignity."
+      narrativeNote: "The last regular Orient Express service from Sirkeci ran in 1977; the final international through-service ended in 2009. The building still functions as a suburban rail terminus, and part of its interior now houses the Istanbul Railway Museum. Sirkeci has aged with quiet dignity.",
+      nextDirection: "Walk 900 m W to Grand Bazaar."
     },
 
     // ── 2012 — Skyfall (3) + Taken 2 (4) ──
@@ -1202,7 +1216,8 @@ const APP_DATA = {
         adult:   "Skyfall (2012) returns to Mehmed II's 15th-century bazaar 49 years after From Russia with Love and finds the architecture unchanged but the camera completely transformed by motorcycle mounts and helicopter aerials.",
         scholar: "Mendes and Deakins's kinetic 2012 treatment of the same Ottoman corridors is one of the cleanest natural experiments in international cinema: identical 31,000 m² covered space, opposite filmmaking conventions, with the cultural register shifted from atmospheric foreignness to action-arena familiarity."
       },
-      narrativeNote: "The Through Time narrative pairs this 2012 sequence with the 1963 Sirkeci sequence as the two anchor points of the project. Same city, two completely different cinematic registers, only 49 years apart."
+      narrativeNote: "The Through Time narrative pairs this 2012 sequence with the 1963 Sirkeci sequence as the two anchor points of the project. Same city, two completely different cinematic registers, only 49 years apart.",
+      nextDirection: "Walk 50 m NE to Grand Bazaar Rooftop."
     },
     {
       id: "skyfall-rooftop-timeline",
@@ -1234,7 +1249,8 @@ const APP_DATA = {
         adult:   "Skyfall (2012) integrates the lead-covered Ottoman rooftops into international cinema for the first time, making the bazaar's previously invisible vertical surface part of the city's global image.",
         scholar: "Deakins's helicopter aerials, motorcycle GoPros and roof-line Steadicam mark the moment when 2010s action grammar finally annexed Istanbul's vertical dimension — a register that 1960s and 1970s production technology had practically excluded."
       },
-      narrativeNote: "1960s and 1970s Istanbul cinema almost never used aerial shots. By 2012, drone and helicopter aerials had become part of the basic visual grammar of action films. This rooftop sequence shows that shift more clearly than almost any other Istanbul scene."
+      narrativeNote: "1960s and 1970s Istanbul cinema almost never used aerial shots. By 2012, drone and helicopter aerials had become part of the basic visual grammar of action films. This rooftop sequence shows that shift more clearly than almost any other Istanbul scene.",
+      nextDirection: "Walk 1.5 km NE to Deutsche Orientbank Hotel."
     },
     {
       id: "deutsche-orientbank",
@@ -1266,7 +1282,8 @@ const APP_DATA = {
         adult:   "Skyfall (2012) shoots Bond's Istanbul base in the restored Deutsche Orientbank building (1906), a typical 2010s heritage-hotel adaptation along Bankalar Caddesi's onetime Ottoman Wall Street.",
         scholar: "The film captures, without commentary, the late-2000s transformation of late-Ottoman foreign-bank stock into globally branded boutique hospitality — preserving neoclassical banking interiors as upmarket lobby architecture."
       },
-      narrativeNote: "Karaköy's Bankalar Caddesi was Ottoman Wall Street. By 2012, it had become a heritage hotel district. Skyfall films one of these conversions without commentary, but the architectural history is doing real work in the background."
+      narrativeNote: "Karaköy's Bankalar Caddesi was Ottoman Wall Street. By 2012, it had become a heritage hotel district. Skyfall films one of these conversions without commentary, but the architectural history is doing real work in the background.",
+      nextDirection: "Walk 800 m SW to Legacy Ottoman Hotel."
     },
     {
       id: "legacy-ottoman-timeline",
@@ -1298,7 +1315,8 @@ const APP_DATA = {
         adult:   "Taken 2 (2012) chooses a restored Ottoman-revival hotel in Sirkeci, providing the Through Time narrative with a perfect contemporary contrast against Skyfall's Karaköy bank conversion.",
         scholar: "The same calendar year hosts two sharply opposed 2010s Istanbul aesthetics on screen: Skyfall's restored European banking neoclassicism vs Taken 2's restored late-19th-century Ottoman-revivalism — both genuine contemporary versions of the city."
       },
-      narrativeNote: "Two 2012 productions, two completely different Istanbul hotels. Skyfall picks European modernity; Taken 2 picks Ottoman heritage. The same year, the same city, two different stories about what 'contemporary Istanbul' looks like."
+      narrativeNote: "Two 2012 productions, two completely different Istanbul hotels. Skyfall picks European modernity; Taken 2 picks Ottoman heritage. The same year, the same city, two different stories about what 'contemporary Istanbul' looks like.",
+      nextDirection: "Walk 330 m W to Spice Bazaar."
     },
     {
       id: "spice-bazaar-timeline",
@@ -1330,7 +1348,8 @@ const APP_DATA = {
         adult:   "Taken 2 (2012) films Turhan Sultan's 360-year-old Spice Bazaar from inside a fugitive's POV, turning the same Ottoman vaulting that 1963 used as atmosphere into 21st-century tactical terrain.",
         scholar: "Megaton's first-person handheld restages the 88-bay 1664 arcade as obstacle-course geometry, making the camera's restless anxiety — not the architecture — the thing the audience reads."
       },
-      narrativeNote: "Compare Olivier Megaton's POV handheld in 2012 to Terence Young's static dolly in 1963. The same kind of Ottoman vaulted space, treated as either ambient atmosphere (1963) or tactical terrain (2012). The buildings are constants; the cameras tell us about the era."
+      narrativeNote: "Compare Olivier Megaton's POV handheld in 2012 to Terence Young's static dolly in 1963. The same kind of Ottoman vaulted space, treated as either ambient atmosphere (1963) or tactical terrain (2012). The buildings are constants; the cameras tell us about the era.",
+      nextDirection: "Walk 300 m E to Galata Bridge."
     },
     {
       id: "galata-bridge-timeline",
@@ -1362,7 +1381,8 @@ const APP_DATA = {
         adult:   "Taken 2 (2012) uses the 1994 Galata Bridge as if it were eternal, even though it postdates From Russia with Love by 31 years — proof that cinematic Istanbul ages in odd ways.",
         scholar: "By 2012 international cinema treats the 18-year-old fifth Galata Bridge as iconic Ottoman shorthand, demonstrating how rapidly built heritage acquires the visual authority of much older architecture once major productions adopt it."
       },
-      narrativeNote: "The bridge in Taken 2 looks like it has always been there, but it is younger than most of the audience. The 1994 structure has only existed for less than a third of the time since From Russia with Love. Cinematic Istanbul is in some places much newer than it appears."
+      narrativeNote: "The bridge in Taken 2 looks like it has always been there, but it is younger than most of the audience. The 1994 structure has only existed for less than a third of the time since From Russia with Love. Cinematic Istanbul is in some places much newer than it appears.",
+      nextDirection: "Walk 60 m SE to Eminönü Square."
     },
     {
       id: "eminonu-timeline",
@@ -1394,7 +1414,8 @@ const APP_DATA = {
         adult:   "Taken 2 (2012) skips any establishing shot of Eminönü Square because by then the New Mosque–Galata Bridge–ferry pier triangle was already cinematic shorthand for Istanbul.",
         scholar: "Two decades of cumulative international film exposure had converted the Byzantine-era customs hinge into a self-evident 'Istanbul' cue, requiring no introduction — a literacy effect 1963 audiences could not yet have."
       },
-      narrativeNote: "The square in 2012 has become so cinematically familiar that the film does not need to introduce it. Compare to 1963, when international audiences barely knew what Istanbul looked like at all. Visual literacy of a city is built up film by film."
+      narrativeNote: "The square in 2012 has become so cinematically familiar that the film does not need to introduce it. Compare to 1963, when international audiences barely knew what Istanbul looked like at all. Visual literacy of a city is built up film by film.",
+      nextDirection: "Walk 1.3 km S to Sultan Ahmet Mosque."
     },
 
     // ── 2014 — The Water Diviner (3) ──
@@ -1428,7 +1449,8 @@ const APP_DATA = {
         adult:   "The Water Diviner (2014) treats the 1617 Sultan Ahmet Mosque as a working sacred space rather than exotic backdrop, marking a clear shift in how Hollywood handles non-Western religious architecture.",
         scholar: "Crowe's reverent interior dolly inside the six-minareted İznik-tiled imperial mosque exemplifies a post-2010 international-cinema convention: Ottoman religious heritage filmed for itself, not as scenic decoration."
       },
-      narrativeNote: "Compare this 2014 reverent treatment of a mosque interior to From Russia with Love (1963), which used the small Firuz Aga Mosque as background atmosphere. The same kind of religious building, but the camera's relationship to it has been transformed."
+      narrativeNote: "Compare this 2014 reverent treatment of a mosque interior to From Russia with Love (1963), which used the small Firuz Aga Mosque as background atmosphere. The same kind of religious building, but the camera's relationship to it has been transformed.",
+      nextDirection: "Walk 860 m NE to Gülhane Park."
     },
     {
       id: "gulhane-park",
@@ -1460,7 +1482,8 @@ const APP_DATA = {
         adult:   "The Water Diviner (2014) walks Connor through the once-imperial Gülhane Park, opened to the public in 1912 — 2014 cinema's image of Istanbul as ordinary, walkable civic space.",
         scholar: "Crowe's observational dolly through the former Topkapı outer gardens registers the post-2010 cinematic shift toward Istanbul-as-livable-city, contrasting with both 1960s atmospheric reverence and 2010s kinetic action geometry."
       },
-      narrativeNote: "Gülhane is a useful test of cinematic mood. 1960s cinema would have likely framed the park's old trees against Topkapı walls in slow, atmospheric pans. 2012 action cinema would have run through it. 2014's The Water Diviner walks. Three different cameras, three different relationships to the same trees."
+      narrativeNote: "Gülhane is a useful test of cinematic mood. 1960s cinema would have likely framed the park's old trees against Topkapı walls in slow, atmospheric pans. 2012 action cinema would have run through it. 2014's The Water Diviner walks. Three different cameras, three different relationships to the same trees.",
+      nextDirection: "Walk 3.7 km SE to Haydarpaşa Train Station."
     },
     {
       id: "haydarpasa-timeline",
@@ -1492,7 +1515,8 @@ const APP_DATA = {
         adult:   "The Water Diviner (2014) is the only film in this project to cross the Bosphorus, filming the 1908 Haydarpaşa Station on the Asian shore that other international productions reliably ignore.",
         scholar: "Crowe's romantic treatment of Ritter and Cuno's pile-driven neo-Renaissance terminal asserts an Istanbul beyond the European peninsula, refusing the standard 'historic-Istanbul-equals-Sultanahmet' equation that constrains most international productions."
       },
-      narrativeNote: "This is the only Asian-shore location in the entire project. Every other film stays on the European peninsula. The Water Diviner crosses the Bosphorus visually as well as narratively, which is an important part of its overall argument about Istanbul."
+      narrativeNote: "This is the only Asian-shore location in the entire project. Every other film stays on the European peninsula. The Water Diviner crosses the Bosphorus visually as well as narratively, which is an important part of its overall argument about Istanbul.",
+      nextDirection: "Walk 5.0 km W to Istanbul University."
     },
 
     // ── 2016 — Inferno (3) ──
@@ -1526,7 +1550,8 @@ const APP_DATA = {
         adult:   "Inferno (2016) sends Robert Langdon to Istanbul University's 1866 main gate, framing the city as a decodable library — the 2010s 'intellectual thriller' mode at work.",
         scholar: "Howard's brief university beat exemplifies the 2010s convention of placing scholar-protagonists inside genuine cultural-heritage sites, dramatizing interpretation rather than action and reading Istanbul as a layered textual archive."
       },
-      narrativeNote: "1963 cinema saw Istanbul as atmospheric. 2012 cinema saw it as kinetic action geography. 2014 cinema saw it as a place of memory. 2016 cinema sees it as a text. Each era reads the same city differently, and Inferno's university scene is a textbook case of the latest mode."
+      narrativeNote: "1963 cinema saw Istanbul as atmospheric. 2012 cinema saw it as kinetic action geography. 2014 cinema saw it as a place of memory. 2016 cinema sees it as a text. Each era reads the same city differently, and Inferno's university scene is a textbook case of the latest mode.",
+      nextDirection: "Walk 1.5 km E to Hagia Sophia."
     },
     {
       id: "hagia-sophia-2016",
@@ -1558,7 +1583,8 @@ const APP_DATA = {
         adult:   "Inferno (2016) films Hagia Sophia from the same anchor point that From Russia with Love used in 1963, but the foreground is now smartphones, audio guides, and 3.4 million annual visitors.",
         scholar: "Howard's restaging of Young's 537 AD dome shot 53 years later turns the building into the Through Time project's cleanest natural experiment: same architecture, same composition, transformed culture of visual attention — and unintentional archive of the 1934–2020 museum phase."
       },
-      narrativeNote: "This is the most direct 1963/2016 comparison in the entire project. The same building, the same camera anchor, 53 years apart. Everything is in the people, the gadgets, and the way the camera assumes the audience now reads space."
+      narrativeNote: "This is the most direct 1963/2016 comparison in the entire project. The same building, the same camera anchor, 53 years apart. Everything is in the people, the gadgets, and the way the camera assumes the audience now reads space.",
+      nextDirection: "Walk 160 m W to Basilica Cistern."
     },
     {
       id: "basilica-cistern-timeline",

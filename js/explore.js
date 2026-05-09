@@ -1,96 +1,80 @@
-/*
-  explore.js — logic for the Explore page.
+// explore.js — code for the Explore page
+// I wait until the page is ready, then set everything up.
 
-  Each section below builds or updates one part of the page:
-    1. element references
-    2. icon/colour maps for chapters
-    3. narrative toggle (Pursuit / Timeline)
-    4. chapter strip + chapter intro banner
-    5. walking directions to the next location
-    6. dot navigation + progress + prev/next buttons
-    7. audience, length, and reading mode controls
-    8. image gallery
-    9. text picker (audience x length)
-    10. details panel (camera + QR + metadata table)
-    11. main location renderer
-    12. event listeners + init
-*/
+document.addEventListener("DOMContentLoaded", function() {
 
-document.addEventListener("DOMContentLoaded", () => {
+  // ===== 1. Get all the page elements I need =====
+  // I just grab everything once at the start so I can use them later.
 
-  // ============================================================
-  // 1. Element references
-  // ============================================================
-  const toggleEspionage    = document.getElementById("toggleEspionage");
-  const toggleTimeline     = document.getElementById("toggleTimeline");
+  var toggleEspionage    = document.getElementById("toggleEspionage");
+  var toggleTimeline     = document.getElementById("toggleTimeline");
 
-  const chapterStrip          = document.getElementById("chapterStrip");
-  const chapterIntroBanner    = document.getElementById("chapterIntroBanner");
-  const chapterIntroChap      = document.getElementById("chapterIntroChapter");
-  const chapterIntroText      = document.getElementById("chapterIntroText");
-  const chapterTransitionLine = document.getElementById("chapterTransitionLine");
-  const chapterTransitionText = document.getElementById("chapterTransitionText");
-  const locationDirections    = document.getElementById("locationDirections");
+  var chapterStrip          = document.getElementById("chapterStrip");
+  var chapterIntroBanner    = document.getElementById("chapterIntroBanner");
+  var chapterIntroChap      = document.getElementById("chapterIntroChapter");
+  var chapterIntroText      = document.getElementById("chapterIntroText");
+  var chapterTransitionLine = document.getElementById("chapterTransitionLine");
+  var chapterTransitionText = document.getElementById("chapterTransitionText");
+  var locationDirections    = document.getElementById("locationDirections");
 
-  const locationDots     = document.getElementById("locationDots");
-  const btnPrev          = document.getElementById("btnPrev");
-  const btnNext          = document.getElementById("btnNext");
-  const progressText     = document.getElementById("progressText");
-  const progressFill     = document.getElementById("progressFill");
-  const counterFraction  = document.getElementById("counterFraction");
+  var btnPrev          = document.getElementById("btnPrev");
+  var btnNext          = document.getElementById("btnNext");
+  var progressText     = document.getElementById("progressText");
+  var progressFill     = document.getElementById("progressFill");
+  var counterFraction  = document.getElementById("counterFraction");
 
-  // Location display
-  const locationImagePlaceholder = document.getElementById("locationImagePlaceholder");
-  const locationImageEl          = document.getElementById("locationImage");
-  const locationImageIcon        = document.getElementById("locationImageIcon");
-  const locationFilmTag          = document.getElementById("locationFilmTag");
-  const locationCoords           = document.getElementById("locationCoords");
-  const locationName             = document.getElementById("locationName");
-  const locationScene            = document.getElementById("locationScene");
-  const locationChapterBadge     = document.getElementById("locationChapterBadge");
+  // location display
+  var locationImagePlaceholder = document.getElementById("locationImagePlaceholder");
+  var locationImageEl          = document.getElementById("locationImage");
+  var locationImageIcon        = document.getElementById("locationImageIcon");
+  var locationFilmTag          = document.getElementById("locationFilmTag");
+  var locationCoords           = document.getElementById("locationCoords");
+  var locationName             = document.getElementById("locationName");
+  var locationScene            = document.getElementById("locationScene");
+  var locationChapterBadge     = document.getElementById("locationChapterBadge");
 
-  // Image gallery
-  const galleryTabs    = document.getElementById("galleryTabs");
-  const galleryThumbs  = document.getElementById("galleryThumbs");
-  const galleryCaption = document.getElementById("galleryCaption");
-  let   galleryType    = "film";  // "film" | "location"
-  let   galleryIndex   = 0;
+  // image gallery
+  var galleryTabs    = document.getElementById("galleryTabs");
+  var galleryThumbs  = document.getElementById("galleryThumbs");
+  var galleryCaption = document.getElementById("galleryCaption");
+  var galleryType    = "film";   // "film", "location" or "video"
+  var galleryIndex   = 0;
 
-  // Narrative panel
-  const narrativeQuote     = document.getElementById("narrativeQuote");
-  const narrativeBody      = document.getElementById("narrativeBody");
-  const narrativeNoteBlock = document.getElementById("narrativeNoteBlock");
-  const narrativeNoteText  = document.getElementById("narrativeNoteText");
+  // narrative panel
+  var narrativeQuote     = document.getElementById("narrativeQuote");
+  var narrativeBody      = document.getElementById("narrativeBody");
+  var narrativeNoteBlock = document.getElementById("narrativeNoteBlock");
+  var narrativeNoteText  = document.getElementById("narrativeNoteText");
 
-  // Audience / length / mode controls
-  const btnModeStory     = document.getElementById("btnModeStory");
-  const btnModeDetails   = document.getElementById("btnModeDetails");
-  const variantIndicator = document.getElementById("variantIndicator");
-  const btnLenLess       = document.getElementById("btnLenLess");
-  const btnLenMore       = document.getElementById("btnLenMore");
-  const lengthIndicator  = document.getElementById("lengthIndicator");
-  const btnEasier        = document.getElementById("btnEasier");
-  const btnHarder        = document.getElementById("btnHarder");
+  // audience / length / mode buttons
+  var btnModeStory     = document.getElementById("btnModeStory");
+  var btnModeDetails   = document.getElementById("btnModeDetails");
+  var variantIndicator = document.getElementById("variantIndicator");
+  var btnLenLess       = document.getElementById("btnLenLess");
+  var btnLenMore       = document.getElementById("btnLenMore");
+  var lengthIndicator  = document.getElementById("lengthIndicator");
+  var btnEasier        = document.getElementById("btnEasier");
+  var btnHarder        = document.getElementById("btnHarder");
 
-  // Details panel (QR + camera info)
-  const detailsPanel = document.getElementById("detailsPanel");
-  const detailsQRBox = document.getElementById("detailsQRBox");
-  const camFacing    = document.getElementById("camFacing");
-  const camElevation = document.getElementById("camElevation");
-  const camFocal     = document.getElementById("camFocal");
-  const camShotType  = document.getElementById("camShotType");
-  const camNote      = document.getElementById("camNote");
+  // details panel
+  var detailsPanel = document.getElementById("detailsPanel");
+  var detailsQRBox = document.getElementById("detailsQRBox");
+  var camFacing    = document.getElementById("camFacing");
+  var camElevation = document.getElementById("camElevation");
+  var camFocal     = document.getElementById("camFocal");
+  var camShotType  = document.getElementById("camShotType");
+  var camNote      = document.getElementById("camNote");
 
-  // Metadata table
-  const metaBlock     = document.getElementById("metaBlock");
-  const metaTableBody = document.getElementById("metaTableBody");
-  const metaSources   = document.getElementById("metaSources");
+  // metadata table
+  var metaBlock     = document.getElementById("metaBlock");
+  var metaTableBody = document.getElementById("metaTableBody");
+  var metaSources   = document.getElementById("metaSources");
 
 
-  // ============================================================
-  // 2. Icon and colour maps for chapters
-  // ============================================================
-  const chapterIcons = {
+  // ===== 2. Icon and colour for each chapter =====
+  // I use a simple object as a lookup table.
+
+  var chapterIcons = {
     "Surveillance":  "◎",
     "The Chase":     "↗",
     "The Search":    "✧",
@@ -101,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "2016":          "◉"
   };
 
-  const chapterColorMap = {
+  var chapterColorMap = {
     "Surveillance":  "rgba(74,139,181,0.15)",
     "The Chase":     "rgba(154,106,42,0.15)",
     "The Search":    "rgba(106,58,122,0.15)",
@@ -113,97 +97,111 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 
-  // ============================================================
-  // 3. Narrative toggle (Pursuit / Timeline)
-  // ============================================================
+  // ===== 3. Narrative toggle (Pursuit / Timeline) =====
   function updateNarrativeToggle() {
-    const id = App.getNarrative();
-    const isPursuit = id === "pursuit";
-
-    toggleEspionage.classList.toggle("active", isPursuit);
-    toggleTimeline.classList.toggle("active", !isPursuit);
-    toggleEspionage.setAttribute("aria-pressed", String(isPursuit));
-    toggleTimeline.setAttribute("aria-pressed", String(!isPursuit));
+    var id = App.getNarrative();
+    if (id === "pursuit") {
+      toggleEspionage.classList.add("active");
+      toggleTimeline.classList.remove("active");
+      toggleEspionage.setAttribute("aria-pressed", "true");
+      toggleTimeline.setAttribute("aria-pressed", "false");
+    } else {
+      toggleEspionage.classList.remove("active");
+      toggleTimeline.classList.add("active");
+      toggleEspionage.setAttribute("aria-pressed", "false");
+      toggleTimeline.setAttribute("aria-pressed", "true");
+    }
   }
 
-  toggleEspionage.addEventListener("click", () => {
+  toggleEspionage.addEventListener("click", function() {
     if (App.getNarrative() !== "pursuit") App.setNarrative("pursuit");
   });
-  toggleTimeline.addEventListener("click", () => {
+  toggleTimeline.addEventListener("click", function() {
     if (App.getNarrative() !== "timeline") App.setNarrative("timeline");
   });
 
 
-  // ============================================================
-  // 4. Chapter strip + chapter intro banner
-  // ============================================================
+  // ===== 4. Chapter strip (the row of chapter buttons on top) =====
   function buildChapterStrip() {
     chapterStrip.innerHTML = "";
-    const locs = App.getLocations();
+    var locs = App.getLocations();
 
-    // Collect unique chapters in order they first appear.
-    const chapters = [];
-    const seen = new Set();
-    locs.forEach(loc => {
-      if (loc.chapter && !seen.has(loc.chapter)) {
-        seen.add(loc.chapter);
-        chapters.push(loc.chapter);
+    // get the list of chapters in the order they appear
+    var chapters = [];
+    for (var i = 0; i < locs.length; i++) {
+      var c = locs[i].chapter;
+      if (c && chapters.indexOf(c) === -1) {
+        chapters.push(c);
       }
-    });
+    }
 
-    chapters.forEach((chapter, i) => {
-      // Add a slash separator between chapters (except before the first).
-      if (i > 0) {
-        const sep = document.createElement("span");
+    for (var j = 0; j < chapters.length; j++) {
+      var chapter = chapters[j];
+
+      // add a "/" between chapters (but not before the first)
+      if (j > 0) {
+        var sep = document.createElement("span");
         sep.className = "chapter-strip-sep";
         sep.textContent = "/";
-        sep.setAttribute("aria-hidden", "true");
         chapterStrip.appendChild(sep);
       }
 
-      const item = document.createElement("button");
+      var item = document.createElement("button");
       item.className = "chapter-strip-item";
-      item.textContent = (chapterIcons[chapter] || "·") + " " + chapter;
+      var icon = chapterIcons[chapter] || "·";
+      item.textContent = icon + " " + chapter;
       item.setAttribute("aria-label", "Go to chapter: " + chapter);
       item.dataset.chapter = chapter;
 
-      item.addEventListener("click", () => {
-        const idx = locs.findIndex(l => l.chapter === chapter);
-        if (idx !== -1) App.setLocationIndex(idx);
-      });
-
+      // when clicked, jump to the first location of this chapter
+      item.addEventListener("click", goToChapter);
       chapterStrip.appendChild(item);
-    });
+    }
+  }
+
+  // helper for chapter button click
+  function goToChapter(e) {
+    var chapter = e.currentTarget.dataset.chapter;
+    var locs = App.getLocations();
+    for (var i = 0; i < locs.length; i++) {
+      if (locs[i].chapter === chapter) {
+        App.setLocationIndex(i);
+        return;
+      }
+    }
   }
 
   function updateChapterStrip() {
-    const current = App.getActiveLocation();
-    document.querySelectorAll(".chapter-strip-item").forEach(item => {
-      const isActive = current && item.dataset.chapter === current.chapter;
-      item.classList.toggle("active", isActive);
-    });
+    var current = App.getActiveLocation();
+    var items = document.querySelectorAll(".chapter-strip-item");
+    for (var i = 0; i < items.length; i++) {
+      if (current && items[i].dataset.chapter === current.chapter) {
+        items[i].classList.add("active");
+      } else {
+        items[i].classList.remove("active");
+      }
+    }
   }
 
-  // Show the chapter intro banner only on the first location of each chapter.
-  // If we're entering a new chapter (not the very first one), also show the
-  // transition line that bridges from the previous chapter.
+  // Show the chapter intro banner only on the first location of a chapter.
+  // If we are entering a new chapter, also show the transition line.
   function updateChapterIntro() {
-    const loc  = App.getActiveLocation();
-    const locs = App.getLocations();
-    const idx  = App.getLocationIndex();
+    var loc  = App.getActiveLocation();
+    var locs = App.getLocations();
+    var idx  = App.getLocationIndex();
 
-    const isFirstOfChapter = idx === 0 || locs[idx - 1].chapter !== loc.chapter;
-    const narrative   = App.getNarrativeData();
-    const intros      = narrative.chapterIntros      || {};
-    const transitions = narrative.chapterTransitions || {};
+    var isFirstOfChapter = (idx === 0) || (locs[idx - 1].chapter !== loc.chapter);
+    var narrative   = App.getNarrativeData();
+    var intros      = narrative.chapterIntros      || {};
+    var transitions = narrative.chapterTransitions || {};
 
     if (isFirstOfChapter && intros[loc.chapter]) {
       chapterIntroChap.textContent = loc.chapter;
       chapterIntroText.textContent = intros[loc.chapter];
 
-      const transitionFromPrev = idx > 0 ? transitions[loc.chapter] : null;
-      if (transitionFromPrev) {
-        chapterTransitionText.textContent = transitionFromPrev;
+      // transition only when there is a previous chapter
+      if (idx > 0 && transitions[loc.chapter]) {
+        chapterTransitionText.textContent = transitions[loc.chapter];
         chapterTransitionLine.classList.remove("hidden");
       } else {
         chapterTransitionLine.classList.add("hidden");
@@ -217,97 +215,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // ============================================================
-  // 5. Walking directions to the next location
-  // ============================================================
-  // Distance between two [lat, lon] points in metres (Haversine formula).
-  function haversineMeters(a, b) {
-    const R = 6371000; // Earth radius in metres
-    const toRad = deg => deg * Math.PI / 180;
-    const dLat = toRad(b[0] - a[0]);
-    const dLon = toRad(b[1] - a[1]);
-    const lat1 = toRad(a[0]);
-    const lat2 = toRad(b[0]);
-    const h = Math.sin(dLat / 2) ** 2
-            + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-    return 2 * R * Math.asin(Math.sqrt(h));
-  }
-
-  // Compass direction from point a to point b ("N", "NE", "E", ...).
-  function compassPoint(a, b) {
-    const toRad = deg => deg * Math.PI / 180;
-    const toDeg = rad => rad * 180 / Math.PI;
-    const lat1 = toRad(a[0]);
-    const lat2 = toRad(b[0]);
-    const dLon = toRad(b[1] - a[1]);
-    const y = Math.sin(dLon) * Math.cos(lat2);
-    const x = Math.cos(lat1) * Math.sin(lat2)
-            - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-    const bearing = (toDeg(Math.atan2(y, x)) + 360) % 360;
-    const points = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    return points[Math.round(bearing / 45) % 8];
-  }
-
-  function formatDistance(metres) {
-    if (metres < 1000) return Math.round(metres / 10) * 10 + " m";
-    return (metres / 1000).toFixed(1) + " km";
-  }
-
+  // ===== 5. Walking direction to next location =====
+  // The text for each step is written by hand in data.js (loc.nextDirection).
   function updateDirections() {
     if (!locationDirections) return;
-    const locs = App.getLocations();
-    const idx  = App.getLocationIndex();
-    const here = locs[idx];
-    const next = locs[idx + 1];
+    var loc = App.getActiveLocation();
 
-    // Hide the line on the last location (no "next" point).
-    if (!next || !here || !here.coordinates || !next.coordinates) {
+    if (!loc || !loc.nextDirection) {
       locationDirections.textContent = "";
       locationDirections.classList.add("hidden");
       return;
     }
 
-    const distance  = haversineMeters(here.coordinates, next.coordinates);
-    const direction = compassPoint(here.coordinates, next.coordinates);
-
     locationDirections.classList.remove("hidden");
     locationDirections.innerHTML =
-        '<span class="directions-label">Walk to next</span> '
-      + '<span class="directions-arrow">→</span> '
-      + '<strong>' + formatDistance(distance) + '</strong> '
-      + '<span class="directions-bearing">' + direction + '</span> '
-      + '<span class="directions-target">to ' + next.name + '</span>';
+      '<span class="directions-label">Walk to next</span> ' +
+      '<span class="directions-arrow">→</span> ' +
+      loc.nextDirection;
   }
 
 
-  // ============================================================
-  // 6. Dot navigation + progress + prev/next buttons
-  // ============================================================
-  function buildDots() {
-    locationDots.innerHTML = "";
-    const locs = App.getLocations();
-    locs.forEach((loc, i) => {
-      const dot = document.createElement("button");
-      dot.className = "location-dot";
-      dot.setAttribute("role", "tab");
-      dot.setAttribute("aria-label", "Location " + (i + 1) + ": " + loc.name);
-      dot.addEventListener("click", () => App.setLocationIndex(i));
-      locationDots.appendChild(dot);
-    });
-  }
-
-  function updateDots() {
-    const idx = App.getLocationIndex();
-    document.querySelectorAll(".location-dot").forEach((dot, i) => {
-      dot.classList.toggle("active", i === idx);
-      dot.setAttribute("aria-selected", String(i === idx));
-    });
-  }
-
+  // ===== 6. Progress bar + prev/next buttons =====
   function updateProgress() {
-    const locs = App.getLocations();
-    const idx  = App.getLocationIndex();
-    const pct  = ((idx + 1) / locs.length) * 100;
+    var locs = App.getLocations();
+    var idx  = App.getLocationIndex();
+    var pct  = ((idx + 1) / locs.length) * 100;
 
     progressFill.style.width = pct + "%";
     progressFill.parentElement.setAttribute("aria-valuenow", Math.round(pct));
@@ -316,97 +248,102 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateNavButtons() {
-    const locs = App.getLocations();
-    const idx  = App.getLocationIndex();
+    var locs = App.getLocations();
+    var idx  = App.getLocationIndex();
     btnPrev.disabled = idx <= 0;
     btnNext.disabled = idx >= locs.length - 1;
   }
 
-  btnPrev.addEventListener("click", () => App.goPrev());
-  btnNext.addEventListener("click", () => App.goNext());
-
-  // Arrow keys move between locations (skip when typing in a form field).
-  document.addEventListener("keydown", (e) => {
-    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      if (!btnNext.disabled) App.goNext();
-    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      if (!btnPrev.disabled) App.goPrev();
-    }
-  });
+  btnPrev.addEventListener("click", function() { App.goPrev(); });
+  btnNext.addEventListener("click", function() { App.goNext(); });
 
 
-  // ============================================================
-  // 7. Audience, length, and reading mode controls
-  // ============================================================
-  if (btnEasier) btnEasier.addEventListener("click", () => App.nudgeVariantEasier());
-  if (btnHarder) btnHarder.addEventListener("click", () => App.nudgeVariantHarder());
+  // ===== 7. Audience, length and reading-mode buttons =====
+  if (btnEasier) btnEasier.addEventListener("click", function() { App.nudgeVariantEasier(); });
+  if (btnHarder) btnHarder.addEventListener("click", function() { App.nudgeVariantHarder(); });
 
-  if (btnLenLess) btnLenLess.addEventListener("click", () => App.tellMeLess());
-  if (btnLenMore) btnLenMore.addEventListener("click", () => App.tellMeMore());
+  if (btnLenLess) btnLenLess.addEventListener("click", function() { App.tellMeLess(); });
+  if (btnLenMore) btnLenMore.addEventListener("click", function() { App.tellMeMore(); });
 
-  btnModeStory.addEventListener("click",   () => App.setReadingMode("story"));
-  btnModeDetails.addEventListener("click", () => App.setReadingMode("details"));
+  btnModeStory.addEventListener("click",   function() { App.setReadingMode("story"); });
+  btnModeDetails.addEventListener("click", function() { App.setReadingMode("details"); });
 
-  // Close button on the details panel goes back to story.
-  const detailsCloseBtn = document.getElementById("detailsCloseBtn");
+  // close button on the details panel
+  var detailsCloseBtn = document.getElementById("detailsCloseBtn");
   if (detailsCloseBtn) {
-    detailsCloseBtn.addEventListener("click", () => App.setReadingMode("story"));
+    detailsCloseBtn.addEventListener("click", function() {
+      App.setReadingMode("story");
+    });
   }
 
-  // Escape also closes the details panel.
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && App.getReadingMode() !== "story") {
-      App.setReadingMode("story");
-    }
-  });
-
-  const VARIANT_LABELS = { young: "Young", adult: "Adult", scholar: "Scholar" };
-
   function updateVariantUI() {
-    const v      = App.getTextVariant();
-    const length = App.getTextLength();
-    const mode   = App.getReadingMode();
+    var v      = App.getTextVariant();
+    var length = App.getTextLength();
+    var mode   = App.getReadingMode();
 
-    // Audience indicator (read-only display).
-    variantIndicator.textContent = VARIANT_LABELS[v] || v;
+    // audience indicator label
+    if (v === "young")        variantIndicator.textContent = "Young";
+    else if (v === "adult")   variantIndicator.textContent = "Adult";
+    else if (v === "scholar") variantIndicator.textContent = "Scholar";
 
-    // Disable the easier/harder buttons at the ends of the audience range.
+    // disable buttons at the ends of the audience range
     if (btnEasier) btnEasier.disabled = (v === "young");
     if (btnHarder) btnHarder.disabled = (v === "scholar");
 
-    // Length indicator + buttons.
-    if (lengthIndicator) lengthIndicator.textContent = length === "short" ? "BRIEF" : "STANDARD";
+    // length indicator + buttons
+    if (lengthIndicator) {
+      lengthIndicator.textContent = (length === "short") ? "BRIEF" : "STANDARD";
+    }
     if (btnLenLess) {
-      btnLenLess.classList.toggle("active", length === "short");
-      btnLenLess.setAttribute("aria-pressed", String(length === "short"));
+      if (length === "short") {
+        btnLenLess.classList.add("active");
+        btnLenLess.setAttribute("aria-pressed", "true");
+      } else {
+        btnLenLess.classList.remove("active");
+        btnLenLess.setAttribute("aria-pressed", "false");
+      }
     }
     if (btnLenMore) {
-      btnLenMore.classList.toggle("active", length === "medium");
-      btnLenMore.setAttribute("aria-pressed", String(length === "medium"));
+      if (length === "medium") {
+        btnLenMore.classList.add("active");
+        btnLenMore.setAttribute("aria-pressed", "true");
+      } else {
+        btnLenMore.classList.remove("active");
+        btnLenMore.setAttribute("aria-pressed", "false");
+      }
     }
 
-    // Mode buttons.
-    btnModeStory.classList.toggle("active", mode === "story");
-    btnModeDetails.classList.toggle("active", mode === "details");
-    btnModeStory.setAttribute("aria-pressed",   String(mode === "story"));
-    btnModeDetails.setAttribute("aria-pressed", String(mode === "details"));
+    // mode buttons
+    if (mode === "story") {
+      btnModeStory.classList.add("active");
+      btnModeDetails.classList.remove("active");
+      btnModeStory.setAttribute("aria-pressed", "true");
+      btnModeDetails.setAttribute("aria-pressed", "false");
+    } else {
+      btnModeStory.classList.remove("active");
+      btnModeDetails.classList.add("active");
+      btnModeStory.setAttribute("aria-pressed", "false");
+      btnModeDetails.setAttribute("aria-pressed", "true");
+    }
 
-    // Show/hide the details panel.
-    detailsPanel.classList.toggle("hidden", mode !== "details");
+    // show/hide the details panel
+    if (mode === "details") {
+      detailsPanel.classList.remove("hidden");
+    } else {
+      detailsPanel.classList.add("hidden");
+    }
   }
 
 
-  // ============================================================
-  // 8. Image gallery (Real Location vs Film Still vs Video)
-  // ============================================================
-  // Remove the YouTube iframe from the placeholder (called when leaving the
-  // video tab or moving to a location without videos) so audio doesn't keep
-  // playing after the user navigates away.
+  // ===== 8. Image gallery =====
+  // Three tabs: Real Location / Film Still / Video.
+  // Each tab shows one image (or a YouTube video) plus thumbnails.
+
+  // Remove the YouTube iframe so the audio stops when the user leaves the tab.
   function clearVideoFrame() {
-    const placeholder = locationImageEl && locationImageEl.parentNode;
+    var placeholder = locationImageEl && locationImageEl.parentNode;
     if (!placeholder) return;
-    const existing = placeholder.querySelector(".location-video");
+    var existing = placeholder.querySelector(".location-video");
     if (existing) existing.remove();
   }
 
@@ -420,153 +357,156 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const locImgs  = Array.isArray(loc.images.location) ? loc.images.location : [];
-    const filmImgs = Array.isArray(loc.images.film)     ? loc.images.film     : [];
-    const videos   = Array.isArray(loc.images.video)    ? loc.images.video    : [];
+    // pick the right arrays (or empty if missing)
+    var locImgs  = loc.images.location ? loc.images.location : [];
+    var filmImgs = loc.images.film     ? loc.images.film     : [];
+    var videos   = loc.images.video    ? loc.images.video    : [];
 
-    // If the chosen tab is empty for this location, fall back to the next one
-    // that has content. Order of preference: film → location → video.
-    const hasFilm = filmImgs.length > 0;
-    const hasLoc  = locImgs.length  > 0;
-    const hasVid  = videos.length   > 0;
+    var hasFilm = filmImgs.length > 0;
+    var hasLoc  = locImgs.length  > 0;
+    var hasVid  = videos.length   > 0;
+
+    // if the chosen tab is empty, switch to the next available one
     if (galleryType === "film"     && !hasFilm) galleryType = hasLoc ? "location" : (hasVid ? "video" : "film");
     if (galleryType === "location" && !hasLoc)  galleryType = hasFilm ? "film"    : (hasVid ? "video" : "location");
     if (galleryType === "video"    && !hasVid)  galleryType = hasFilm ? "film"    : (hasLoc ? "location" : "video");
 
-    // Build tab buttons.
+    // build the tab buttons
     galleryTabs.innerHTML = "";
-    function buildTab(type, label, count) {
-      const btn = document.createElement("button");
-      btn.className = "gallery-tab" + (galleryType === type ? " active" : "");
-      btn.setAttribute("role", "tab");
-      btn.setAttribute("aria-selected", String(galleryType === type));
-      btn.innerHTML = label + ' <span class="gallery-tab-count">' + count + '</span>';
-      btn.addEventListener("click", () => {
-        if (galleryType !== type) {
-          galleryType = type;
-          galleryIndex = 0;
-          renderGallery(loc);
-        }
-      });
-      galleryTabs.appendChild(btn);
-    }
-    if (hasFilm) buildTab("film",     "Film Still",    filmImgs.length);
-    if (hasLoc)  buildTab("location", "Real Location", locImgs.length);
-    if (hasVid)  buildTab("video",    "Video",         videos.length);
+    if (hasFilm) addGalleryTab("film",     "Film Still",    filmImgs.length, loc);
+    if (hasLoc)  addGalleryTab("location", "Real Location", locImgs.length,  loc);
+    if (hasVid)  addGalleryTab("video",    "Video",         videos.length,   loc);
 
-    // ── Video tab ─────────────────────────────────────────────────
+    // render the active tab
     if (galleryType === "video") {
-      if (galleryIndex >= videos.length) galleryIndex = 0;
-      const current = videos[galleryIndex];
-
-      // Hide the still image and inject (or update) the iframe.
-      // Note: youtube.com/embed (not -nocookie) is used because the latter
-      // returns "Player error 153" when the page is opened over file:// or
-      // when the browser sends no referrer.
-      locationImageEl.style.display = "none";
-      const placeholder = locationImageEl.parentNode;
-      let frame = placeholder.querySelector(".location-video");
-      if (!frame) {
-        frame = document.createElement("iframe");
-        frame.className = "location-video";
-        frame.setAttribute("allow", "accelerometer; encrypted-media; picture-in-picture");
-        frame.setAttribute("allowfullscreen", "");
-        frame.setAttribute("loading", "lazy");
-        placeholder.appendChild(frame);
-      }
-      const newSrc = "https://www.youtube.com/embed/" + encodeURIComponent(current.youtubeId) + "?rel=0&modestbranding=1";
-      if (frame.src !== newSrc) frame.src = newSrc;
-      frame.title = current.title || (loc.name + " — video");
-
-      // Always render a "Open on YouTube" fallback link in the caption so
-      // the video is reachable even if the embed is blocked (region/referrer).
-      const watchUrl = "https://www.youtube.com/watch?v=" + encodeURIComponent(current.youtubeId);
-      galleryCaption.innerHTML = "";
-      if (current.caption) {
-        galleryCaption.appendChild(document.createTextNode(current.caption + " "));
-      }
-      const link = document.createElement("a");
-      link.href = watchUrl;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.className = "gallery-video-link";
-      link.textContent = "Open on YouTube ↗";
-      galleryCaption.appendChild(link);
-
-      // Thumbnails for additional videos use YouTube's hqdefault still.
-      galleryThumbs.innerHTML = "";
-      if (videos.length > 1) {
-        videos.forEach((v, i) => {
-          const thumb = document.createElement("button");
-          thumb.className = "gallery-thumb" + (i === galleryIndex ? " active" : "");
-          const thumbUrl = "https://img.youtube.com/vi/" + encodeURIComponent(v.youtubeId) + "/hqdefault.jpg";
-          thumb.style.backgroundImage = 'url("' + thumbUrl + '")';
-          thumb.title = v.caption || v.title || "";
-          thumb.setAttribute("role", "listitem");
-          thumb.setAttribute("aria-label", "Video " + (i + 1) + " of " + videos.length);
-          thumb.addEventListener("click", () => {
-            galleryIndex = i;
-            renderGallery(loc);
-          });
-          galleryThumbs.appendChild(thumb);
-        });
-      }
-      return;
+      renderVideoTab(loc, videos);
+    } else {
+      var imgs = (galleryType === "film") ? filmImgs : locImgs;
+      renderImageTab(loc, imgs);
     }
+  }
 
-    // ── Image tabs (location / film) ──────────────────────────────
+  function addGalleryTab(type, label, count, loc) {
+    var btn = document.createElement("button");
+    btn.className = "gallery-tab" + (galleryType === type ? " active" : "");
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", String(galleryType === type));
+    btn.innerHTML = label + ' <span class="gallery-tab-count">' + count + '</span>';
+    btn.addEventListener("click", function() {
+      if (galleryType !== type) {
+        galleryType = type;
+        galleryIndex = 0;
+        renderGallery(loc);
+      }
+    });
+    galleryTabs.appendChild(btn);
+  }
+
+  function renderImageTab(loc, imgs) {
     clearVideoFrame();
 
-    const activeImgs = galleryType === "film" ? filmImgs : locImgs;
-    if (activeImgs.length === 0) {
+    if (imgs.length === 0) {
       galleryThumbs.innerHTML = "";
       galleryCaption.textContent = "";
       locationImageEl.style.display = "none";
       return;
     }
-    if (galleryIndex >= activeImgs.length) galleryIndex = 0;
-    const current = activeImgs[galleryIndex];
+    if (galleryIndex >= imgs.length) galleryIndex = 0;
+    var current = imgs[galleryIndex];
 
-    // Main image.
+    // main image
     locationImageEl.src = current.src;
     locationImageEl.alt = current.alt || loc.name;
-    locationImageEl.onload  = () => { locationImageEl.style.display = "block"; };
-    locationImageEl.onerror = () => { locationImageEl.style.display = "none"; };
+    locationImageEl.onload  = function() { locationImageEl.style.display = "block"; };
+    locationImageEl.onerror = function() { locationImageEl.style.display = "none"; };
 
-    // Caption.
+    // caption
     galleryCaption.textContent = current.caption || "";
 
-    // Thumbnails (only when there is more than one image).
+    // thumbnails (only when there is more than one image)
     galleryThumbs.innerHTML = "";
-    if (activeImgs.length > 1) {
-      activeImgs.forEach((img, i) => {
-        const thumb = document.createElement("button");
+    if (imgs.length > 1) {
+      for (var i = 0; i < imgs.length; i++) {
+        var thumb = document.createElement("button");
         thumb.className = "gallery-thumb" + (i === galleryIndex ? " active" : "");
-        thumb.style.backgroundImage = 'url("' + img.src.replace(/"/g, '\\"') + '")';
-        thumb.title = img.caption || "";
+        thumb.style.backgroundImage = 'url("' + imgs[i].src + '")';
+        thumb.title = imgs[i].caption || "";
         thumb.setAttribute("role", "listitem");
-        thumb.setAttribute("aria-label", "Image " + (i + 1) + " of " + activeImgs.length);
-        thumb.addEventListener("click", () => {
-          galleryIndex = i;
-          renderGallery(loc);
-        });
+        thumb.setAttribute("aria-label", "Image " + (i + 1) + " of " + imgs.length);
+        thumb.dataset.idx = i;
+        thumb.addEventListener("click", thumbClicked);
         galleryThumbs.appendChild(thumb);
-      });
+      }
+    }
+  }
+
+  function thumbClicked(e) {
+    galleryIndex = parseInt(e.currentTarget.dataset.idx);
+    renderGallery(App.getActiveLocation());
+  }
+
+  function renderVideoTab(loc, videos) {
+    if (galleryIndex >= videos.length) galleryIndex = 0;
+    var current = videos[galleryIndex];
+
+    // hide the still image, then build (or reuse) the iframe
+    locationImageEl.style.display = "none";
+    var placeholder = locationImageEl.parentNode;
+    var frame = placeholder.querySelector(".location-video");
+    if (!frame) {
+      frame = document.createElement("iframe");
+      frame.className = "location-video";
+      frame.setAttribute("allow", "accelerometer; encrypted-media; picture-in-picture");
+      frame.setAttribute("allowfullscreen", "");
+      frame.setAttribute("loading", "lazy");
+      placeholder.appendChild(frame);
+    }
+    var newSrc = "https://www.youtube.com/embed/" + encodeURIComponent(current.youtubeId) + "?rel=0&modestbranding=1";
+    if (frame.src !== newSrc) frame.src = newSrc;
+    frame.title = current.title || (loc.name + " — video");
+
+    // caption + a fallback link in case the embed gets blocked
+    var watchUrl = "https://www.youtube.com/watch?v=" + encodeURIComponent(current.youtubeId);
+    galleryCaption.innerHTML = "";
+    if (current.caption) {
+      galleryCaption.appendChild(document.createTextNode(current.caption + " "));
+    }
+    var link = document.createElement("a");
+    link.href = watchUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.className = "gallery-video-link";
+    link.textContent = "Open on YouTube ↗";
+    galleryCaption.appendChild(link);
+
+    // thumbnails for the other videos
+    galleryThumbs.innerHTML = "";
+    if (videos.length > 1) {
+      for (var i = 0; i < videos.length; i++) {
+        var v = videos[i];
+        var thumb = document.createElement("button");
+        thumb.className = "gallery-thumb" + (i === galleryIndex ? " active" : "");
+        var thumbUrl = "https://img.youtube.com/vi/" + encodeURIComponent(v.youtubeId) + "/hqdefault.jpg";
+        thumb.style.backgroundImage = 'url("' + thumbUrl + '")';
+        thumb.title = v.caption || v.title || "";
+        thumb.setAttribute("role", "listitem");
+        thumb.setAttribute("aria-label", "Video " + (i + 1) + " of " + videos.length);
+        thumb.dataset.idx = i;
+        thumb.addEventListener("click", thumbClicked);
+        galleryThumbs.appendChild(thumb);
+      }
     }
   }
 
 
-  // ============================================================
-  // 9. Pick the right text (audience x length)
-  // ============================================================
-  // Two lengths x three audiences = up to 6 versions per location.
-  // If a short version is missing for the chosen audience, we fall back
-  // to the medium version so the page never goes blank.
+  // ===== 9. Pick the right text version =====
+  // Six versions per location (3 audiences × 2 lengths). If the short
+  // version is missing, I use the medium one as a fallback.
   function pickText(loc) {
-    const audience = App.getTextVariant();
-    const length   = App.getTextLength();
-    const longTexts  = loc.texts || {};
-    const shortTexts = loc.textsShort || {};
+    var audience = App.getTextVariant();
+    var length   = App.getTextLength();
+    var longTexts  = loc.texts || {};
+    var shortTexts = loc.textsShort || {};
 
     if (length === "short" && shortTexts[audience]) {
       return shortTexts[audience];
@@ -575,11 +515,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // ============================================================
-  // 10. Details panel (camera + QR + metadata table)
-  // ============================================================
+  // ===== 10. Details panel (camera + QR + metadata table) =====
   function renderDetailsPanel(loc) {
-    // Camera info.
+    // camera info
     if (loc.camera) {
       camFacing.textContent    = loc.camera.facing      || "—";
       camElevation.textContent = loc.camera.elevation   || "—";
@@ -588,7 +526,7 @@ document.addEventListener("DOMContentLoaded", () => {
       camNote.textContent      = loc.camera.angleNote   || "";
     }
 
-    // QR code (only build it when the panel is open).
+    // QR code (only when the panel is open, to save work)
     if (App.getReadingMode() === "details") {
       App.generateLocationQR(detailsQRBox, loc);
     }
@@ -596,271 +534,239 @@ document.addEventListener("DOMContentLoaded", () => {
     renderMetaTable(loc);
   }
 
-  // Build the metadata table from loc.meta.
-  // The table is split into 5 sections: Location, Heritage, Scene, Tourism, Project.
+  // small helper: add one row to the metadata table
+  function addRow(group, vocab, label, value) {
+    if (value === undefined || value === null || value === "") return;
+    var tr = document.createElement("tr");
+    tr.dataset.group = group;
+    tr.dataset.vocab = vocab;
+
+    var td1 = document.createElement("td");
+    td1.className = "meta-key";
+    td1.innerHTML = '<span class="meta-vocab-tag" title="Vocabulary: ' + vocab + '">' + vocab + '</span> ' + label;
+
+    var td2 = document.createElement("td");
+    td2.className = "meta-val";
+    if (value instanceof Array) {
+      td2.textContent = value.join(", ");
+    } else {
+      td2.textContent = String(value);
+    }
+
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    metaTableBody.appendChild(tr);
+  }
+
+  // small helper: add a section header row
+  function addHead(label) {
+    var tr = document.createElement("tr");
+    tr.className = "meta-section";
+    var th = document.createElement("th");
+    th.colSpan = 2;
+    th.textContent = label;
+    tr.appendChild(th);
+    metaTableBody.appendChild(tr);
+  }
+
   function renderMetaTable(loc) {
     if (!metaTableBody) return;
     metaTableBody.innerHTML = "";
     if (metaSources) metaSources.innerHTML = "";
 
     if (!loc.meta) {
-      const tr = document.createElement("tr");
+      var tr = document.createElement("tr");
       tr.innerHTML = '<td colspan="2" class="meta-empty">Catalogue metadata pending for this location.</td>';
       metaTableBody.appendChild(tr);
       if (metaBlock) metaBlock.classList.add("meta-empty-state");
       return;
     }
     if (metaBlock) metaBlock.classList.remove("meta-empty-state");
-    const m = loc.meta;
-
-    // Helper: add one row (key + value).
-    function row(group, vocab, label, value) {
-      if (value === undefined || value === null || value === "") return;
-      const tr = document.createElement("tr");
-      tr.dataset.group = group;
-      tr.dataset.vocab = vocab;
-
-      const td1 = document.createElement("td");
-      td1.className = "meta-key";
-      td1.innerHTML = '<span class="meta-vocab-tag" title="Vocabulary: ' + vocab + '">' + vocab + '</span> ' + label;
-
-      const td2 = document.createElement("td");
-      td2.className = "meta-val";
-      td2.textContent = Array.isArray(value) ? value.join(", ") : String(value);
-
-      tr.appendChild(td1);
-      tr.appendChild(td2);
-      metaTableBody.appendChild(tr);
-    }
-
-    // Helper: add a section header row.
-    function head(label) {
-      const tr = document.createElement("tr");
-      tr.className = "meta-section";
-      const th = document.createElement("th");
-      th.colSpan = 2;
-      th.textContent = label;
-      tr.appendChild(th);
-      metaTableBody.appendChild(tr);
-    }
+    var m = loc.meta;
 
     // ---- Section 1: Location ----
-    head("Location");
-    row("location", "schema:streetAddress",   "Address",     m.address);
-    row("location", "schema:postalCode",      "Postal code", m.postal_code);
-    row("location", "schema:addressLocality", "District",    m.district);
-    row("location", "schema:addressLocality", "City",        m.city);
-    row("location", "schema:addressCountry",  "Country",     m.country);
+    addHead("Location");
+    addRow("location", "schema:streetAddress",   "Address",     m.address);
+    addRow("location", "schema:postalCode",      "Postal code", m.postal_code);
+    addRow("location", "schema:addressLocality", "District",    m.district);
+    addRow("location", "schema:addressLocality", "City",        m.city);
+    addRow("location", "schema:addressCountry",  "Country",     m.country);
     if (loc.coordinates) {
-      row("location", "schema:GeoCoordinates", "Lat / Lon",
-          loc.coordinates[0].toFixed(4) + "°N, " + loc.coordinates[1].toFixed(4) + "°E");
+      addRow("location", "schema:GeoCoordinates", "Lat / Lon",
+        loc.coordinates[0].toFixed(4) + "°N, " + loc.coordinates[1].toFixed(4) + "°E");
     }
     if (m.wikidata) {
-      // Wikidata row contains a link, so build it manually.
-      const tr = document.createElement("tr");
-      tr.dataset.group = "location";
-      tr.dataset.vocab = "wikidata";
-
-      const td1 = document.createElement("td");
-      td1.className = "meta-key";
-      const tag = document.createElement("span");
-      tag.className = "meta-vocab-tag";
-      tag.title = "Vocabulary: wikidata";
-      tag.textContent = "wikidata";
-      td1.appendChild(tag);
-      td1.appendChild(document.createTextNode(" Wikidata Q-ID"));
-
-      const td2 = document.createElement("td");
-      td2.className = "meta-val";
-      const a = document.createElement("a");
-      a.href = "https://www.wikidata.org/wiki/" + m.wikidata;
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.textContent = m.wikidata + " ↗";
-      td2.appendChild(a);
-
-      tr.appendChild(td1);
-      tr.appendChild(td2);
-      metaTableBody.appendChild(tr);
+      // wikidata cell needs a link, so I build it by hand
+      var trW = document.createElement("tr");
+      trW.dataset.group = "location";
+      trW.dataset.vocab = "wikidata";
+      var k = document.createElement("td");
+      k.className = "meta-key";
+      k.innerHTML = '<span class="meta-vocab-tag" title="Vocabulary: wikidata">wikidata</span> Wikidata Q-ID';
+      var v = document.createElement("td");
+      v.className = "meta-val";
+      v.innerHTML = '<a href="https://www.wikidata.org/wiki/' + m.wikidata + '" target="_blank" rel="noopener">' + m.wikidata + ' ↗</a>';
+      trW.appendChild(k);
+      trW.appendChild(v);
+      metaTableBody.appendChild(trW);
     }
-    row("location", "geonames:geonameId", "GeoNames", m.geonames);
+    addRow("location", "geonames:geonameId", "GeoNames", m.geonames);
 
     // ---- Section 2: Heritage ----
     if (m.building_type || m.year_built || m.architects || m.period || m.style || m.unesco) {
-      head("Heritage");
-      row("heritage", "schema:additionalType",     "Building type", m.building_type);
-      row("heritage", "schema:dateCreated",        "Year built",    m.year_built);
-      row("heritage", "schema:architect",          "Architect(s)",  m.architects);
-      row("heritage", "dcterms:temporal",          "Period",        m.period);
-      row("heritage", "schema:architecturalStyle", "Style",         m.style);
-      row("heritage", "dcterms:isPartOf",          "UNESCO",        m.unesco);
+      addHead("Heritage");
+      addRow("heritage", "schema:additionalType",     "Building type", m.building_type);
+      addRow("heritage", "schema:dateCreated",        "Year built",    m.year_built);
+      addRow("heritage", "schema:architect",          "Architect(s)",  m.architects);
+      addRow("heritage", "dcterms:temporal",          "Period",        m.period);
+      addRow("heritage", "schema:architecturalStyle", "Style",         m.style);
+      addRow("heritage", "dcterms:isPartOf",          "UNESCO",        m.unesco);
     }
 
     // ---- Section 3: Scene ----
-    head("Scene");
-    if (loc.scene)  row("scene", "schema:Episode", "Scene description", loc.scene);
+    addHead("Scene");
+    if (loc.scene)  addRow("scene", "schema:Episode", "Scene description", loc.scene);
     if (loc.camera) {
-      row("scene", "lmml:cameraFacing",    "Camera orientation", loc.camera.facing);
-      row("scene", "lmml:cameraElevation", "Elevation",          loc.camera.elevation);
-      row("scene", "lmml:focalLength",     "Focal length",       loc.camera.focalLength);
-      row("scene", "lmml:shotType",        "Shot type",          loc.camera.shotType);
+      addRow("scene", "lmml:cameraFacing",    "Camera orientation", loc.camera.facing);
+      addRow("scene", "lmml:cameraElevation", "Elevation",          loc.camera.elevation);
+      addRow("scene", "lmml:focalLength",     "Focal length",       loc.camera.focalLength);
+      addRow("scene", "lmml:shotType",        "Shot type",          loc.camera.shotType);
     }
     if (loc.images && loc.images.film && loc.images.film[0]) {
-      row("scene", "schema:image", "Screenshot ref", loc.images.film[0].src);
+      addRow("scene", "schema:image", "Screenshot ref", loc.images.film[0].src);
     }
-    row("scene", "lmml:filmRole",     "Film role",   m.film_role);
-    row("scene", "lmml:shotDuration", "Screen time", m.shot_duration);
+    addRow("scene", "lmml:filmRole",     "Film role",   m.film_role);
+    addRow("scene", "lmml:shotDuration", "Screen time", m.shot_duration);
 
     // ---- Section 4: Tourism ----
     if (m.visit_duration || m.accessibility_notes || m.recommended_time_of_day || m.ticket) {
-      head("Tourism");
-      row("tourism", "schema:duration",             "Visit duration",   m.visit_duration);
-      row("tourism", "schema:accessibilityFeature", "Accessibility",    m.accessibility_notes);
-      row("tourism", "schema:availableTime",        "Best time of day", m.recommended_time_of_day);
-      row("tourism", "schema:offers/price",         "Ticket",           m.ticket);
+      addHead("Tourism");
+      addRow("tourism", "schema:duration",             "Visit duration",   m.visit_duration);
+      addRow("tourism", "schema:accessibilityFeature", "Accessibility",    m.accessibility_notes);
+      addRow("tourism", "schema:availableTime",        "Best time of day", m.recommended_time_of_day);
+      addRow("tourism", "schema:offers/price",         "Ticket",           m.ticket);
     }
 
     // ---- Section 5: Project ----
-    head("Project");
-    const inPursuit  = APP_DATA.pursuitLocations.some(l => l.id === loc.id);
-    const inTimeline = APP_DATA.timelineLocations.some(l => l.id === loc.id);
-    const cats = [];
+    addHead("Project");
+    // Check which narrative this location belongs to.
+    var inPursuit  = false;
+    var inTimeline = false;
+    for (var i = 0; i < APP_DATA.pursuitLocations.length; i++) {
+      if (APP_DATA.pursuitLocations[i].id === loc.id) { inPursuit = true; break; }
+    }
+    for (var i = 0; i < APP_DATA.timelineLocations.length; i++) {
+      if (APP_DATA.timelineLocations[i].id === loc.id) { inTimeline = true; break; }
+    }
+    var cats = [];
     if (inPursuit)  cats.push("Pursuit & Passage");
     if (inTimeline) cats.push("Through Time");
-    row("project", "dcterms:subject",  "Narrative category", cats);
-    row("project", "dcterms:modified", "Last updated",       m.last_updated);
-    row("project", "dcterms:rights",   "Rights",             m.rights);
-    row("project", "dcterms:language", "Language",           m.language);
+    addRow("project", "dcterms:subject",  "Narrative category", cats);
+    addRow("project", "dcterms:modified", "Last updated",       m.last_updated);
+    addRow("project", "dcterms:rights",   "Rights",             m.rights);
+    addRow("project", "dcterms:language", "Language",           m.language);
 
-    // Sources line.
+    // sources line
     if (m.sources && m.sources.length && metaSources) {
-      const links = m.sources
-        .map(s => '<a href="' + s.url + '" target="_blank" rel="noopener">' + s.label + ' ↗</a>')
-        .join(" · ");
-      metaSources.innerHTML = '<span class="meta-vocab-tag">dcterms:source</span> ' + links;
+      var html = '<span class="meta-vocab-tag">dcterms:source</span> ';
+      for (var k = 0; k < m.sources.length; k++) {
+        var s = m.sources[k];
+        if (k > 0) html += " · ";
+        html += '<a href="' + s.url + '" target="_blank" rel="noopener">' + s.label + ' ↗</a>';
+      }
+      metaSources.innerHTML = html;
     }
   }
 
 
-  // ============================================================
-  // 11. Main location renderer
-  // ============================================================
-  function renderLocation(animate = true) {
-    const loc = App.getActiveLocation();
+  // ===== 11. Render the active location =====
+  function renderLocation() {
+    var loc = App.getActiveLocation();
     if (!loc) return;
 
-    const isTimeline = App.getNarrative() === "timeline";
-    const content    = document.getElementById("narrativeContent");
-    const visual     = document.getElementById("locationVisual");
+    var isTimeline = (App.getNarrative() === "timeline");
 
-    // Quick fade-out before swapping content.
-    if (animate) {
-      content.style.opacity = "0";
-      content.style.transform = "translateY(10px)";
-      visual.style.opacity = "0.6";
-    }
+    // image placeholder colour and icon
+    var locColor = chapterColorMap[loc.chapter] || "rgba(74,139,181,0.1)";
+    locationImagePlaceholder.style.setProperty("--location-color", locColor);
+    locationImagePlaceholder.setAttribute("data-location", loc.name);
+    locationImageIcon.textContent = chapterIcons[loc.chapter] || "◉";
 
-    setTimeout(() => {
-      // Image placeholder colour + icon.
-      const locColor = chapterColorMap[loc.chapter] || "rgba(74,139,181,0.1)";
-      locationImagePlaceholder.style.setProperty("--location-color", locColor);
-      locationImagePlaceholder.setAttribute("data-location", loc.name);
-      locationImageIcon.textContent = chapterIcons[loc.chapter] || "◉";
+    // reset gallery to film tab when changing location
+    galleryType = "film";
+    galleryIndex = 0;
+    renderGallery(loc);
 
-      // Reset gallery to film tab when changing location.
-      galleryType = "film";
-      galleryIndex = 0;
-      renderGallery(loc);
+    locationFilmTag.textContent = loc.filmTag;
+    locationCoords.textContent  = App.formatCoords(loc.coordinates);
 
-      locationFilmTag.textContent = loc.filmTag;
-      locationCoords.textContent  = App.formatCoords(loc.coordinates);
+    // info panel
+    locationName.textContent = loc.name;
+    locationScene.innerHTML  = "<strong>" + loc.film + "</strong> · " + loc.scene;
 
-      // Info panel.
-      locationName.textContent = loc.name;
-      locationScene.innerHTML  = "<strong>" + loc.film + "</strong> · " + loc.scene;
+    var chClass = App.chapterColorClass(loc.chapter);
+    locationChapterBadge.className = "chapter-badge " + chClass;
+    locationChapterBadge.textContent = loc.chapter || "Featured";
 
-      const chClass = App.chapterColorClass(loc.chapter);
-      locationChapterBadge.className = "chapter-badge " + chClass;
-      locationChapterBadge.textContent = loc.chapter || "Featured";
+    // narrative text
+    narrativeQuote.className = "narrative-quote" + (isTimeline ? " timeline" : "");
+    narrativeQuote.textContent = loc.quote;
 
-      // Narrative text.
-      narrativeQuote.className = "narrative-quote" + (isTimeline ? " timeline" : "");
-      narrativeQuote.textContent = loc.quote;
+    narrativeBody.textContent = pickText(loc);
 
-      narrativeBody.textContent = pickText(loc);
+    narrativeNoteBlock.className = "narrative-note-block" + (isTimeline ? " timeline" : "");
+    narrativeNoteText.textContent = loc.narrativeNote || "";
 
-      narrativeNoteBlock.className = "narrative-note-block" + (isTimeline ? " timeline" : "");
-      narrativeNoteText.textContent = loc.narrativeNote || "";
-
-      renderDetailsPanel(loc);
-      updateChapterIntro();
-
-      // Fade back in.
-      if (animate) {
-        content.style.transition = "opacity 0.35s ease, transform 0.35s ease";
-        content.style.opacity    = "1";
-        content.style.transform  = "translateY(0)";
-        visual.style.transition  = "opacity 0.3s ease";
-        visual.style.opacity     = "1";
-        setTimeout(() => {
-          content.style.transition = "";
-          visual.style.transition  = "";
-        }, 400);
-      }
-    }, animate ? 80 : 0);
+    renderDetailsPanel(loc);
+    updateChapterIntro();
 
     updateChapterStrip();
-    updateDots();
     updateProgress();
     updateNavButtons();
     updateDirections();
   }
 
 
-  // ============================================================
-  // 12. Event listeners + init
-  // ============================================================
-  document.addEventListener("narrativeChanged", () => {
+  // ===== 12. React to App state changes =====
+  // app.js fires custom events; here I listen for them and redraw.
+
+  document.addEventListener("narrativeChanged", function() {
     updateNarrativeToggle();
     buildChapterStrip();
-    buildDots();
-    renderLocation(true);
+    renderLocation();
   });
 
-  document.addEventListener("locationChanged", () => {
-    renderLocation(true);
+  document.addEventListener("locationChanged", function() {
+    renderLocation();
   });
 
-  document.addEventListener("textVariantChanged", () => {
-    const loc = App.getActiveLocation();
+  document.addEventListener("textVariantChanged", function() {
+    var loc = App.getActiveLocation();
     if (!loc) return;
     narrativeBody.textContent = pickText(loc);
     updateVariantUI();
   });
 
-  document.addEventListener("textLengthChanged", () => {
-    const loc = App.getActiveLocation();
+  document.addEventListener("textLengthChanged", function() {
+    var loc = App.getActiveLocation();
     if (!loc) return;
     narrativeBody.textContent = pickText(loc);
     updateVariantUI();
   });
 
-  document.addEventListener("readingModeChanged", () => {
+  document.addEventListener("readingModeChanged", function() {
     updateVariantUI();
-    const loc = App.getActiveLocation();
+    var loc = App.getActiveLocation();
     if (loc && App.getReadingMode() === "details") {
       App.generateLocationQR(detailsQRBox, loc);
     }
   });
 
-  function init() {
-    updateNarrativeToggle();
-    buildChapterStrip();
-    buildDots();
-    updateVariantUI();
-    renderLocation(false);
-  }
 
-  init();
+  // ===== 13. First-time setup when the page loads =====
+  updateNarrativeToggle();
+  buildChapterStrip();
+  updateVariantUI();
+  renderLocation();
 
 });

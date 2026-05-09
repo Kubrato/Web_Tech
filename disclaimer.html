@@ -216,31 +216,37 @@
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", function() {
 
-      // ---- Mobile nav toggle ----
-      const navToggle = document.getElementById("navToggle");
-      const navLinks  = document.getElementById("navLinks");
-      navToggle.addEventListener("click", () => {
-        const open = navLinks.classList.toggle("open");
-        navToggle.setAttribute("aria-expanded", String(open));
+      // ----- mobile nav toggle button -----
+      var navToggle = document.getElementById("navToggle");
+      var navLinks  = document.getElementById("navLinks");
+      navToggle.addEventListener("click", function() {
+        var isOpen = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
       });
 
-      // ---- Theme switcher buttons ----
+      // ----- theme switcher buttons -----
       function syncThemeButtons() {
-        const active = App.getTheme();
-        document.querySelectorAll(".theme-btn").forEach(btn => {
-          const isActive = btn.dataset.themeChoice === active;
-          btn.classList.toggle("active", isActive);
-          btn.setAttribute("aria-pressed", String(isActive));
-        });
+        var active = App.getTheme();
+        var btns = document.querySelectorAll(".theme-btn");
+        for (var i = 0; i < btns.length; i++) {
+          if (btns[i].dataset.themeChoice === active) {
+            btns[i].classList.add("active");
+            btns[i].setAttribute("aria-pressed", "true");
+          } else {
+            btns[i].classList.remove("active");
+            btns[i].setAttribute("aria-pressed", "false");
+          }
+        }
       }
-      document.querySelectorAll(".theme-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          App.setTheme(btn.dataset.themeChoice);
+      var themeBtns = document.querySelectorAll(".theme-btn");
+      for (var t = 0; t < themeBtns.length; t++) {
+        themeBtns[t].addEventListener("click", function() {
+          App.setTheme(this.dataset.themeChoice);
           syncThemeButtons();
         });
-      });
+      }
       syncThemeButtons();
 
     });
