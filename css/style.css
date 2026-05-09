@@ -1,14 +1,43 @@
-/* ═══════════════════════════════════════════════════════════════════════════════
-   Istanbul Cinema Tourism — Main Stylesheet
-   Design System: Cinematic Dark Theme with Gold & Steel Blue Accents
-   ═══════════════════════════════════════════════════════════════════════════════ */
+/* ============================================================================
+   Istanbul Cinema Tourism — main stylesheet
 
-/* ─── IMPORTS ─────────────────────────────────────────────────────────────────── */
-/* Cinematic theme: Playfair + Inter + JetBrains Mono
-   Heritage theme: Cormorant Garamond + EB Garamond + Alegreya Sans SC */
+   TABLE OF CONTENTS
+
+     1. Imports (Google Fonts)
+     2. Design tokens (CSS variables for both themes)
+     3. Reset and base styles + cinematic background pattern
+     5. Scrollbar
+     6. Typography (h1-h4, p, a, .mono, .label)
+     7. Navigation bar
+     8. Film-grain overlay
+    10. Hero / cover page
+    11. Buttons
+    12. Narrative cards (cover page)
+    13. Film grid (cover page)
+    14. Chapter badge
+    15. Explore page (toggle, chapter strip, viewer, gallery, controls)
+    16. Map page
+    17. Content pages (About, Docs, Disclaimer)
+    18. Footer
+    19. Animations
+    20. Responsive breakpoints
+    21. Print
+    22. Audience / length / mode toolbar
+    23. Details panel (QR + camera + metadata table)
+    24. Chapter intro banner
+    25. Walking-direction line
+    26. Theme switcher in nav
+    27. Site-wide previous / next page buttons
+    28. Heritage theme overrides
+    29. Small helpers (data-mt, data-mb, page-specific tweaks)
+   ============================================================================ */
+
+/* 1. Imports
+   Cinematic theme uses: Playfair Display + Inter + JetBrains Mono
+   Heritage theme  uses: Cormorant Garamond + EB Garamond + Alegreya Sans SC */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Alegreya+Sans+SC:wght@400;500;700&display=swap');
 
-/* ─── DESIGN TOKENS ──────────────────────────────────────────────────────────── */
+/* 2. Design tokens — variables for both themes */
 :root {
   /* Colors */
   --bg-primary:      #0a0a12;
@@ -33,11 +62,12 @@
 
   /* Chapter Colors */
   --surveillance-color: #4a8bb5;
-  --escape-color:       #9a6a2a;
-  --hideouts-color:     #6a3a7a;
+  --chase-color:        #9a6a2a;
+  --search-color:       #6a3a7a;
   --confrontation-color:#9a3535;
   --c-1960s:            #5a8a5a;
   --c-2012:             #4a8bb5;
+  --c-2014:             #b06a6a;
   --c-2016:             #c9a55a;
 
   /* Typography */
@@ -64,7 +94,7 @@
   --sidebar-width: 280px;
 }
 
-/* ─── RESET & BASE ───────────────────────────────────────────────────────────── */
+/* 3. Reset and base */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -84,6 +114,40 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  isolation: isolate;
+}
+
+/* Cinematic background: two filmstrip perforation columns + a soft vignette.
+   The Heritage override at the end of the file swaps this for warm paper washes. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    /* left filmstrip perforation column */
+    repeating-linear-gradient(
+      180deg,
+      rgba(201,165,90,0.07) 0,
+      rgba(201,165,90,0.07) 8px,
+      transparent 8px,
+      transparent 28px
+    ) left top / 14px 100% no-repeat,
+    /* right filmstrip perforation column (mirrored) */
+    repeating-linear-gradient(
+      180deg,
+      rgba(201,165,90,0.07) 0,
+      rgba(201,165,90,0.07) 8px,
+      transparent 8px,
+      transparent 28px
+    ) right top / 14px 100% no-repeat,
+    /* soft vignette — like screen falloff in a dark room */
+    radial-gradient(
+      ellipse 100% 70% at 50% 50%,
+      transparent 55%,
+      rgba(0,0,0,0.45) 100%
+    ) center / 100% 100% no-repeat;
 }
 
 ::selection {
@@ -91,13 +155,13 @@ body {
   color: var(--text-inverse);
 }
 
-/* ─── SCROLLBAR ──────────────────────────────────────────────────────────────── */
+/* 5. Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-secondary); }
 ::-webkit-scrollbar-thumb { background: var(--border-accent); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-gold-dim); }
 
-/* ─── TYPOGRAPHY ─────────────────────────────────────────────────────────────── */
+/* 6. Typography */
 h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; line-height: 1.2; }
 h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
 h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
@@ -111,9 +175,8 @@ strong { color: var(--text-primary); font-weight: 600; }
 
 .mono { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.05em; }
 .label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
-.serif-italic { font-family: var(--font-serif); font-style: italic; }
 
-/* ─── NAVIGATION ─────────────────────────────────────────────────────────────── */
+/* 7. Navigation bar */
 .main-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -209,19 +272,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   transition: all var(--transition-fast);
 }
 
-/* ─── PAGE LAYOUT ─────────────────────────────────────────────────────────────── */
-.page-wrapper {
-  min-height: 100vh;
-  padding-top: var(--nav-height);
-}
-
-.content-page {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: var(--space-3xl) var(--space-xl);
-}
-
-/* ─── FILM GRAIN OVERLAY ─────────────────────────────────────────────────────── */
+/* 8. Film-grain overlay */
 .grain-overlay {
   position: fixed;
   inset: 0;
@@ -231,7 +282,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
 
-/* ─── HERO / COVER PAGE ──────────────────────────────────────────────────────── */
+/* 10. Hero / cover page */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -340,7 +391,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   flex-wrap: wrap;
 }
 
-/* ─── BUTTONS ────────────────────────────────────────────────────────────────── */
+/* 11. Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -405,7 +456,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   transform: none !important;
 }
 
-/* ─── NARRATIVE CARDS (Cover Page) ──────────────────────────────────────────── */
+/* 12. Narrative cards (cover page) */
 .narrative-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -489,7 +540,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   color: var(--text-muted);
 }
 
-/* ─── FILM GRID (Cover Page) ─────────────────────────────────────────────────── */
+/* 13. Film grid (cover page) */
 .films-section {
   padding: var(--space-2xl) var(--space-xl);
   max-width: 960px;
@@ -551,7 +602,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   color: var(--text-muted);
 }
 
-/* ─── CHAPTER BADGE ──────────────────────────────────────────────────────────── */
+/* 14. Chapter badge */
 .chapter-badge {
   display: inline-flex;
   align-items: center;
@@ -571,21 +622,29 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 
 .chapter-surveillance { background: rgba(74,139,181,0.15); color: var(--surveillance-color); border: 1px solid rgba(74,139,181,0.3); }
-.chapter-escape       { background: rgba(154,106,42,0.15); color: var(--escape-color);       border: 1px solid rgba(154,106,42,0.3); }
-.chapter-hideouts     { background: rgba(106,58,122,0.15); color: var(--hideouts-color);     border: 1px solid rgba(106,58,122,0.3); }
+.chapter-chase        { background: rgba(154,106,42,0.15); color: var(--chase-color);        border: 1px solid rgba(154,106,42,0.3); }
+.chapter-search       { background: rgba(106,58,122,0.15); color: var(--search-color);       border: 1px solid rgba(106,58,122,0.3); }
 .chapter-confrontation{ background: rgba(154,53,53,0.15);  color: var(--confrontation-color);border: 1px solid rgba(154,53,53,0.3); }
 .chapter-1960s        { background: rgba(90,138,90,0.15);  color: var(--c-1960s);            border: 1px solid rgba(90,138,90,0.3); }
 .chapter-2012         { background: rgba(74,139,181,0.15); color: var(--c-2012);             border: 1px solid rgba(74,139,181,0.3); }
+.chapter-2014         { background: rgba(176,106,106,0.15);color: var(--c-2014);             border: 1px solid rgba(176,106,106,0.3); }
 .chapter-2016         { background: rgba(201,165,90,0.15); color: var(--c-2016);             border: 1px solid rgba(201,165,90,0.3); }
 
-/* ─── EXPLORE PAGE ───────────────────────────────────────────────────────────── */
+/* 15. Explore page */
+/* Canvas = viewport. Toolbars/controls keep their natural height; the location
+   viewer takes the rest. Any narrative or metadata that doesn't fit scrolls
+   inside its own container — never the page. The wrapper falls back to
+   overflow-y:auto only for pathologically short viewports. */
 .explore-wrapper {
   position: fixed;
   inset: 0;
+  height: 100vh;
   padding-top: var(--nav-height);
   display: flex;
   flex-direction: column;
   background: var(--bg-primary);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Narrative Toggle Bar */
@@ -627,7 +686,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   background: var(--active-color, var(--accent-gold));
   color: var(--text-inverse);
 }
-.narrative-toggle-btn[data-narrative="espionage"].active { --active-color: var(--accent-blue); }
+.narrative-toggle-btn[data-narrative="pursuit"].active   { --active-color: var(--accent-blue); }
 .narrative-toggle-btn[data-narrative="timeline"].active  { --active-color: var(--accent-gold); }
 
 .progress-indicator {
@@ -680,31 +739,144 @@ strong { color: var(--text-primary); font-weight: 600; }
 /* Location Viewer */
 .location-viewer {
   flex: 1;
+  min-height: 0;            /* lets flex shrink below content size */
   display: grid;
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
 }
 
-/* Left Panel — Visual */
+/* Left Panel — Visual.
+   overflow-y:auto so on shorter screens the gallery + name + scene panel
+   become scrollable instead of being clipped. */
 .location-visual {
   position: relative;
+  min-height: 0;            /* grid item must shrink so its overflow scrolls */
   background: var(--bg-secondary);
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .location-image-placeholder {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  min-height: 200px;
+  /* Fixed-ish image area sized to a film aspect ratio so the panels below
+     (gallery + info) are always visible without forcing scroll on tall screens. */
+  flex: 0 0 auto;
+  height: clamp(280px, 40vh, 440px);
+  width: 100%;
 }
+
+/* Main image: object-fit: contain shows the full photo (with letterbox)
+   so portrait stills aren't cropped. The chapter-coloured gradient fills
+   any blank space behind the image. z-index:1 keeps it under the tag/coords. */
+.location-image {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  z-index: 1;
+}
+
+/* YouTube embed: shares the same fixed image-area box as .location-image. */
+.location-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+  z-index: 2;
+}
+
+/* Gallery (per-location: tabs + thumbnails + caption) */
+.location-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.gallery-tabs {
+  display: flex;
+  gap: var(--space-xs);
+}
+.gallery-tab {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.gallery-tab:hover { color: var(--text-primary); border-color: var(--border-accent); }
+.gallery-tab.active {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  color: var(--text-inverse, #fff);
+}
+.gallery-tab-count {
+  display: inline-block;
+  margin-left: 4px;
+  font-size: 0.62rem;
+  opacity: 0.8;
+}
+.gallery-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 0;
+}
+.gallery-thumb {
+  width: 56px;
+  height: 40px;
+  background-color: var(--bg-secondary);
+  background-size: cover;
+  background-position: center;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.gallery-thumb:hover  { border-color: var(--border-accent); transform: scale(1.04); }
+.gallery-thumb.active { border-color: var(--accent-gold); }
+.gallery-caption {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0;
+  font-style: italic;
+}
+.gallery-video-link {
+  display: inline-block;
+  margin-left: 4px;
+  font-style: normal;
+  color: var(--accent-blue);
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  white-space: nowrap;
+}
+.gallery-video-link:hover { color: var(--accent-gold); }
+.gallery-tabs:empty,
+.gallery-thumbs:empty,
+.gallery-caption:empty { display: none; }
 
 /* Cinematic placeholder using CSS gradients */
 .location-image-placeholder::before {
@@ -800,17 +972,17 @@ strong { color: var(--text-primary); font-weight: 600; }
   flex-wrap: wrap;
 }
 
-/* Right Panel — Narrative */
+/* Right Panel — Narrative.
+   The grid cell itself is the scroll container so the body text and any
+   sibling blocks (note block, metadata viewer in details mode) share one
+   scrollbar instead of nesting scrolls. */
 .location-narrative {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  min-height: 0;            /* grid item must shrink */
+  overflow-y: auto;
   background: var(--bg-primary);
 }
 
 .narrative-content {
-  flex: 1;
-  overflow-y: auto;
   padding: var(--space-xl) var(--space-xl) var(--space-lg);
 }
 
@@ -930,7 +1102,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 .location-dot:hover { background: var(--text-muted); }
 
-/* ─── MAP PAGE ───────────────────────────────────────────────────────────────── */
+/* 16. Map page */
 .map-wrapper {
   position: fixed;
   inset: 0;
@@ -1060,7 +1232,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 
 .popup-location-name { font-family: var(--font-serif); font-size: 1rem; color: var(--text-primary); margin-bottom: 4px; }
 .popup-film-tag { font-size: 0.7rem; color: var(--accent-gold); margin-bottom: var(--space-sm); letter-spacing: 0.05em; }
-.popup-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6; max-width: 240px; }
 .popup-narrative-tags { display: flex; gap: 4px; margin-top: var(--space-sm); flex-wrap: wrap; }
 .popup-tag {
   padding: 2px 8px;
@@ -1069,32 +1240,10 @@ strong { color: var(--text-primary); font-weight: 600; }
   letter-spacing: 0.08em;
   font-weight: 600;
 }
-.popup-tag.espionage { background: rgba(74,139,181,0.2); color: var(--accent-blue); }
+.popup-tag.pursuit   { background: rgba(74,139,181,0.2); color: var(--accent-blue); }
 .popup-tag.timeline  { background: rgba(201,165,90,0.2);  color: var(--accent-gold); }
 
-/* Custom Leaflet Markers */
-.custom-marker {
-  width: 32px; height: 32px;
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid rgba(255,255,255,0.2);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  transition: transform 0.2s ease;
-}
-.custom-marker.espionage { background: var(--accent-blue); }
-.custom-marker.timeline  { background: var(--accent-gold); }
-.custom-marker.both      { background: linear-gradient(135deg, var(--accent-blue) 50%, var(--accent-gold) 50%); }
-.custom-marker:hover     { transform: rotate(-45deg) scale(1.2); }
-.custom-marker-inner {
-  transform: rotate(45deg);
-  font-size: 0.7rem;
-  color: white;
-}
-
-/* ─── CONTENT PAGES (About, Docs, Disclaimer) ────────────────────────────────── */
+/* 17. Content pages (About, Docs, Disclaimer) */
 .text-page {
   padding-top: var(--nav-height);
   min-height: 100vh;
@@ -1189,6 +1338,18 @@ strong { color: var(--text-primary); font-weight: 600; }
   line-height: 1.7;
 }
 
+/* Persona walkthrough — ordered click-path inside a doc-grid-item */
+.persona-flow {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: var(--space-sm) 0 0;
+  padding-left: 1.4rem;
+}
+.persona-flow li { margin-bottom: var(--space-xs); }
+.persona-flow li:last-child { margin-bottom: 0; }
+.persona-flow a { color: var(--text-primary); text-decoration: underline; }
+
 /* Color swatches */
 .color-swatches {
   display: flex;
@@ -1240,13 +1401,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 .timeline-list li strong { color: var(--text-primary); }
 
-/* About team cards */
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: var(--space-md);
-  margin-top: var(--space-lg);
-}
+/* About — author / team cards */
 .team-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -1266,7 +1421,52 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 .team-card-name { font-family: var(--font-serif); font-size: 1rem; color: var(--text-primary); margin-bottom: 2px; }
 .team-card-role { font-size: 0.75rem; color: var(--accent-gold); margin-bottom: var(--space-sm); }
-.team-card-info { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+/* Author scope paragraph — sits above the author card */
+.author-row-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: var(--space-lg) 0 var(--space-md);
+}
+
+/* Author card — wide horizontal rectangle: avatar | identity | affiliation */
+.author-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+.author-card .team-card-avatar {
+  flex: 0 0 48px;
+  margin-bottom: 0;
+}
+.author-card-identity {
+  flex: 0 0 auto;
+  border-right: 1px solid var(--border);
+  padding-right: var(--space-lg);
+  min-width: 200px;
+}
+.author-card-identity .team-card-role { margin-bottom: 0; }
+.author-card-affiliation {
+  flex: 1 1 auto;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+@media (max-width: 720px) {
+  .author-card {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .author-card-identity {
+    border-right: none;
+    padding-right: 0;
+    min-width: 0;
+  }
+}
 
 /* Disclaimer box */
 .disclaimer-box {
@@ -1309,7 +1509,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 .copyright-link:hover { color: var(--accent-gold); }
 
-/* ─── SOURCE LIST (Disclaimer) ──────────────────────────────────────────────── */
+/* Source list (Disclaimer page) */
 .source-list {
   list-style: none;
   margin: var(--space-lg) 0;
@@ -1338,7 +1538,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   font-size: 0.82rem;
 }
 
-/* ─── FOOTER ─────────────────────────────────────────────────────────────────── */
+/* 18. Footer */
 .site-footer {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border);
@@ -1352,30 +1552,20 @@ strong { color: var(--text-primary); font-weight: 600; }
 .footer-brand { font-family: var(--font-serif); font-size: 0.9rem; color: var(--text-secondary); }
 .footer-meta { font-size: 0.72rem; color: var(--text-muted); }
 
-/* ─── ANIMATIONS ─────────────────────────────────────────────────────────────── */
+/* 19. Animations */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
 
 .animate-fadeInUp { animation: fadeInUp 0.6s ease both; }
-.animate-fadeIn   { animation: fadeIn 0.4s ease both; }
 
 .delay-1 { animation-delay: 0.1s; }
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; }
 .delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
 
-/* ─── TRANSITIONS FOR LOCATION SWITCHING ─────────────────────────────────────── */
-.location-transition-out { animation: fadeIn 0.2s ease reverse; }
-.location-transition-in  { animation: fadeInUp 0.35s ease both; }
-
-/* ─── RESPONSIVE ──────────────────────────────────────────────────────────────── */
+/* 20. Responsive breakpoints */
 @media (max-width: 900px) {
   :root { --sidebar-width: 240px; }
 
@@ -1424,21 +1614,21 @@ strong { color: var(--text-primary); font-weight: 600; }
   .explore-controls { padding: var(--space-sm) var(--space-md); }
   .narrative-content { padding: var(--space-md); }
 
-  .content-page { padding: var(--space-xl) var(--space-md); }
   .text-page-header { padding: var(--space-2xl) var(--space-md) var(--space-xl); }
   .text-page-body { padding: var(--space-xl) var(--space-md); }
 }
 
-/* ─── PRINT ───────────────────────────────────────────────────────────────────── */
+/* 21. Print */
 @media print {
   .main-nav, .grain-overlay, .explore-controls, .narrative-toggle-bar { display: none; }
   body { background: white; color: black; }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════════
-   TEXT VARIANT + MODE SWITCHES (PDF p.15 — Tell me more/less, Simple/Difficult, Play/Details)
-   Shared between themes; appears in the explore page toolbar.
-   ═══════════════════════════════════════════════════════════════════════════════ */
+/* ============================================================================
+   22. Audience / length / mode toolbar
+   Three groups: audience (Young / Adult / Scholar), length (less / more),
+   mode (story / details). Shared by both themes.
+   ============================================================================ */
 .variant-toolbar {
   display: flex;
   align-items: center;
@@ -1496,13 +1686,47 @@ strong { color: var(--text-primary); font-weight: 600; }
   padding: 0 var(--space-sm);
 }
 
-/* ─── QR CODE + CAMERA PANEL (Details mode) ────────────────────────────────── */
+/* 23. Details panel — QR code + camera info */
 .details-panel {
-  padding: var(--space-lg) var(--space-xl);
+  position: relative;            /* anchor for the close button */
+  padding: var(--space-lg) var(--space-xl) var(--space-lg) var(--space-xl);
   background: var(--bg-secondary);
   border-top: 1px solid var(--border);
+  max-height: 60vh;              /* details panel scrolls inside its own box */
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 .details-panel.hidden { display: none; }
+
+/* Close button on the details panel: floats top-right and sticks while
+   the user scrolls, so it is always reachable. */
+.details-close {
+  position: sticky;
+  top: 0;
+  margin-left: auto;
+  display: block;
+  width: 32px; height: 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  line-height: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 5;
+}
+.details-close:hover {
+  background: var(--accent-red);
+  color: var(--text-primary);
+  border-color: var(--accent-red);
+  transform: scale(1.05);
+}
+.details-close:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
 .details-grid {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -1561,7 +1785,112 @@ strong { color: var(--text-primary); font-weight: 600; }
   font-style: italic;
 }
 
-/* ─── CHAPTER INTRO BANNER ─────────────────────────────────────────────────── */
+/* Catalogue metadata table.
+   Each row prefixes its key with a small vocabulary tag (schema:* /
+   dcterms:* / wikidata / lmml:*) so the metadata model is visible. */
+.meta-block {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border);
+}
+.meta-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+.meta-block-vocab {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.meta-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+.meta-table tr.meta-section th {
+  text-align: left;
+  padding: var(--space-md) 0 var(--space-xs);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  border-bottom: 1px solid var(--border-accent);
+}
+.meta-table tr.meta-section:first-child th { padding-top: 0; }
+.meta-table td {
+  padding: 6px var(--space-md) 6px 0;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+.meta-table .meta-key {
+  width: 38%;
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+}
+.meta-table .meta-val {
+  color: var(--text-primary);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+.meta-table .meta-val a {
+  color: var(--accent-gold);
+  border-bottom: 1px dotted var(--accent-gold-dim);
+}
+.meta-vocab-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: var(--accent-blue);
+  background: rgba(74,139,181,0.10);
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-right: 6px;
+  cursor: help;
+}
+.meta-block-footnote {
+  margin-top: var(--space-md);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.meta-block-footnote a { color: var(--accent-gold); }
+.meta-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.78rem;
+  padding: var(--space-md) 0 !important;
+  text-align: center;
+}
+
+/* Heritage theme: meta block becomes a print-style catalogue card */
+[data-theme="heritage"] .meta-block {
+  border-top: 2px double var(--border-accent);
+  padding-top: var(--space-xl);
+}
+[data-theme="heritage"] .meta-table tr.meta-section th {
+  font-family: var(--font-sans);
+  color: var(--accent-red);
+  letter-spacing: 0.22em;
+  border-bottom-style: double;
+  border-bottom-width: 2px;
+}
+[data-theme="heritage"] .meta-vocab-tag {
+  color: var(--accent-red);
+  background: rgba(122,46,46,0.08);
+}
+[data-theme="heritage"] .meta-block-vocab {
+  font-family: var(--font-sans);
+  letter-spacing: 0.16em;
+}
+
+/* 24. Chapter intro banner + transition line */
 .chapter-intro-banner {
   padding: var(--space-md) var(--space-xl);
   background: var(--bg-card);
@@ -1574,6 +1903,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   color: var(--text-secondary);
 }
 .chapter-intro-banner.hidden { display: none; }
+.chapter-intro-banner p { margin: 0; }
 .chapter-intro-banner strong {
   font-style: normal;
   color: var(--accent-gold);
@@ -1583,9 +1913,55 @@ strong { color: var(--text-primary); font-weight: 600; }
   margin-right: var(--space-sm);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════════
-   THEME SWITCHER UI (appears in nav on every page)
-   ═══════════════════════════════════════════════════════════════════════════════ */
+/* Transition line sits ABOVE the chapter intro on first-of-new-chapter loads.
+   Slightly muted + thin divider so the eye reads transition → intro. */
+.chapter-transition {
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px dashed var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.chapter-transition.hidden { display: none; }
+.chapter-transition strong { color: var(--text-muted); }
+
+/* 25. Walking directions to the next location */
+.location-directions {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin-top: var(--space-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.location-directions.hidden { display: none; }
+.location-directions strong {
+  color: var(--accent-gold);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.location-directions .directions-label {
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+}
+.location-directions .directions-arrow {
+  color: var(--accent-gold);
+  margin: 0 4px;
+}
+.location-directions .directions-bearing {
+  color: var(--accent-gold);
+  font-weight: 600;
+  margin: 0 4px;
+}
+.location-directions .directions-target {
+  color: var(--text-secondary);
+}
+
+/* 26. Theme switcher (appears in the nav on every page) */
 .theme-switcher {
   display: flex;
   align-items: center;
@@ -1616,7 +1992,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   color: var(--text-inverse);
 }
 
-/* ─── SITE-WIDE PREV/NEXT BUTTONS (PDF p.18 requirement) ──────────────────── */
+/* 27. Site-wide previous / next page buttons */
 .page-nav {
   display: flex;
   align-items: center;
@@ -1659,19 +2035,20 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 .page-nav-btn.disabled { opacity: 0.3; pointer-events: none; }
 
-/* ═══════════════════════════════════════════════════════════════════════════════
-   THEME 2: HERITAGE (inspired by XIX-century European print + 1960s title cards)
-   Per PDF p.12: differs from Cinematic in COLORS, FONTS, LAYOUT, ORDERING, LOOK&FEEL.
+/* ============================================================================
+   28. Heritage theme overrides
+   Inspired by XIX-century European print + 1960s academic title cards.
+   Differs from the Cinematic default in colours, fonts, layout, ordering,
+   and overall look and feel (see docs.html for the full justification).
 
-   Justification (see docs.html):
-     - 1960s narrative chapter (From Russia with Love, Topkapi) evokes
-       mid-century European cinema + academic publishing traditions.
+   Quick summary:
+     - 1960s narrative chapter (From Russia with Love) belongs to mid-century
+       European cinema + academic publishing — black "spy" theme is wrong.
      - Light ivory palette suggests acid-free archival paper.
-     - Cormorant Garamond + EB Garamond are transitional serifs widely used
-       in scholarly press (Harvard UP, Princeton UP) since the 1950s.
-     - Asymmetric left-heavy layout echoes Jan Tschichold's 1950s Penguin
-       redesigns — quiet, confident, text-forward.
-   ═══════════════════════════════════════════════════════════════════════════════ */
+     - Cormorant + EB Garamond are transitional serifs used by Harvard UP,
+       Princeton UP and other scholarly presses since the 1950s.
+     - Centred / book-style measure echoes Tschichold's 1950s Penguin redesigns.
+   ============================================================================ */
 [data-theme="heritage"] {
   /* Tokens override */
   --bg-primary:      #f5efe2;
@@ -1695,11 +2072,12 @@ strong { color: var(--text-primary); font-weight: 600; }
   --border-accent:   rgba(138,90,46,0.35);
 
   --surveillance-color: #2e4a6a;
-  --escape-color:       #8a5a2e;
-  --hideouts-color:     #5a3a6a;
+  --chase-color:        #8a5a2e;
+  --search-color:       #5a3a6a;
   --confrontation-color:#7a2e2e;
   --c-1960s:            #4e6a4e;
   --c-2012:             #2e4a6a;
+  --c-2014:             #8a4a4a;
   --c-2016:             #8a5a2e;
 
   /* Typography — entirely different typefaces */
@@ -1708,10 +2086,32 @@ strong { color: var(--text-primary); font-weight: 600; }
   --font-mono:  'EB Garamond', 'JetBrains Mono', monospace;
 }
 
-/* Structural overrides for Heritage — LAYOUT, ORDERING, LOOK&FEEL changes */
+/* Structural overrides: layout, ordering and look-and-feel */
 [data-theme="heritage"] body {
   font-family: var(--font-serif);
   letter-spacing: 0.005em;
+}
+
+/* Heritage background image: ebru (Turkish marbled paper) inspired warm washes
+   replacing the Cinematic filmstrip pattern. Soft sienna and oxblood clouds
+   over a faint diagonal weave — evokes hand-marbled endpapers on a printed
+   book. Geographic anchor: Ottoman/Levantine bookbinding tradition. */
+[data-theme="heritage"] body::before {
+  background:
+    /* warm cloud — top left */
+    radial-gradient(ellipse 45% 32% at 18% 22%, rgba(138,90,46,0.10) 0%, transparent 65%) center / 100% 100% no-repeat,
+    /* warm cloud — bottom right */
+    radial-gradient(ellipse 40% 30% at 82% 75%, rgba(122,46,46,0.08) 0%, transparent 65%) center / 100% 100% no-repeat,
+    /* warm cloud — bottom centre */
+    radial-gradient(ellipse 35% 28% at 50% 92%, rgba(138,90,46,0.06) 0%, transparent 65%) center / 100% 100% no-repeat,
+    /* faint ebru-like diagonal weave */
+    repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 7px,
+      rgba(138,90,46,0.025) 7px,
+      rgba(138,90,46,0.025) 8px
+    ) center / 100% 100%;
 }
 
 /* Grain overlay off — clean paper texture instead */
@@ -1867,7 +2267,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 
 /* Explore page: FLIPPED grid order — narrative LEFT, visual RIGHT
-   This is a meaningful structural change (PDF p.12 "Play with ordering"). */
+   This is a deliberate ordering change between the two themes. */
 [data-theme="heritage"] .location-viewer {
   grid-template-columns: 1.1fr 1fr;
 }
@@ -1939,6 +2339,22 @@ strong { color: var(--text-primary); font-weight: 600; }
 [data-theme="heritage"] .location-name-large {
   font-style: italic;
   font-weight: 500;
+}
+
+/* Heritage reorders the visual column to a book-style sequence:
+   heading/scene first (like a chapter title above a plate), then the image,
+   then the thumbnail gallery. Cinematic keeps the DOM order. */
+[data-theme="heritage"] .location-info-panel {
+  order: 0;
+  border-top: none;
+  border-bottom: 2px double var(--border-accent);
+}
+[data-theme="heritage"] .location-image-placeholder {
+  order: 1;
+}
+[data-theme="heritage"] .location-gallery {
+  order: 2;
+  border-top: 1px solid var(--border);
 }
 
 /* Image placeholder: parchment tint */
@@ -2106,3 +2522,256 @@ strong { color: var(--text-primary); font-weight: 600; }
   font-size: 0.95rem;
 }
 
+/* ============================================================================
+   29. Small helpers and page-specific utilities
+   These selectors replace inline style="..." attributes, so the HTML stays
+   simple and the actual styling lives in this file.
+   ============================================================================ */
+
+/* spacing utilities driven by data-mt / data-mb attributes */
+[data-mt="xs"]  { margin-top: var(--space-xs); }
+[data-mt="sm"]  { margin-top: var(--space-sm); }
+[data-mt="md"]  { margin-top: var(--space-md); }
+[data-mt="lg"]  { margin-top: var(--space-lg); }
+[data-mt="xl"]  { margin-top: var(--space-xl); }
+[data-mt="2xl"] { margin-top: var(--space-2xl); }
+[data-mb="xs"]  { margin-bottom: var(--space-xs); }
+[data-mb="sm"]  { margin-bottom: var(--space-sm); }
+[data-mb="md"]  { margin-bottom: var(--space-md); }
+[data-mb="lg"]  { margin-bottom: var(--space-lg); }
+
+/* accent-color helpers */
+[data-accent="gold"] { color: var(--accent-gold); }
+[data-accent="blue"] { color: var(--accent-blue); }
+
+/* index.html — about strip */
+.about-strip {
+  max-width: 960px;
+  margin: 0 auto var(--space-3xl);
+  padding: 0 var(--space-xl);
+}
+.about-strip-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-xl);
+  align-items: center;
+}
+.about-strip-text { font-size: 0.88rem; line-height: 1.7; }
+.about-strip-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+/* about.html — film detail cards */
+.films-detail-grid { display: grid; gap: var(--space-md); margin-top: var(--space-lg); }
+.film-detail-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-lg);
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: var(--space-lg);
+}
+.film-detail-year-block { text-align: center; }
+.film-detail-year {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  line-height: 1;
+}
+.film-detail-genre {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.film-detail-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.film-detail-director {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+.film-detail-synopsis {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+}
+.film-detail-role {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* row of action buttons at bottom of a text page */
+.page-actions-row {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  padding-top: var(--space-lg);
+}
+
+/* disclaimer.html — fine-print copyright + university card */
+.copyright-fineprint {
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.uni-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-xl);
+  margin-top: var(--space-lg);
+}
+.uni-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+.uni-info-text { font-size: 0.88rem; color: var(--text-secondary); }
+
+/* docs.html — color swatches use data-swatch instead of inline background */
+.color-swatch-box[data-swatch="cinematic-bg-primary"] { background: #0a0a12; }
+.color-swatch-box[data-swatch="cinematic-bg-card"]    { background: #1a1a2a; }
+.color-swatch-box[data-swatch="cinematic-gold"]       { background: #c9a55a; }
+.color-swatch-box[data-swatch="cinematic-blue"]       { background: #4a8bb5; }
+.color-swatch-box[data-swatch="cinematic-text-primary"]   { background: #e8ddd0; }
+.color-swatch-box[data-swatch="cinematic-text-secondary"] { background: #9090a8; }
+.color-swatch-box[data-swatch="heritage-bg-primary"]  { background: #f5efe2; border: 1px solid #d8cfb8; }
+.color-swatch-box[data-swatch="heritage-bg-card"]     { background: #f9f4ea; border: 1px solid #d8cfb8; }
+.color-swatch-box[data-swatch="heritage-sienna"]      { background: #8a5a2e; }
+.color-swatch-box[data-swatch="heritage-oxblood"]     { background: #7a2e2e; }
+.color-swatch-box[data-swatch="heritage-ink"]         { background: #2a231b; }
+.color-swatch-box[data-swatch="heritage-prussian"]    { background: #2e4a6a; }
+
+/* docs.html — typography sample lines inside doc-grid items */
+.type-sample-cinema-h {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.type-sample-cinema-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.type-sample-cinema-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.type-sample-heritage-h {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-style: italic;
+}
+.type-sample-heritage-body {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.type-sample-heritage-sc {
+  font-family: 'Alegreya Sans SC', 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  letter-spacing: 0.12em;
+}
+
+/* docs.html — file-structure pre block */
+.doc-file-structure {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 2;
+  white-space: pre;
+}
+
+/* docs.html — meta-table sizing variants + horizontal scroll wrapper */
+.meta-table-wrap  { overflow-x: auto; }
+.meta-table-small { font-size: 0.82rem; }
+.meta-table-tiny  { font-size: 0.78rem; }
+
+/* explore.html — center column inside .explore-controls */
+.explore-controls-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* map.html — floating legend in the bottom-right corner */
+.map-legend {
+  position: fixed;
+  bottom: var(--space-md);
+  right:  var(--space-md);
+  z-index: 500;
+  background: rgba(10, 10, 18, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.map-legend-row    { display: flex; align-items: center; gap: var(--space-sm); }
+.map-legend-dot    { width: 12px; height: 12px; border-radius: 50%; }
+.map-legend-dot[data-narr="pursuit"]  { background: var(--accent-blue); }
+.map-legend-dot[data-narr="timeline"] { background: var(--accent-gold); }
+.map-legend-dot[data-narr="both"] {
+  background: linear-gradient(135deg, var(--accent-blue) 50%, var(--accent-gold) 50%);
+}
+.map-legend-text { font-size: 0.72rem; color: var(--text-secondary); }
+
+/* map.html — sidebar prev/next button row */
+.map-sidebar-page-nav {
+  display: flex;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.map-sidebar-page-nav .btn {
+  flex: 1;
+  padding: 8px;
+  font-size: 0.7rem;
+  justify-content: center;
+}
+
+/* small bottom-margin variant of map-detail-link */
+.map-detail-link[data-mt="md"] { margin-top: var(--space-md); }
+
+/* map.js — fallback message rendered when Leaflet fails to load */
+.map-unavailable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  flex-direction: column;
+  gap: 12px;
+}
+.map-unavailable-icon { font-size: 2rem; }

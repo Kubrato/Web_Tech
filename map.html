@@ -4,6 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Map — Istanbul Cinema Tourism</title>
+
+  <!-- ─── STANDARD METADATA ──────────────────────────────────────────────── -->
+  <meta name="description" content="Interactive map of 16 Istanbul filming locations from From Russia with Love, Taken 2, Skyfall, The Water Diviner, and Inferno.">
+  <meta name="author"      content="Kübra Topçuoğlu">
+  <meta name="keywords"    content="Istanbul, film locations, map, GPS coordinates, cinema tourism">
+
+  <!-- Dublin Core -->
+  <meta name="DC.title"     content="Map — Istanbul Cinema Tourism">
+  <meta name="DC.creator"   content="Kübra Topçuoğlu">
+  <meta name="DC.subject"   content="Istanbul filming locations; geographic dataset">
+  <meta name="DC.publisher" content="University of Bologna — Digital Humanities and Digital Knowledge">
+  <meta name="DC.date"      content="2026">
+  <meta name="DC.language"  content="en">
+  <meta name="DC.rights"    content="Editorial selection © 2026 Kübra Topçuoğlu — academic use">
+  <meta name="DC.type"      content="Dataset">
+  <meta name="DC.coverage"  content="Istanbul, Türkiye">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Map — Istanbul Cinema Tourism">
+  <meta property="og:description" content="Interactive map of 16 Istanbul filming locations across five international films.">
+  <meta property="og:type"        content="website">
+
+  <!-- ─── SCHEMA.ORG JSON-LD (static Dataset descriptor) ─────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context":      "https://schema.org",
+    "@type":         "Dataset",
+    "name":          "Istanbul Film Locations — LMML Dataset",
+    "description":   "Curated dataset of 16 cinematic locations in Istanbul drawn from five international productions filmed between 1963 and 2016.",
+    "keywords":      ["Istanbul", "film locations", "cinema tourism", "Digital Humanities", "LMML"],
+    "creator":       { "@type": "Person", "name": "Kübra Topçuoğlu" },
+    "license":       "Academic fair use — University of Bologna",
+    "spatialCoverage": { "@type": "Place", "name": "Istanbul, Türkiye" },
+    "temporalCoverage":"1963/2016",
+    "inLanguage":    "en",
+    "dateModified":  "2026-05-07",
+    "isPartOf":      { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
+    "variableMeasured": [
+      "location coordinates", "film reference", "camera orientation",
+      "narrative chapter", "text variants (brief/mid/long)"
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="css/style.css">
   <!-- Leaflet CSS (no SRI — file:// protocol blocks SRI checks) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -13,7 +57,7 @@
   <div class="grain-overlay" aria-hidden="true"></div>
 
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+  <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Home">
       <span class="nav-brand-title">Istanbul</span>
       <span class="nav-brand-sub">Cinema Tourism</span>
@@ -41,20 +85,20 @@
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
     </div>
-  </nav>
+  </div>
 
   <!-- ── MAP APP ────────────────────────────────────────────────────────── -->
   <div class="map-wrapper" role="main">
 
     <!-- Sidebar -->
-    <aside class="map-sidebar" aria-label="Location list and filters">
+    <div class="map-sidebar" role="complementary" aria-label="Location list and filters">
 
       <div class="map-sidebar-header">
         <h1 class="map-sidebar-title">Film Locations</h1>
-        <p class="label" style="margin-bottom:var(--space-sm);">Filter by narrative</p>
+        <p class="label" data-mb="sm">Filter by narrative</p>
         <div class="map-filter-pills" role="group" aria-label="Filter locations">
           <button class="map-filter-pill active-all" data-filter="all"        id="filterAll">All</button>
-          <button class="map-filter-pill"             data-filter="espionage" id="filterEspionage">◈ Espionage</button>
+          <button class="map-filter-pill"             data-filter="pursuit"   id="filterEspionage">◈ Pursuit</button>
           <button class="map-filter-pill"             data-filter="timeline"  id="filterTimeline">◇ Timeline</button>
         </div>
       </div>
@@ -68,18 +112,18 @@
         <div class="map-detail-film" id="detailFilm"></div>
         <p class="map-detail-desc"  id="detailDesc"></p>
         <div id="detailNarrativeTags" class="popup-narrative-tags"></div>
-        <a href="explore.html" class="map-detail-link" id="detailExploreLink" style="margin-top:var(--space-md);">
+        <a href="explore.html" class="map-detail-link" id="detailExploreLink" data-mt="md">
           Explore this location →
         </a>
       </div>
 
-      <!-- Prev/Next page navigation within the map sidebar (PDF p.18) -->
-      <div style="display:flex;gap:var(--space-xs);padding:var(--space-sm);border-top:1px solid var(--border);flex-shrink:0;" aria-label="Page navigation">
-        <a href="index.html"   class="btn btn-ghost" style="flex:1;padding:8px;font-size:0.7rem;justify-content:center;">← Cover</a>
-        <a href="explore.html" class="btn btn-ghost" style="flex:1;padding:8px;font-size:0.7rem;justify-content:center;">Explore →</a>
+      <!-- Previous / next page links inside the map sidebar -->
+      <div class="map-sidebar-page-nav" aria-label="Page navigation">
+        <a href="index.html"   class="btn btn-ghost">← Cover</a>
+        <a href="explore.html" class="btn btn-ghost">Explore →</a>
       </div>
 
-    </aside>
+    </div>
 
     <!-- Map -->
     <div class="map-container" role="application" aria-label="Interactive map of Istanbul film locations">
@@ -89,19 +133,19 @@
   </div>
 
   <!-- Legend -->
-  <div style="position:fixed;bottom:var(--space-md);right:var(--space-md);z-index:500;background:rgba(10,10,18,0.9);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:6px;padding:var(--space-md);display:flex;flex-direction:column;gap:var(--space-xs);" aria-label="Map legend">
-    <p class="label" style="margin-bottom:4px;">Map Legend</p>
-    <div style="display:flex;align-items:center;gap:var(--space-sm);">
-      <div style="width:12px;height:12px;border-radius:50%;background:var(--accent-blue);"></div>
-      <span style="font-size:0.72rem;color:var(--text-secondary);">Espionage & Pursuit</span>
+  <div class="map-legend" aria-label="Map legend">
+    <p class="label" data-mb="xs">Map Legend</p>
+    <div class="map-legend-row">
+      <div class="map-legend-dot" data-narr="pursuit"></div>
+      <span class="map-legend-text">Pursuit & Passage</span>
     </div>
-    <div style="display:flex;align-items:center;gap:var(--space-sm);">
-      <div style="width:12px;height:12px;border-radius:50%;background:var(--accent-gold);"></div>
-      <span style="font-size:0.72rem;color:var(--text-secondary);">Through Time</span>
+    <div class="map-legend-row">
+      <div class="map-legend-dot" data-narr="timeline"></div>
+      <span class="map-legend-text">Through Time</span>
     </div>
-    <div style="display:flex;align-items:center;gap:var(--space-sm);">
-      <div style="width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue) 50%,var(--accent-gold) 50%);"></div>
-      <span style="font-size:0.72rem;color:var(--text-secondary);">Both Narratives</span>
+    <div class="map-legend-row">
+      <div class="map-legend-dot" data-narr="both"></div>
+      <span class="map-legend-text">Both Narratives</span>
     </div>
   </div>
 
@@ -113,7 +157,8 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Mobile nav toggle
+
+      // ---- 1. Mobile nav toggle ----
       const navToggle = document.getElementById("navToggle");
       const navLinks  = document.getElementById("navLinks");
       navToggle.addEventListener("click", () => {
@@ -121,13 +166,13 @@
         navToggle.setAttribute("aria-expanded", String(open));
       });
 
-      // Nav badge
+      // ---- 2. Narrative badge in the top nav ----
       const id = App.getNarrative();
       document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
       document.getElementById("navNarrativeName").textContent =
-        id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+        id === "pursuit" ? "Pursuit & Passage" : "Through Time";
 
-      // Theme switcher wiring
+      // ---- 3. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {
@@ -144,8 +189,6 @@
       });
       syncThemeButtons();
 
-      // Page-level JSON-LD: full dataset (map is the dataset entry point)
-      App.injectJSONLD("jsonld-page", App.datasetJSONLD());
     });
   </script>
 

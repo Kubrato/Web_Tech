@@ -4,6 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Disclaimer — Istanbul Cinema Tourism</title>
+
+  <!-- ─── STANDARD METADATA ──────────────────────────────────────────────── -->
+  <meta name="description" content="Academic purpose, copyright information, source references, and accuracy notes for the Istanbul Cinema Tourism project.">
+  <meta name="author"      content="Kübra Topçuoğlu">
+
+  <!-- Dublin Core -->
+  <meta name="DC.title"     content="Disclaimer — Istanbul Cinema Tourism">
+  <meta name="DC.creator"   content="Kübra Topçuoğlu">
+  <meta name="DC.subject"   content="Copyright; academic disclaimer; sources">
+  <meta name="DC.publisher" content="University of Bologna — Digital Humanities and Digital Knowledge">
+  <meta name="DC.date"      content="2026">
+  <meta name="DC.language"  content="en">
+  <meta name="DC.rights"    content="Editorial selection © 2026 Kübra Topçuoğlu — academic use">
+  <meta name="DC.type"      content="Text">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Disclaimer — Istanbul Cinema Tourism">
+  <meta property="og:description" content="Academic purpose, copyright, and source references.">
+  <meta property="og:type"        content="article">
+
+  <!-- ─── SCHEMA.ORG JSON-LD (static WebPage / disclaimer) ───────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context":   "https://schema.org",
+    "@type":      "WebPage",
+    "name":       "Disclaimer — Istanbul Cinema Tourism",
+    "description":"Academic purpose, copyright information, source references, and accuracy notes.",
+    "isPartOf":   { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
+    "author":     { "@type": "Person",  "name": "Kübra Topçuoğlu" },
+    "specialty":  "disclaimer",
+    "inLanguage": "en",
+    "dateModified":"2026-05-07",
+    "license":    "Editorial selection © 2026 Kübra Topçuoğlu — academic use"
+  }
+  </script>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,7 +47,7 @@
   <div class="grain-overlay" aria-hidden="true"></div>
 
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+  <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Home">
       <span class="nav-brand-title">Istanbul</span>
       <span class="nav-brand-sub">Cinema Tourism</span>
@@ -36,24 +72,24 @@
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
     </div>
-  </nav>
+  </div>
 
   <!-- ── CONTENT ────────────────────────────────────────────────────────── -->
-  <main class="text-page" role="main">
+  <div class="text-page" role="main">
 
-    <header class="text-page-header">
+    <div class="text-page-header">
       <p class="text-page-eyebrow">Legal &amp; Academic Notice</p>
       <h1 class="text-page-title">Disclaimer</h1>
       <p class="text-page-intro">
         Information about the academic purpose, copyright status, and limitations
         of this web exhibition.
       </p>
-    </header>
+    </div>
 
     <div class="text-page-body">
 
       <!-- Academic Disclaimer -->
-      <section class="doc-section" aria-labelledby="disc-academic">
+      <div class="doc-section" aria-labelledby="disc-academic">
         <p class="doc-section-number">01</p>
         <h2 class="doc-section-title" id="disc-academic">Academic Purpose</h2>
 
@@ -67,7 +103,7 @@
           </p>
         </div>
 
-        <div class="doc-section-body" style="margin-top:var(--space-lg);">
+        <div class="doc-section-body" data-mt="lg">
           <p>
             This exhibition was created entirely for academic and educational purposes. It does
             not represent an official publication of the University of Bologna, the films'
@@ -75,10 +111,10 @@
             names, and production details are the property of their respective rights holders.
           </p>
         </div>
-      </section>
+      </div>
 
       <!-- Copyright -->
-      <section class="doc-section" aria-labelledby="disc-copyright">
+      <div class="doc-section" aria-labelledby="disc-copyright">
         <p class="doc-section-number">02</p>
         <h2 class="doc-section-title" id="disc-copyright">Copyright &amp; Intellectual Property</h2>
         <div class="doc-section-body">
@@ -123,10 +159,10 @@
             © qrcode.js (MIT) ↗
           </a>
         </div>
-      </section>
+      </div>
 
-      <!-- Original Content Sources (PDF p.19 requirement) -->
-      <section class="doc-section" aria-labelledby="disc-sources">
+      <!-- Original content sources -->
+      <div class="doc-section" aria-labelledby="disc-sources">
         <p class="doc-section-number">2.1</p>
         <h2 class="doc-section-title" id="disc-sources">Original Sources for Film Content</h2>
         <div class="doc-section-body">
@@ -143,11 +179,6 @@
             <a href="https://en.wikipedia.org/wiki/From_Russia_with_Love_(film)" target="_blank" rel="noopener">Wikipedia ↗</a>
           </li>
           <li>
-            <strong>Topkapi (1964)</strong> · dir. Jules Dassin · Filmways / United Artists ·
-            <a href="https://www.imdb.com/title/tt0058700/" target="_blank" rel="noopener">IMDb ↗</a> ·
-            <a href="https://en.wikipedia.org/wiki/Topkapi_(film)" target="_blank" rel="noopener">Wikipedia ↗</a>
-          </li>
-          <li>
             <strong>Taken 2 (2012)</strong> · dir. Olivier Megaton · 20th Century Fox ·
             <a href="https://www.imdb.com/title/tt1397280/" target="_blank" rel="noopener">IMDb ↗</a> ·
             <a href="https://en.wikipedia.org/wiki/Taken_2" target="_blank" rel="noopener">Wikipedia ↗</a>
@@ -158,25 +189,30 @@
             <a href="https://en.wikipedia.org/wiki/Skyfall" target="_blank" rel="noopener">Wikipedia ↗</a>
           </li>
           <li>
+            <strong>The Water Diviner (2014)</strong> · dir. Russell Crowe · Universal / Warner Bros. ·
+            <a href="https://www.imdb.com/title/tt2179116/" target="_blank" rel="noopener">IMDb ↗</a> ·
+            <a href="https://en.wikipedia.org/wiki/The_Water_Diviner" target="_blank" rel="noopener">Wikipedia ↗</a>
+          </li>
+          <li>
             <strong>Inferno (2016)</strong> · dir. Ron Howard · Columbia Pictures / Sony ·
             <a href="https://www.imdb.com/title/tt3062096/" target="_blank" rel="noopener">IMDb ↗</a> ·
             <a href="https://en.wikipedia.org/wiki/Inferno_(2016_film)" target="_blank" rel="noopener">Wikipedia ↗</a>
           </li>
         </ul>
 
-        <div class="doc-section-body" style="margin-top:var(--space-lg);">
-          <p style="font-style:italic;color:var(--text-muted);font-size:0.85rem;">
+        <div class="doc-section-body" data-mt="lg">
+          <p class="copyright-fineprint">
             Copyright and related rights on the content remain with their original owners.
             James Bond™ © Danjaq LLC and Metro-Goldwyn-Mayer. Taken 2 © Twentieth Century Fox.
-            Topkapi © Filmways Pictures. Inferno © Columbia Pictures.
+            The Water Diviner © Universal / Warner Bros. Inferno © Columbia Pictures.
             Copyright on the typographic and layout choices presented here are 2026 ©
             Kübra Topçuoğlu, Master in Digital Humanities and Digital Knowledge, Università di Bologna.
           </p>
         </div>
-      </section>
+      </div>
 
       <!-- Accuracy -->
-      <section class="doc-section" aria-labelledby="disc-accuracy">
+      <div class="doc-section" aria-labelledby="disc-accuracy">
         <p class="doc-section-number">03</p>
         <h2 class="doc-section-title" id="disc-accuracy">Accuracy &amp; Limitations</h2>
         <div class="doc-section-body">
@@ -201,10 +237,10 @@
             premises.
           </p>
         </div>
-      </section>
+      </div>
 
       <!-- University -->
-      <section class="doc-section" aria-labelledby="disc-university">
+      <div class="doc-section" aria-labelledby="disc-university">
         <p class="doc-section-number">04</p>
         <h2 class="doc-section-title" id="disc-university">University Context</h2>
         <div class="doc-section-body">
@@ -220,32 +256,32 @@
           </p>
         </div>
 
-        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:var(--space-xl);margin-top:var(--space-lg);">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg);">
+        <div class="uni-info-card">
+          <div class="uni-info-grid">
             <div>
-              <p class="label" style="margin-bottom:var(--space-xs);">Institution</p>
-              <p style="font-size:0.88rem;color:var(--text-secondary);">Università di Bologna<br>Alma Mater Studiorum</p>
+              <p class="label" data-mb="xs">Institution</p>
+              <p class="uni-info-text">Università di Bologna<br>Alma Mater Studiorum</p>
             </div>
             <div>
-              <p class="label" style="margin-bottom:var(--space-xs);">Degree Programme</p>
-              <p style="font-size:0.88rem;color:var(--text-secondary);">Digital Humanities<br>and Digital Knowledge</p>
+              <p class="label" data-mb="xs">Degree Programme</p>
+              <p class="uni-info-text">Digital Humanities<br>and Digital Knowledge</p>
             </div>
             <div>
-              <p class="label" style="margin-bottom:var(--space-xs);">Course</p>
-              <p style="font-size:0.88rem;color:var(--text-secondary);">Information Modeling<br>and Web Technologies</p>
+              <p class="label" data-mb="xs">Course</p>
+              <p class="uni-info-text">Information Modeling<br>and Web Technologies</p>
             </div>
             <div>
-              <p class="label" style="margin-bottom:var(--space-xs);">Supervisor</p>
-              <p style="font-size:0.88rem;color:var(--text-secondary);">Prof. Fabio Vitali</p>
+              <p class="label" data-mb="xs">Supervisor</p>
+              <p class="uni-info-text">Prof. Fabio Vitali</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
     </div>
 
-    <!-- Site-wide prev/next page navigation (PDF p.18) -->
-    <nav class="page-nav" role="navigation" aria-label="Previous and next pages">
+    <!-- Previous / next page links -->
+    <div class="page-nav" role="navigation" aria-label="Previous and next pages">
       <a href="docs.html" class="page-nav-btn">
         <span class="page-nav-btn-label">← Previous Page</span>
         <span class="page-nav-btn-title">Documentation</span>
@@ -254,31 +290,35 @@
         <span class="page-nav-btn-label">Back to Start ↺</span>
         <span class="page-nav-btn-title">Cover</span>
       </a>
-    </nav>
-  </main>
+    </div>
+  </div>
 
   <!-- Footer -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-brand">Istanbul: A Stage of Espionage and Global Conflict</div>
+  <div class="site-footer" role="contentinfo">
+    <div class="footer-brand">Istanbul on Film — Foreign Cinema in the City</div>
     <div class="footer-meta">University of Bologna · Digital Humanities · Information Modeling and Web Technologies</div>
-  </footer>
+  </div>
 
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+
+      // ---- 1. Mobile nav toggle ----
       const navToggle = document.getElementById("navToggle");
       const navLinks  = document.getElementById("navLinks");
       navToggle.addEventListener("click", () => {
         const open = navLinks.classList.toggle("open");
         navToggle.setAttribute("aria-expanded", String(open));
       });
+
+      // ---- 2. Narrative badge in the top nav ----
       const id = App.getNarrative();
       document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
       document.getElementById("navNarrativeName").textContent =
-        id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+        id === "pursuit" ? "Pursuit & Passage" : "Through Time";
 
-      // Theme switcher wiring
+      // ---- 3. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {
@@ -295,17 +335,6 @@
       });
       syncThemeButtons();
 
-      // Page JSON-LD: Disclaimer as legal/academic notice
-      App.injectJSONLD("jsonld-page", {
-        "@context": "https://schema.org",
-        "@type":    "CreativeWork",
-        "name":     "Disclaimer — Istanbul Cinema Tourism",
-        "description": "Legal and academic notice: purpose, copyright, limitations, and original sources.",
-        "isPartOf": { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
-        "license":  "Academic fair use under University of Bologna educational context",
-        "copyrightHolder": { "@type": "Person", "name": "Kübra Topçuoğlu" },
-        "copyrightYear":   "2026"
-      });
     });
   </script>
 

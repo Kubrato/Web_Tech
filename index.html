@@ -3,8 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Istanbul: A Stage of Espionage and Global Conflict</title>
-  <meta name="description" content="A cinematic tourism web experience exploring real film locations in Istanbul across five iconic spy and action films.">
+  <title>Istanbul on Film — Foreign Cinema in the City</title>
+
+  <!-- ─── STANDARD METADATA (visible, simple) ─────────────────────────────── -->
+  <meta name="description"  content="A cinematic tourism web experience exploring real Istanbul film locations across five foreign productions: From Russia with Love, Taken 2, Skyfall, The Water Diviner, Inferno.">
+  <meta name="author"       content="Kübra Topçuoğlu">
+  <meta name="keywords"     content="Istanbul, film locations, cinema tourism, Digital Humanities, LMML, Bond, Skyfall, Taken 2, Inferno">
+
+  <!-- Dublin Core (academic / library metadata standard) -->
+  <meta name="DC.title"        content="Istanbul on Film — Foreign Cinema in the City">
+  <meta name="DC.creator"      content="Kübra Topçuoğlu">
+  <meta name="DC.subject"      content="Cinematic tourism; Istanbul film locations">
+  <meta name="DC.publisher"    content="University of Bologna — Digital Humanities and Digital Knowledge">
+  <meta name="DC.date"         content="2026">
+  <meta name="DC.language"     content="en">
+  <meta name="DC.rights"       content="Editorial selection © 2026 Kübra Topçuoğlu — academic use">
+  <meta name="DC.type"         content="InteractiveResource">
+
+  <!-- Open Graph (when shared on social media / messaging apps) -->
+  <meta property="og:title"       content="Istanbul on Film — Foreign Cinema in the City">
+  <meta property="og:description" content="A Live Museum of Movie Locations: walk Istanbul through five international films.">
+  <meta property="og:type"        content="website">
+  <meta property="og:locale"      content="en_GB">
+
+  <!-- ─── SCHEMA.ORG JSON-LD (machine-readable, in the <head>) ───────────────
+       Two static blocks: site-wide WebSite + this page's CreativeWork.
+       The Explore page also adds a third block dynamically (active location). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type":    "WebSite",
+    "name":     "Istanbul Cinema Tourism — LMML",
+    "alternateName": "Istanbul on Film: Foreign Cinema in the City",
+    "description":   "A Live Museum of Movie Locations companion app exploring how Istanbul has been depicted in five international films (1963–2016).",
+    "inLanguage":    "en",
+    "creator": {
+      "@type": "Person",
+      "name":  "Kübra Topçuoğlu",
+      "affiliation": {
+        "@type":      "CollegeOrUniversity",
+        "name":       "Università di Bologna",
+        "department": "Digital Humanities and Digital Knowledge"
+      }
+    },
+    "about":         { "@type": "City", "name": "Istanbul" },
+    "educationalUse":"academic project",
+    "license":       "Academic fair use — typographic and layout design © 2026 Kübra Topçuoğlu",
+    "dateModified":  "2026"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":          "https://schema.org",
+    "@type":             "CreativeWork",
+    "name":              "Istanbul on Film — Foreign Cinema in the City",
+    "description":       "Cover page of the LMML exhibition exploring Istanbul through five international film productions (1963–2016).",
+    "author":            { "@type": "Person", "name": "Kübra Topçuoğlu" },
+    "datePublished":     "2026",
+    "educationalLevel":  "Master's Degree",
+    "learningResourceType": "Digital exhibition"
+  }
+  </script>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,7 +73,7 @@
   <div class="grain-overlay" aria-hidden="true"></div>
 
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+  <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Istanbul Cinema Tourism home">
       <span class="nav-brand-title">Istanbul</span>
       <span class="nav-brand-sub">Cinema Tourism</span>
@@ -41,11 +101,11 @@
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName">Loading…</span>
     </div>
-  </nav>
+  </div>
 
   <!-- ── HERO / COVER ───────────────────────────────────────────────────── -->
-  <main>
-    <section class="hero" aria-label="Exhibition introduction">
+  <div role="main">
+    <div class="hero" aria-label="Exhibition introduction">
       <div class="hero-bg" aria-hidden="true">
         <div class="hero-bg-gradient"></div>
         <div class="hero-skyline"></div>
@@ -58,14 +118,15 @@
         </div>
 
         <h1 class="hero-title animate-fadeInUp delay-1">
-          Istanbul:
-          <em>A Stage of Espionage<br>and Global Conflict</em>
+          Istanbul on Film:
+          <em>Foreign Cinema<br>in the City</em>
         </h1>
 
         <p class="hero-subtitle animate-fadeInUp delay-2">
-          Five films. Sixty years of cinema. One city that never stopped being the world's most
-          compelling stage for intrigue, pursuit, and cultural collision. This exhibition guides
-          you through real Istanbul locations — on screen and on foot.
+          Five international productions. Six decades of cinema. One city filmed by spies,
+          fugitives, fathers and scholars. This exhibition walks you through the real Istanbul
+          locations behind From Russia with Love, Taken 2, Skyfall, The Water Diviner and
+          Inferno — on screen and on foot.
         </p>
 
         <div class="hero-meta animate-fadeInUp delay-3">
@@ -74,7 +135,7 @@
             <span class="hero-meta-label">Films</span>
           </div>
           <div class="hero-meta-item">
-            <span class="hero-meta-value">11</span>
+            <span class="hero-meta-value">16</span>
             <span class="hero-meta-label">Locations</span>
           </div>
           <div class="hero-meta-item">
@@ -98,26 +159,26 @@
           </a>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- ── NARRATIVE SELECTION ────────────────────────────────────────────── -->
-    <section class="narrative-cards" aria-label="Choose your narrative">
+    <div class="narrative-cards" aria-label="Choose your narrative">
       <a href="explore.html"
          class="narrative-card espionage animate-fadeInUp delay-2"
-         data-narrative="espionage"
+         data-narrative="pursuit"
          id="cardEspionage"
-         aria-label="Begin Espionage and Pursuit narrative">
+         aria-label="Begin Pursuit and Passage narrative">
         <span class="narrative-card-icon" aria-hidden="true">◈</span>
-        <h2 class="narrative-card-title">Espionage &amp; Pursuit</h2>
+        <h2 class="narrative-card-title">Pursuit &amp; Passage</h2>
         <p class="narrative-card-subtitle">Action-Driven Cinematic Journey</p>
         <p class="narrative-card-desc">
-          Follow the footsteps of spies and fugitives through Istanbul's most thrilling
-          locations. Experience the Grand Bazaar chase, the Orient Express departure, and
-          a climax beneath the ancient cistern — all drawn from five iconic films.
+          Walk in the footsteps of spies, fugitives and seekers. From the bazaar chase
+          to a quiet mosque courtyard, from a Bosphorus tour to an underground cistern —
+          twelve locations, four chapters, one journey through the city as a stage.
         </p>
         <div class="narrative-card-meta">
           <div class="narrative-card-stat">
-            <span class="narrative-card-stat-value">8</span>
+            <span class="narrative-card-stat-value">12</span>
             <span class="narrative-card-stat-label">Locations</span>
           </div>
           <div class="narrative-card-stat">
@@ -140,17 +201,18 @@
         <h2 class="narrative-card-title">Istanbul Through Time in Cinema</h2>
         <p class="narrative-card-subtitle">Analytical Comparative Journey</p>
         <p class="narrative-card-desc">
-          Compare how Istanbul has been depicted across six decades of filmmaking.
-          The same locations — Hagia Sophia, the Grand Bazaar, Topkapi Palace — seen
-          through the lens of 1963, 2012, and 2016.
+          Compare how Istanbul has been filmed across six decades. The same domes
+          and bridges return again and again, but the camera changes — from the slow
+          atmosphere of 1963, to the kinetic chases of 2012, the post-war memory of
+          2014, and the puzzle-solving of 2016.
         </p>
         <div class="narrative-card-meta">
           <div class="narrative-card-stat">
-            <span class="narrative-card-stat-value">7</span>
+            <span class="narrative-card-stat-value">16</span>
             <span class="narrative-card-stat-label">Locations</span>
           </div>
           <div class="narrative-card-stat">
-            <span class="narrative-card-stat-value">3</span>
+            <span class="narrative-card-stat-value">4</span>
             <span class="narrative-card-stat-label">Eras</span>
           </div>
           <div class="narrative-card-stat">
@@ -159,10 +221,10 @@
           </div>
         </div>
       </a>
-    </section>
+    </div>
 
     <!-- ── FILMS GRID ─────────────────────────────────────────────────────── -->
-    <section class="films-section animate-fadeInUp delay-3" aria-label="Featured films">
+    <div class="films-section animate-fadeInUp delay-3" aria-label="Featured films">
       <div class="section-header">
         <h2 class="section-title">Featured Films</h2>
         <div class="section-line" aria-hidden="true"></div>
@@ -171,14 +233,14 @@
       <div class="films-grid" id="filmsGrid" role="list">
         <!-- Populated by JS -->
       </div>
-    </section>
+    </div>
 
     <!-- ── ABOUT STRIP ─────────────────────────────────────────────────────── -->
-    <section style="max-width:960px;margin:0 auto var(--space-3xl);padding:0 var(--space-xl);">
-      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:var(--space-xl);display:grid;grid-template-columns:1fr auto;gap:var(--space-xl);align-items:center;">
+    <div class="about-strip">
+      <div class="about-strip-card">
         <div>
-          <p class="label" style="color:var(--accent-gold);margin-bottom:var(--space-sm);">About this Exhibition</p>
-          <p style="font-size:0.88rem;line-height:1.7;">
+          <p class="label" data-accent="gold" data-mb="sm">About this Exhibition</p>
+          <p class="about-strip-text">
             This web experience was created as a final project for the
             <strong>Information Modeling and Web Technologies</strong> course of the
             Master's Degree in Digital Humanities and Digital Knowledge at the
@@ -186,16 +248,16 @@
             <strong>Prof. Fabio Vitali</strong>.
           </p>
         </div>
-        <div style="display:flex;gap:var(--space-sm);flex-shrink:0;flex-wrap:wrap;">
+        <div class="about-strip-actions">
           <a href="about.html" class="btn btn-ghost">About</a>
           <a href="docs.html" class="btn btn-ghost">Docs</a>
           <a href="disclaimer.html" class="btn btn-ghost">Disclaimer</a>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Site-wide prev/next page navigation (PDF p.18) -->
-    <nav class="page-nav" role="navigation" aria-label="Previous and next pages">
+    <!-- Previous / next page links -->
+    <div class="page-nav" role="navigation" aria-label="Previous and next pages">
       <a href="disclaimer.html" class="page-nav-btn">
         <span class="page-nav-btn-label">↺ Loop back</span>
         <span class="page-nav-btn-title">Disclaimer</span>
@@ -204,32 +266,32 @@
         <span class="page-nav-btn-label">Next Page →</span>
         <span class="page-nav-btn-title">Map</span>
       </a>
-    </nav>
-  </main>
+    </div>
+  </div>
 
   <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-brand">Istanbul: A Stage of Espionage and Global Conflict</div>
+  <div class="site-footer" role="contentinfo">
+    <div class="footer-brand">Istanbul on Film — Foreign Cinema in the City</div>
     <div class="footer-meta">
       University of Bologna · Digital Humanities · Information Modeling and Web Technologies
     </div>
-  </footer>
+  </div>
 
   <!-- Scripts -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
-    // ── INIT ──────────────────────────────────────────────────────────────────
     document.addEventListener("DOMContentLoaded", () => {
 
-      // Update narrative badge in nav
+      // ---- 1. Narrative badge in the top nav ----
       function updateNavBadge() {
-        const id = App.getNarrative();
-        const dot = document.getElementById("navNarrativeDot");
+        const id   = App.getNarrative();
+        const dot  = document.getElementById("navNarrativeDot");
         const name = document.getElementById("navNarrativeName");
-        if (id === "espionage") {
+
+        if (id === "pursuit") {
           dot.classList.remove("timeline");
-          name.textContent = "Espionage & Pursuit";
+          name.textContent = "Pursuit & Passage";
         } else {
           dot.classList.add("timeline");
           name.textContent = "Through Time";
@@ -237,7 +299,7 @@
       }
       updateNavBadge();
 
-      // Mobile nav toggle
+      // ---- 2. Mobile nav toggle ----
       const navToggle = document.getElementById("navToggle");
       const navLinks  = document.getElementById("navLinks");
       navToggle.addEventListener("click", () => {
@@ -245,10 +307,10 @@
         navToggle.setAttribute("aria-expanded", String(open));
       });
 
-      // Narrative card clicks — set narrative then navigate
+      // ---- 3. Narrative cards: set the narrative then go to explore ----
       document.getElementById("cardEspionage").addEventListener("click", (e) => {
         e.preventDefault();
-        App.setNarrative("espionage");
+        App.setNarrative("pursuit");
         window.location.href = "explore.html";
       });
       document.getElementById("cardTimeline").addEventListener("click", (e) => {
@@ -257,27 +319,26 @@
         window.location.href = "explore.html";
       });
 
-      // Hero explore button — go with current narrative
+      // Hero "Explore" button keeps the current narrative.
       document.getElementById("heroExploreBtn").addEventListener("click", (e) => {
         e.preventDefault();
         window.location.href = "explore.html";
       });
 
-      // Populate films grid
+      // ---- 4. Build the films grid from APP_DATA.films ----
       const grid = document.getElementById("filmsGrid");
       APP_DATA.films.forEach(film => {
-        const card = document.createElement("article");
+        const card = document.createElement("div");
         card.className = "film-card";
         card.setAttribute("role", "listitem");
-        card.innerHTML = `
-          <div class="film-card-year">${film.year}</div>
-          <h3 class="film-card-title">${film.title}</h3>
-          <div class="film-card-director">Dir. ${film.director}</div>
-        `;
+        card.innerHTML =
+          '<div class="film-card-year">' + film.year + '</div>' +
+          '<h3 class="film-card-title">' + film.title + '</h3>' +
+          '<div class="film-card-director">Dir. ' + film.director + '</div>';
         grid.appendChild(card);
       });
 
-      // Theme switcher wiring (shared pattern across all pages)
+      // ---- 5. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {
@@ -293,19 +354,6 @@
         });
       });
       syncThemeButtons();
-
-      // Inject page-specific JSON-LD (Dataset descriptor + CreativeWork for cover)
-      App.injectJSONLD("jsonld-dataset", App.datasetJSONLD());
-      App.injectJSONLD("jsonld-page", {
-        "@context": "https://schema.org",
-        "@type":    "CreativeWork",
-        "name":     "Istanbul: A Stage of Espionage and Global Conflict",
-        "description": "Cover page of the LMML exhibition.",
-        "author":   { "@type": "Person", "name": "Kübra Topçuoğlu" },
-        "datePublished": "2026",
-        "educationalLevel": "Master's Degree",
-        "learningResourceType": "Digital exhibition"
-      });
 
     });
   </script>

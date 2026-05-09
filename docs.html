@@ -4,6 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Documentation — Istanbul Cinema Tourism</title>
+
+  <!-- ─── STANDARD METADATA ──────────────────────────────────────────────── -->
+  <meta name="description" content="Design choices, technical architecture, typography, metadata model, and accessibility for the Istanbul Cinema Tourism project.">
+  <meta name="author"      content="Kübra Topçuoğlu">
+  <meta name="keywords"    content="documentation, design system, metadata, Schema.org, Dublin Core, typography, accessibility">
+
+  <!-- Dublin Core -->
+  <meta name="DC.title"     content="Documentation — Istanbul Cinema Tourism">
+  <meta name="DC.creator"   content="Kübra Topçuoğlu">
+  <meta name="DC.subject"   content="Web design documentation; metadata model">
+  <meta name="DC.publisher" content="University of Bologna — Digital Humanities and Digital Knowledge">
+  <meta name="DC.date"      content="2026">
+  <meta name="DC.language"  content="en">
+  <meta name="DC.rights"    content="Editorial selection © 2026 Kübra Topçuoğlu — academic use">
+  <meta name="DC.type"      content="Text">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Documentation — Istanbul Cinema Tourism">
+  <meta property="og:description" content="Design decisions, architecture, and metadata model documented.">
+  <meta property="og:type"        content="article">
+
+  <!-- ─── SCHEMA.ORG JSON-LD (static TechArticle descriptor) ─────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context":   "https://schema.org",
+    "@type":      "TechArticle",
+    "name":       "Documentation — Istanbul Cinema Tourism",
+    "description":"Design decisions, technical architecture, typographic and UX principles, metadata model.",
+    "isPartOf":   { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
+    "author":     { "@type": "Person",  "name": "Kübra Topçuoğlu" },
+    "about":      ["Typography", "Information Architecture", "Accessibility", "Schema.org metadata", "Dublin Core"],
+    "inLanguage": "en",
+    "dateModified":"2026-05-07"
+  }
+  </script>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,7 +47,7 @@
   <div class="grain-overlay" aria-hidden="true"></div>
 
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+  <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Home">
       <span class="nav-brand-title">Istanbul</span>
       <span class="nav-brand-sub">Cinema Tourism</span>
@@ -36,245 +72,488 @@
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
     </div>
-  </nav>
+  </div>
 
   <!-- ── CONTENT ────────────────────────────────────────────────────────── -->
-  <main class="text-page" role="main">
+  <div class="text-page" role="main">
 
-    <header class="text-page-header">
+    <div class="text-page-header">
       <p class="text-page-eyebrow">Design Documentation</p>
       <h1 class="text-page-title">How This Was Built</h1>
       <p class="text-page-intro">
-        A record of the design decisions, technical architecture, and user experience
-        principles that shaped this cinematic tourism exhibition — from concept to code.
+        This page explains the design choices, the code structure, and the
+        user-experience ideas behind the project. Sections 01–07 walk through
+        the project area by area; section 08 (<a href="#doc-decisions">Design
+        Decisions — Quick Q&amp;A Reference</a>) collects the most likely
+        questions in a single index, each answer pointing back to the
+        relevant section.
       </p>
-    </header>
+    </div>
 
     <div class="text-page-body">
 
       <!-- 1. Concept & Structure -->
-      <section class="doc-section" aria-labelledby="doc-concept">
+      <div class="doc-section" aria-labelledby="doc-concept">
         <p class="doc-section-number">01</p>
         <h2 class="doc-section-title" id="doc-concept">Concept &amp; Information Architecture</h2>
         <div class="doc-section-body">
           <p>
-            The core challenge was avoiding the twin traps of the genre: the film database
-            (comprehensive but inert) and the tourist guide (useful but shallow). The solution
-            was to impose a <strong>narrative layer</strong> over the location data — organizing the
-            same factual content into two distinct interpretive journeys.
+            The main goal was to avoid two common problems: a film database
+            (full of facts, but boring), and a tourist guide (easy to use, but
+            too shallow). The solution was to add a <strong>narrative layer</strong>
+            on top of the location data. The same locations are shown in two
+            different journeys.
           </p>
           <p>
-            This dual-narrative structure required an information architecture where the same
-            location object could carry different content, different ordering, and a different
-            atmospheric register depending on the selected narrative. Rather than duplicate
-            location pages, the application uses a single data model with narrative-specific
-            text attached to each location entry.
+            With this structure, one location can have different text, different
+            order, and a different mood — depending on which narrative the user
+            picks. The project does not duplicate pages. Instead, one data model
+            holds different texts for each narrative.
           </p>
           <p>
-            The site is organized into six pages: Cover (landing/selection), Map (spatial
-            overview), Explore (narrative experience), About, Documentation, and Disclaimer.
-            Navigation between pages is linear and hierarchical, but the Explore page provides
-            a self-contained app-like experience with its own internal navigation.
+            The site has six pages: Cover (start page), Map, Explore (the main
+            experience), About, Documentation, and Disclaimer. The pages are
+            linked in a clear order. The Explore page is the most interactive
+            one and works almost like a small app.
           </p>
         </div>
 
-        <div class="doc-grid" style="margin-top:var(--space-lg);">
+        <div class="doc-grid" data-mt="lg">
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Data Model</p>
             <p class="doc-grid-item-body">
-              All content is stored in a single <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">data.js</code> file
-              as structured JavaScript objects. This separates content from presentation and
-              allows the UI to be driven entirely by data. Location entries contain per-narrative
-              text arrays, making switching instantaneous.
+              All content is stored in one file: <code>data.js</code>. The data is
+              kept separate from the design. This way the same data can drive
+              every page, and switching between narratives is instant.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">State Management</p>
             <p class="doc-grid-item-body">
-              Application state (active narrative, active location index) is persisted in
-              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">localStorage</code>,
-              allowing users to navigate between pages without losing their position.
-              A centralized <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">App</code>
-              module exposes a clean API for state reads and writes.
+              The app remembers what you are doing — which narrative is active
+              and which location you are reading — using <code>localStorage</code>.
+              So if you change pages, you do not lose your place.
             </p>
           </div>
         </div>
-      </section>
+      </div>
 
       <!-- 2. UX Design -->
-      <section class="doc-section" aria-labelledby="doc-ux">
+      <div class="doc-section" aria-labelledby="doc-ux">
         <p class="doc-section-number">02</p>
         <h2 class="doc-section-title" id="doc-ux">UX Design Principles</h2>
         <div class="doc-section-body">
           <p>
-            The design prioritizes <strong>immersion over information density</strong>. Each screen
-            presents a single location with generous space for the narrative text — resisting the
-            temptation to show everything at once. The user is guided through the experience
-            sequentially, like chapters of a book or scenes of a film.
+            The design shows one location at a time, with enough space for the
+            text. We did not want to show everything at once. The user moves
+            through the locations in order, like chapters in a book or scenes
+            in a film.
           </p>
           <p>
-            Three interaction modes were designed for different user contexts:
+            The site supports three ways to use it:
           </p>
         </div>
 
-        <ul class="timeline-list" style="margin-top:var(--space-lg);">
+        <ul class="timeline-list" data-mt="lg">
           <li>
-            <strong>Planning mode (home):</strong> Use the Cover page to select a narrative,
-            the Map to get spatial orientation, then the Explore page to read through locations
-            in sequence. Keyboard arrow keys support quick navigation.
+            <strong>Planning at home:</strong> Pick a narrative on the Cover page,
+            check the Map to see where the locations are, then go through the
+            Explore page in order. Arrow keys also work.
           </li>
           <li>
-            <strong>On-site mode (field):</strong> Use the Map page to identify nearby locations
-            and navigate to the Explore page for contextual narrative. The chapter strip allows
-            quick jumping between thematic sections without sequential browsing.
+            <strong>On-site visit:</strong> Use the Map to find the nearest
+            location, then open the Explore page for the text. The chapter
+            strip lets you jump between sections quickly.
           </li>
           <li>
-            <strong>Research mode (desktop):</strong> The Documentation and About pages support
-            a scholarly reading of the project's methodology. All location texts include
-            "Narrative Notes" — analytical commentary that goes beyond the cinematic surface.
+            <strong>Reading at the desk:</strong> The About and Documentation
+            pages show the project's background. Each location also has a
+            "Narrative Note" — a short analytical comment.
           </li>
         </ul>
 
-        <div class="doc-grid" style="margin-top:var(--space-xl);">
+        <div class="doc-grid" data-mt="xl">
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Navigation Patterns</p>
             <p class="doc-grid-item-body">
-              Previous/Next buttons for linear traversal. Dot indicators for quick
-              overview and direct access. Chapter strip for semantic jumping. Keyboard
-              arrows (← →) supported on the Explore page. Narrative toggle preserves
-              the current location index where possible.
+              Previous and Next buttons move the user one step at a time. Dots
+              show all locations at once. The chapter strip jumps between
+              sections. Arrow keys (← →) also work on the Explore page.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Progressive Disclosure</p>
             <p class="doc-grid-item-body">
-              Information is layered: film tag and location name first, then scene context,
-              then the atmospheric quote, then the full description, then the analytical
-              narrative note. Users can read at whatever depth suits them without being
-              overwhelmed on arrival.
+              Information is shown step by step: film tag and location name
+              first, then the scene, then the quote, then the full text, and
+              finally the narrative note. The user can stop reading at any
+              level.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Responsive Layout</p>
             <p class="doc-grid-item-body">
-              The Explore page uses a two-column split layout on desktop
-              (visual left, narrative right) that stacks vertically on mobile.
-              The Map sidebar adapts to a horizontal strip on small screens.
-              Touch targets meet WCAG 2.1 minimum size requirements.
+              On a desktop, the Explore page has two columns (image left, text
+              right). On a phone, the columns stack vertically. The Map sidebar
+              also adapts to small screens. Buttons are big enough to tap.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Narrative Transition</p>
             <p class="doc-grid-item-body">
-              Switching between narratives triggers a subtle fade-transition on the content
-              panel (opacity + translateY), providing temporal feedback that the content has
-              changed without being distracting. The transition takes 350ms — fast enough
-              to feel responsive, slow enough to read as intentional.
+              When the user changes narrative, the text fades out and back in
+              over 350 ms. This is fast enough to feel quick but slow enough
+              to show that the content has changed.
             </p>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- 3. Visual Design -->
-      <section class="doc-section" aria-labelledby="doc-visual">
+      <!-- 3. Visual Design & Themes -->
+      <div class="doc-section" aria-labelledby="doc-visual">
         <p class="doc-section-number">03</p>
-        <h2 class="doc-section-title" id="doc-visual">Visual Design System</h2>
+        <h2 class="doc-section-title" id="doc-visual">Visual Design System &amp; Themes</h2>
         <div class="doc-section-body">
           <p>
-            The visual language draws from cinematic conventions: dark projection-room
-            backgrounds, high-contrast typography, and a color palette inspired by the
-            visual grammar of the spy film genre. The design system is built on CSS custom
-            properties for consistency and easy theming.
+            Following the LMML brief, this individual project ships
+            <strong>two switchable themes</strong>. The two themes are not just
+            different fonts and colours: they differ in font family, palette,
+            background imagery, layout, ordering and overall look &amp; feel —
+            so the same content reads as two visually different exhibitions.
+            One theme reflects the qualities of the late-XX / XXI-century
+            screen; the other reflects XIX-century / mid-XX-century print.
+          </p>
+          <p>
+            Both themes share one design system. Tokens (colours, fonts,
+            spacing) live as CSS custom properties on <code>:root</code>; the
+            Heritage theme overrides them through a <code>[data-theme="heritage"]</code>
+            selector. The active theme is chosen with the round button pair in
+            the navigation bar (◉ / ❦) and persisted in <code>localStorage</code>,
+            so the choice survives across pages and reloads.
           </p>
         </div>
 
-        <!-- Color palette -->
-        <p class="label" style="margin-top:var(--space-xl);margin-bottom:var(--space-md);">Color Palette</p>
+        <!-- ─── Theme A: Cinematic ─────────────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">Theme A — Cinematic (XXI-century screen)</p>
+        <div class="doc-section-body">
+          <p>
+            <strong>Why this theme exists.</strong> The Pursuit &amp; Passage
+            narrative and the 2012 / 2014 / 2016 chapters of the Through Time
+            narrative are dominated by post-2010 digital cinema — Skyfall,
+            Taken 2, The Water Diviner, Inferno. These films share a darker
+            palette, anamorphic framing, and a kinetic, on-screen feel. The
+            Cinematic theme matches that register: a dark "projection room"
+            background, strong contrast typography, and an asymmetric
+            left-anchored hero that imitates a widescreen title card.
+          </p>
+          <p>
+            <strong>Background image.</strong> A pure-CSS pattern on
+            <code>body::before</code>: two thin filmstrip-perforation columns
+            on the left and right edges, plus a soft radial vignette, evoking
+            an unreeled 35mm strip and the screen falloff of a dark cinema.
+          </p>
+        </div>
+
+        <p class="label" data-mt="lg" data-mb="md">Cinematic palette</p>
         <div class="color-swatches">
           <div class="color-swatch">
-            <div class="color-swatch-box" style="background:#0a0a12;"></div>
+            <div class="color-swatch-box" data-swatch="cinematic-bg-primary"></div>
             <span class="color-swatch-name">BG Primary<br>#0a0a12</span>
           </div>
           <div class="color-swatch">
-            <div class="color-swatch-box" style="background:#1a1a2a;"></div>
+            <div class="color-swatch-box" data-swatch="cinematic-bg-card"></div>
             <span class="color-swatch-name">BG Card<br>#1a1a2a</span>
           </div>
           <div class="color-swatch">
-            <div class="color-swatch-box" style="background:#c9a55a;"></div>
+            <div class="color-swatch-box" data-swatch="cinematic-gold"></div>
             <span class="color-swatch-name">Gold<br>#c9a55a</span>
           </div>
           <div class="color-swatch">
-            <div class="color-swatch-box" style="background:#4a8bb5;"></div>
+            <div class="color-swatch-box" data-swatch="cinematic-blue"></div>
             <span class="color-swatch-name">Blue<br>#4a8bb5</span>
           </div>
           <div class="color-swatch">
-            <div class="color-swatch-box" style="background:#e8ddd0;"></div>
+            <div class="color-swatch-box" data-swatch="cinematic-text-primary"></div>
             <span class="color-swatch-name">Text Primary<br>#e8ddd0</span>
           </div>
           <div class="color-swatch">
-            <div class="color-swatch-box" style="background:#9090a8;"></div>
+            <div class="color-swatch-box" data-swatch="cinematic-text-secondary"></div>
             <span class="color-swatch-name">Text Secondary<br>#9090a8</span>
           </div>
         </div>
 
-        <!-- Typography -->
-        <p class="label" style="margin-top:var(--space-xl);margin-bottom:var(--space-md);">Typography</p>
+        <p class="label" data-mt="lg" data-mb="md">Cinematic typography</p>
         <div class="doc-grid">
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Playfair Display</p>
-            <p style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text-primary);margin-bottom:4px;">Headings &amp; Titles</p>
+            <p class="type-sample-cinema-h">Headings &amp; Titles</p>
             <p class="doc-grid-item-body">
-              A transitional serif with strong optical contrast. Its literary associations
-              and cinematic weight make it ideal for location names, section headers, and
-              atmospheric quotes. Used at weights 400 (regular italic) and 600–700 (display).
+              A high-contrast serif with cinematic, title-card energy. Used for
+              location names, section titles and pull quotes, in regular italic
+              (400) and bold (600–700).
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Inter</p>
-            <p style="font-family:'Inter',sans-serif;font-size:1rem;color:var(--text-secondary);margin-bottom:4px;">Body Text &amp; UI</p>
+            <p class="type-sample-cinema-body">Body Text &amp; UI</p>
             <p class="doc-grid-item-body">
-              A humanist sans-serif optimized for screen readability. Its clean geometry
-              balances the ornamental quality of Playfair Display. Used at weights
-              300–400 for body text, 500–600 for UI labels and navigation.
+              A clean, screen-optimised sans-serif. Balances the decorative
+              Playfair, keeps body text and UI controls legible at small sizes.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">JetBrains Mono</p>
-            <p style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--text-muted);margin-bottom:4px;">Coordinates &amp; Data</p>
+            <p class="type-sample-cinema-mono">Coordinates &amp; Data</p>
             <p class="doc-grid-item-body">
-              Used for GPS coordinates, film years, and technical data. Its monospaced
-              character creates a deliberate contrast between the narrative text
-              and factual information, reinforcing the dual nature of the experience.
+              A monospaced face for GPS coordinates, years and technical
+              metadata. The code-like rhythm makes facts visually distinct
+              from prose at a glance.
             </p>
           </div>
           <div class="doc-grid-item">
-            <p class="doc-grid-item-title">Type Scale</p>
+            <p class="doc-grid-item-title">Layout signature</p>
             <p class="doc-grid-item-body">
-              Fluid type sizes using <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">clamp()</code>
-              for responsive scaling without media query breakpoints. Base unit: 16px.
-              Scale: 0.62rem (labels) → 0.9rem (body) → 4.5rem (hero title).
+              Asymmetric, <strong>left-anchored</strong> hero with skyline
+              silhouette. Explore page: <strong>image left, narrative right</strong>.
+              Inside the visual column: <strong>image → gallery → info panel</strong>
+              (image opens, caption follows).
             </p>
           </div>
         </div>
-      </section>
+
+        <!-- ─── Theme B: Heritage ─────────────────────────────────────── -->
+        <p class="label" data-mt="2xl" data-mb="md">Theme B — Heritage (XIX-century print &amp; 1960s academic press)</p>
+        <div class="doc-section-body">
+          <p>
+            <strong>Why this theme exists.</strong> The 1960s chapter of the
+            Through Time narrative — From Russia with Love (1963), and the
+            "tourist Istanbul" gaze it established — belongs to a slower,
+            documentary, mid-century European cinema. Reading those locations
+            on a black "spy" background flattens that history. The Heritage
+            theme places them on parchment, in a transitional serif, with a
+            centred, book-style measure. It is also the better register for
+            scholarly long-form reading: the doc, about and disclaimer pages
+            gain a drop-cap and ornamental section breaks.
+          </p>
+          <p>
+            <strong>Background image.</strong> A pure-CSS pattern on
+            <code>body::before</code>: three soft sienna/oxblood radial washes
+            laid over a faint diagonal weave, evoking <em>ebru</em> (Turkish
+            marbled paper) endpapers — a deliberate Ottoman/Levantine
+            geographic anchor that ties the typographic tradition to the
+            project's actual subject city.
+          </p>
+        </div>
+
+        <p class="label" data-mt="lg" data-mb="md">Heritage palette</p>
+        <div class="color-swatches">
+          <div class="color-swatch">
+            <div class="color-swatch-box" data-swatch="heritage-bg-primary"></div>
+            <span class="color-swatch-name">BG Primary<br>#f5efe2</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" data-swatch="heritage-bg-card"></div>
+            <span class="color-swatch-name">BG Card<br>#f9f4ea</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" data-swatch="heritage-sienna"></div>
+            <span class="color-swatch-name">Sienna<br>#8a5a2e</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" data-swatch="heritage-oxblood"></div>
+            <span class="color-swatch-name">Oxblood<br>#7a2e2e</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" data-swatch="heritage-ink"></div>
+            <span class="color-swatch-name">Ink<br>#2a231b</span>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch-box" data-swatch="heritage-prussian"></div>
+            <span class="color-swatch-name">Prussian Blue<br>#2e4a6a</span>
+          </div>
+        </div>
+
+        <p class="label" data-mt="lg" data-mb="md">Heritage typography</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Cormorant Garamond</p>
+            <p class="type-sample-heritage-h">Headings &amp; Titles</p>
+            <p class="doc-grid-item-body">
+              A transitional serif descended from Garamond's mid-XVI-century
+              cuts and used widely by scholarly presses (Harvard UP, Princeton
+              UP) since the 1950s. Headings drop to weight 500 and lean on
+              italic for emphasis.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">EB Garamond</p>
+            <p class="type-sample-heritage-body">Body Text</p>
+            <p class="doc-grid-item-body">
+              An open-source revival of Claude Garamond's 1592 specimens,
+              tuned for long reading. Used for the narrative body, with a
+              drop-cap on the first paragraph — a direct quotation from
+              XIX-century book design.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Alegreya Sans SC</p>
+            <p class="type-sample-heritage-sc">SMALL CAPS · NAV &amp; LABELS</p>
+            <p class="doc-grid-item-body">
+              Small-caps humanist sans-serif for navigation, labels and
+              chapter rubrics. Mirrors the small-caps running heads of
+              mid-XX-century academic editions.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Layout signature</p>
+            <p class="doc-grid-item-body">
+              <strong>Centred</strong> hero with an ornamental rule (❦) under
+              the title; double-rule section breaks. Explore page:
+              <strong>narrative left, image right</strong> (mirrored from
+              Cinematic). Inside the visual column the order is also
+              re-sequenced — <strong>info panel → image → gallery</strong> —
+              so the heading and scene caption introduce the figure, like a
+              plate in a printed book.
+            </p>
+          </div>
+        </div>
+
+        <!-- ─── Shared type-scale + side-by-side comparison ───────────── -->
+        <p class="label" data-mt="2xl" data-mb="md">Shared type scale</p>
+        <div class="doc-section-body">
+          <p>
+            Both themes share one fluid type scale. Sizes use
+            <code>clamp()</code>, so they scale smoothly between small and
+            large screens without media-query breakpoints. Base size: 16 px.
+            Smallest label: 0.62 rem. Largest hero title: 4.5 rem.
+          </p>
+        </div>
+
+        <p class="label" data-mt="xl" data-mb="md">Side-by-side comparison</p>
+        <div class="doc-grid-item meta-table-wrap">
+          <table class="meta-table meta-table-small">
+            <thead>
+              <tr><th>Aspect</th><th>Cinematic</th><th>Heritage</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Period anchor</strong></td>
+                <td>2010s digital cinema</td>
+                <td>1950s–60s European print + Ottoman ebru</td>
+              </tr>
+              <tr>
+                <td><strong>Best fit</strong></td>
+                <td>Pursuit &amp; Passage; 2012 / 2014 / 2016 chapters</td>
+                <td>Through Time → 1960s chapter; long-form reading pages</td>
+              </tr>
+              <tr>
+                <td><strong>Background image</strong></td>
+                <td>Filmstrip perforations + dark vignette</td>
+                <td>Ebru-style sienna washes + diagonal weave</td>
+              </tr>
+              <tr>
+                <td><strong>Serif</strong></td>
+                <td>Playfair Display</td>
+                <td>Cormorant Garamond / EB Garamond</td>
+              </tr>
+              <tr>
+                <td><strong>Sans</strong></td>
+                <td>Inter</td>
+                <td>Alegreya Sans SC (small caps)</td>
+              </tr>
+              <tr>
+                <td><strong>Mono / numeric</strong></td>
+                <td>JetBrains Mono</td>
+                <td>EB Garamond (oldstyle figures)</td>
+              </tr>
+              <tr>
+                <td><strong>Hero alignment</strong></td>
+                <td>Left-anchored, asymmetric, skyline silhouette</td>
+                <td>Centred, ornamental rule (❦) under title</td>
+              </tr>
+              <tr>
+                <td><strong>Explore grid</strong></td>
+                <td>Image LEFT · narrative RIGHT</td>
+                <td>Narrative LEFT · image RIGHT (mirrored)</td>
+              </tr>
+              <tr>
+                <td><strong>Visual-column order</strong></td>
+                <td>Image → gallery → info panel</td>
+                <td>Info panel → image → gallery (book-plate order)</td>
+              </tr>
+              <tr>
+                <td><strong>Body emphasis</strong></td>
+                <td>Bold weights, sharp accents</td>
+                <td>Drop-cap on first paragraph, italics for emphasis</td>
+              </tr>
+              <tr>
+                <td><strong>Section breaks</strong></td>
+                <td>Single hairline borders</td>
+                <td>Double rules, ornamental glyphs (❧)</td>
+              </tr>
+              <tr>
+                <td><strong>Border radius</strong></td>
+                <td>4–8 px (modern UI)</td>
+                <td>2 px (close to letterpress edges)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ─── Shared capabilities required by the brief ─────────────── -->
+        <p class="label" data-mt="2xl" data-mb="md">What both themes must handle</p>
+        <div class="doc-section-body">
+          <p>
+            The LMML brief states that any theme must remain useful for many
+            different exhibitions, not just the one it was designed for. Both
+            themes here pass the same three capability tests, so the same
+            data file could power a different cinema-tourism project tomorrow
+            without redesign:
+          </p>
+        </div>
+        <ul class="timeline-list" data-mt="md">
+          <li>
+            <strong>Multiple texts of various lengths.</strong> Each location
+            carries three text variants (young / adult / scholar), a short
+            quote and a separate narrative note. Both themes set sensible
+            measure (≈ 60–75 characters per line) so a 40-word quote and a
+            300-word scholar essay both look intentional.
+          </li>
+          <li>
+            <strong>Images and captions.</strong> Each location has a tabbed
+            gallery (real location vs. film still) with multiple thumbnails
+            and a per-image caption. Both themes style the gallery, captions
+            and the floating film tag with theme-appropriate borders, fonts
+            and colours.
+          </li>
+          <li>
+            <strong>Reasonably sized metadata tables.</strong> The Details
+            panel renders the full <code>LOC_META</code> record as a five-section
+            table (Location / Heritage / Scene / Tourism / Project). Both
+            themes restyle the section headings, the vocabulary tags and the
+            row borders without changing the table's structure.
+          </li>
+        </ul>
+      </div>
 
       <!-- 4. Technical Architecture -->
-      <section class="doc-section" aria-labelledby="doc-tech">
+      <div class="doc-section" aria-labelledby="doc-tech">
         <p class="doc-section-number">04</p>
         <h2 class="doc-section-title" id="doc-tech">Technical Architecture</h2>
         <div class="doc-section-body">
           <p>
-            The project is built as a multi-page static website using vanilla HTML, CSS,
-            and JavaScript — no build tools, no frameworks, no server required. This
-            choice reflects the course context (accessibility, comprehensibility, portability)
-            and the content (a static exhibition does not require dynamic server infrastructure).
+            The project is a simple multi-page static website. It uses plain
+            HTML, CSS, and JavaScript only. There are no build tools, no
+            frameworks, and no server. The site can run from any folder or any
+            basic web host. The code is easy to read and easy to share — which
+            fits the course goals.
           </p>
         </div>
 
-        <div class="doc-grid" style="margin-top:var(--space-lg);">
+        <div class="doc-grid" data-mt="lg">
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">File Structure</p>
-            <p class="doc-grid-item-body" style="font-family:var(--font-mono);font-size:0.78rem;line-height:2;white-space:pre;">
+            <p class="doc-grid-item-body doc-file-structure">
 index.html        ← Cover/landing
 map.html          ← Interactive map
 explore.html      ← Narrative explorer
@@ -290,96 +569,687 @@ js/explore.js     ← Explore logic</p>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Dependencies</p>
             <p class="doc-grid-item-body">
-              <strong>Leaflet.js 1.9.4</strong> — interactive map library (via CDN, no API key required).<br><br>
-              <strong>CARTO Dark Matter</strong> — free dark tile layer compatible with OpenStreetMap data, no registration required.<br><br>
-              <strong>Google Fonts</strong> — Playfair Display + Inter + JetBrains Mono (via CDN).<br><br>
-              No other external dependencies. No npm, no bundler, no framework.
+              <strong>Leaflet.js 1.9.4</strong> — the map library (loaded from a CDN, no API key needed).<br><br>
+              <strong>CARTO Dark Matter</strong> — free dark map tiles based on
+              OpenStreetMap data; no account needed.<br><br>
+              <strong>Google Fonts</strong> — Playfair Display, Inter, JetBrains
+              Mono (loaded from a CDN).<br><br>
+              <strong>qrcode.js</strong> — small library for the QR code on the
+              Details panel.<br><br>
+              No npm, no bundler, no framework.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Semantic HTML</p>
             <p class="doc-grid-item-body">
-              All pages use semantic HTML5 elements: <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;nav&gt;</code>,
-              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;main&gt;</code>,
-              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;section&gt;</code>,
-              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;article&gt;</code>,
-              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;header&gt;</code>,
-              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;footer&gt;</code>,
-              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">&lt;blockquote&gt;</code>.
-              ARIA attributes provide accessibility context for interactive components.
+              All pages use the right HTML5 tags:
+              <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>,
+              <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>,
+              <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>,
+              <code>&lt;blockquote&gt;</code>. ARIA attributes describe the
+              interactive parts for screen readers.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">CSS Architecture</p>
             <p class="doc-grid-item-body">
-              Single stylesheet with clear section comments. Design tokens in
-              <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">:root</code>
-              CSS custom properties. Mobile-first media queries. No preprocessor required.
-              Utility classes for animation and spacing. Component classes follow a
-              BEM-influenced naming convention without strict enforcement.
+              One stylesheet, with clear comments for each section. Colours and
+              sizes are stored as CSS variables in the <code>:root</code>
+              selector. The layout is mobile-first. No preprocessor (like Sass)
+              is needed.
             </p>
           </div>
         </div>
-      </section>
+      </div>
 
       <!-- 5. Content Strategy -->
-      <section class="doc-section" aria-labelledby="doc-content">
+      <div class="doc-section" aria-labelledby="doc-content">
         <p class="doc-section-number">05</p>
         <h2 class="doc-section-title" id="doc-content">Content Strategy</h2>
         <div class="doc-section-body">
           <p>
-            Each location entry contains four distinct content layers, each serving a
-            different user need and register:
+            Each location has four content layers. Each layer answers a
+            different need:
           </p>
         </div>
 
-        <ul class="timeline-list" style="margin-top:var(--space-lg);">
+        <ul class="timeline-list" data-mt="lg">
           <li>
-            <strong>Atmospheric Quote</strong> — a single evocative sentence in italics.
-            Functions as a threshold: introduces the mood of the location before the
-            reader commits to the full text. Short enough to read in passing.
+            <strong>Quote</strong> — one short italic sentence. It sets the mood
+            before the user reads the full text. Short enough to read quickly.
           </li>
           <li>
-            <strong>Narrative Description</strong> — 100–150 words. Describes the scene
-            from within its narrative context, as if experienced from the film's perspective.
-            Written in present tense for immediacy. References specific film sequences
-            with precise geographic detail.
+            <strong>Narrative Description</strong> — 100–150 words. Describes
+            the scene as it happens in the film. Written in present tense.
+            Mentions specific film moments and exact places.
           </li>
           <li>
-            <strong>Narrative Note</strong> — 60–100 words. An analytical commentary
-            that steps outside the film's perspective to provide historical, geographic,
-            or cinematic context. Suitable for readers with scholarly interests.
+            <strong>Narrative Note</strong> — 60–100 words. A short comment that
+            steps outside the film. It adds historical, geographic, or
+            cinematic context for readers who want more.
           </li>
           <li>
-            <strong>Film Tag &amp; Coordinates</strong> — factual anchors always visible
-            on the visual panel. The GPS coordinates connect the cinematic text to the
-            physical reality of the location, supporting on-site use.
+            <strong>Film Tag &amp; Coordinates</strong> — facts that are always
+            visible on the image panel. The GPS numbers connect the text to the
+            real place, useful when you visit it.
           </li>
         </ul>
-      </section>
+      </div>
 
-      <!-- 6. Accessibility -->
-      <section class="doc-section" aria-labelledby="doc-a11y">
+      <!-- 6. Metadata Model -->
+      <div class="doc-section" aria-labelledby="doc-meta">
         <p class="doc-section-number">06</p>
+        <h2 class="doc-section-title" id="doc-meta">Metadata Model</h2>
+        <div class="doc-section-body">
+          <p>
+            Every location has a metadata record. The same record is shown in two
+            ways: as a <strong>visible table</strong> in the Details panel of the
+            Explore page, and as a <strong>JSON-LD block</strong> in the page
+            <code>&lt;head&gt;</code> for search engines and other tools. Both come
+            from the same place in the code: the <code>LOC_META</code> object in
+            <code>js/data.js</code>.
+          </p>
+          <p>
+            The records are grouped into <strong>five sections</strong>: Location,
+            Heritage, Scene, Tourism, and Project. Each section answers a different
+            question about the place. The sections use a small mix of standard
+            vocabularies, because no single standard covers everything (geography,
+            old buildings, film scenes, tourism, and editorial credits).
+          </p>
+        </div>
+
+        <!-- RSTU mapping -->
+        <p class="label" data-mt="xl" data-mb="md">How the model is Rich, Systematic, Tailored, Uniform</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Rich</p>
+            <p class="doc-grid-item-body">
+              Each record has many fields: address, Wikidata ID, year built,
+              architects, style, UNESCO status, visit duration, accessibility
+              notes, sources. No record has only coordinates.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Systematic</p>
+            <p class="doc-grid-item-body">
+              All 16 locations use the same 5 sections. If a field is missing for
+              one place, the field stays empty — it is not silently removed. So
+              the same shape is visible for every location.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Tailored</p>
+            <p class="doc-grid-item-body">
+              The model holds two kinds of facts: heritage facts (year built,
+              architect) and cinema facts (camera angle, film role). They live
+              side by side, without one being forced to look like the other.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Uniform</p>
+            <p class="doc-grid-item-body">
+              The HTML table and the JSON-LD are built from the same
+              <code>LOC_META</code> object. So a human eye, a screen reader and a
+              search engine all see the same record.
+            </p>
+          </div>
+        </div>
+
+        <!-- Where the JSON-LD lives -->
+        <p class="label" data-mt="xl" data-mb="md">Where the machine-readable metadata lives</p>
+        <div class="doc-section-body">
+          <p>
+            The machine-readable metadata is written as
+            <code>&lt;script type="application/ld+json"&gt;</code> blocks
+            <strong>directly inside the <code>&lt;head&gt;</code> of each HTML
+            file</strong>. No JavaScript is needed. You can right-click any
+            page, choose "View page source" (or press Ctrl+U), and you will
+            see the JSON-LD as plain text in the source.
+          </p>
+          <p>
+            Each page also has Dublin Core <code>&lt;meta&gt;</code> tags
+            (<code>DC.title</code>, <code>DC.creator</code>, <code>DC.date</code>…)
+            and Open Graph tags for social-media sharing. Together these
+            three layers (Dublin Core meta, Open Graph meta, JSON-LD) cover
+            every common metadata reader.
+          </p>
+          <p>
+            Each page uses the Schema.org type that fits its role:
+          </p>
+        </div>
+        <ul class="timeline-list" data-mt="md">
+          <li><strong>index.html</strong> — <code>WebSite</code> + <code>CreativeWork</code> (cover page).</li>
+          <li><strong>map.html</strong> — <code>Dataset</code> (a list of 16 locations).</li>
+          <li><strong>explore.html</strong> — <code>CollectionPage</code> with <code>hasPart[]</code> containing all 16 locations as Schema.org Places. Every location is fully described in one static block.</li>
+          <li><strong>about.html</strong> — <code>AboutPage</code>.</li>
+          <li><strong>docs.html</strong> — <code>TechArticle</code> (this page).</li>
+          <li><strong>disclaimer.html</strong> — <code>WebPage</code> (with <code>specialty: "disclaimer"</code>).</li>
+        </ul>
+        <div class="doc-section-body" data-mt="md">
+          <p>
+            You can check the output in two free tools:
+            the <a href="https://validator.schema.org/" target="_blank" rel="noopener">Schema.org validator</a>
+            and Google's <a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Rich Results Test</a>.
+            Both tools work with the static HTML — no need to run JavaScript.
+          </p>
+        </div>
+
+        <!-- Vocabularies chosen -->
+        <p class="label" data-mt="xl" data-mb="md">Vocabularies used and why</p>
+        <ul class="timeline-list">
+          <li>
+            <strong>Schema.org</strong> — the main type system. Every location is a
+            <code>schema:Place</code> (or <code>LandmarksOrHistoricalBuildings</code> if
+            it has a year built). Address, coordinates, film, tourism fields all map
+            to standard Schema.org types. Chosen because Google, Bing and accessibility
+            tools read it directly.
+          </li>
+          <li>
+            <strong>Dublin Core</strong> (<code>dcterms:*</code>) — for the editorial
+            facts: source, rights, last updated, language. Chosen because it is the
+            common standard in libraries and archives.
+          </li>
+          <li>
+            <strong>Wikidata Q-IDs</strong> — each location has a Wikidata ID, like
+            Hagia Sophia = <code>Q12506</code>. The ID is clickable in the table and
+            also exported in the JSON-LD. Chosen because it is a single global ID
+            that any other system can use to find the same place.
+          </li>
+          <li>
+            <strong>GeoNames IDs</strong> — for the city / country level. Chosen because
+            it gives a stable code for the whole region.
+          </li>
+          <li>
+            <strong>Project namespace</strong> (<code>lmml:*</code>) — for the cinema
+            fields that Schema.org has no clean name for: camera facing, focal length,
+            shot type, film role. Used only when no good standard term exists.
+          </li>
+        </ul>
+
+        <!-- Field × vocabulary table -->
+        <p class="label" data-mt="xl" data-mb="md">Field map (table field → standard term)</p>
+        <div class="doc-grid-item meta-table-wrap">
+          <table class="meta-table meta-table-tiny">
+            <thead>
+              <tr class="meta-section"><th colspan="2">Location</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>address</code></td><td><code>schema:streetAddress</code></td></tr>
+              <tr><td><code>postal_code</code></td><td><code>schema:postalCode</code></td></tr>
+              <tr><td><code>district</code> / <code>city</code></td><td><code>schema:addressLocality</code></td></tr>
+              <tr><td><code>country</code></td><td><code>schema:addressCountry</code></td></tr>
+              <tr><td>coordinates</td><td><code>schema:GeoCoordinates</code></td></tr>
+              <tr><td><code>wikidata</code></td><td>Wikidata Q-ID + <code>schema:sameAs</code></td></tr>
+              <tr><td><code>geonames</code></td><td>GeoNames feature ID</td></tr>
+              <tr class="meta-section"><th colspan="2">Heritage</th></tr>
+              <tr><td><code>building_type</code></td><td><code>schema:additionalType</code></td></tr>
+              <tr><td><code>year_built</code></td><td><code>schema:dateCreated</code></td></tr>
+              <tr><td><code>architects</code></td><td><code>schema:architect</code></td></tr>
+              <tr><td><code>period</code></td><td><code>dcterms:temporal</code></td></tr>
+              <tr><td><code>style</code></td><td><code>schema:architecturalStyle</code></td></tr>
+              <tr><td><code>unesco</code></td><td><code>dcterms:isPartOf</code></td></tr>
+              <tr class="meta-section"><th colspan="2">Scene</th></tr>
+              <tr><td>scene description</td><td><code>schema:Episode</code></td></tr>
+              <tr><td>camera fields</td><td><code>lmml:*</code> (project namespace)</td></tr>
+              <tr><td>screenshot</td><td><code>schema:image</code></td></tr>
+              <tr class="meta-section"><th colspan="2">Tourism</th></tr>
+              <tr><td><code>visit_duration</code></td><td><code>schema:duration</code></td></tr>
+              <tr><td><code>accessibility_notes</code></td><td><code>schema:accessibilityFeature</code></td></tr>
+              <tr><td><code>recommended_time_of_day</code></td><td><code>schema:availableTime</code></td></tr>
+              <tr><td><code>ticket</code></td><td><code>schema:offers</code> (price)</td></tr>
+              <tr class="meta-section"><th colspan="2">Project</th></tr>
+              <tr><td>narrative_category</td><td><code>dcterms:subject</code> (derived)</td></tr>
+              <tr><td><code>last_updated</code></td><td><code>dcterms:modified</code></td></tr>
+              <tr><td><code>rights</code></td><td><code>dcterms:rights</code></td></tr>
+              <tr><td><code>language</code></td><td><code>dcterms:language</code></td></tr>
+              <tr><td><code>sources</code></td><td><code>dcterms:source</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 7. Accessibility -->
+      <div class="doc-section" aria-labelledby="doc-a11y">
+        <p class="doc-section-number">07</p>
         <h2 class="doc-section-title" id="doc-a11y">Accessibility Considerations</h2>
         <div class="doc-section-body">
           <p>
-            The project targets WCAG 2.1 Level AA compliance. Key measures include:
+            The site aims to follow WCAG 2.1 Level AA. Main points:
           </p>
         </div>
-        <ul class="timeline-list" style="margin-top:var(--space-lg);">
-          <li><strong>ARIA labels</strong> on all interactive elements, landmark regions, and live regions. Navigation buttons have descriptive <code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">aria-label</code> attributes.</li>
-          <li><strong>Keyboard navigation</strong> — full keyboard operability on the Explore page, including arrow-key location traversal and focus management.</li>
-          <li><strong>Color contrast</strong> — primary text on dark backgrounds exceeds 4.5:1 ratio. Muted text is used only for supplementary information, never for primary content.</li>
-          <li><strong>Live regions</strong> (<code style="font-family:var(--font-mono);font-size:0.8em;background:var(--bg-primary);padding:1px 4px;border-radius:2px;">aria-live="polite"</code>) on the narrative content and navigation badge, ensuring screen reader users are notified of content changes without interruption.</li>
-          <li><strong>Semantic structure</strong> with proper heading hierarchy (h1→h2→h3) on all pages.</li>
+        <ul class="timeline-list" data-mt="lg">
+          <li><strong>ARIA labels</strong> on every button and important region, so screen readers can describe them.</li>
+          <li><strong>Keyboard navigation</strong> — the Explore page works with the keyboard only. Arrow keys move between locations.</li>
+          <li><strong>Colour contrast</strong> — main text on the dark background has a contrast ratio above 4.5 : 1. Lighter grey is only used for small extra info.</li>
+          <li><strong>Live regions</strong> — when the narrative changes, screen readers are told politely (<code>aria-live="polite"</code>), without interrupting the user.</li>
+          <li><strong>Semantic structure</strong> — every page uses heading levels in the right order (h1 → h2 → h3).</li>
         </ul>
-      </section>
+      </div>
+
+      <!-- 8. Design Decisions — Quick Q&A Reference -->
+      <div class="doc-section" aria-labelledby="doc-decisions">
+        <p class="doc-section-number">08</p>
+        <h2 class="doc-section-title" id="doc-decisions">Design Decisions — Quick Q&amp;A Reference</h2>
+        <div class="doc-section-body">
+          <p>
+            Every design choice on this site is documented in the sections
+            above. This final section collects the most likely questions in
+            one place. Each answer points to the section that explains it in
+            full.
+          </p>
+        </div>
+
+        <!-- ─── Typography ───────────────────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">8.1 Typography</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why two typefaces per theme — a serif and a sans-serif?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> A serif gives identity (display, quotes); a
+              sans gives legibility at small sizes (UI, captions). This is the
+              standard "bicameral" pairing in editorial typography. See
+              <a href="#doc-visual">§ 3 Visual Design System</a>.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why Playfair Display for the Cinematic theme?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Playfair is a high-contrast Didone serif —
+              the same family used on contemporary movie posters and on
+              modern film title cards. It signals "cinema" instantly. Pairs
+              with Inter for screen-optimised body text. See § 3.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why Cormorant + EB Garamond for the Heritage theme?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Both are open-source revivals of Claude
+              Garamond's 1592 punches. EB Garamond is tuned for long reading
+              (used by Harvard UP, Princeton UP and other scholarly presses);
+              Cormorant is its display counterpart. Together they evoke the
+              1950s–60s European academic press — which matches the 1960s
+              chapter of the Through Time narrative. See § 3.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why JetBrains Mono for coordinates?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> A monospaced face makes numerical/technical
+              data (GPS, focal lengths, years) align in vertical columns and
+              read as "data" at a glance, distinct from prose. See § 3.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why <code>clamp(2rem, 5vw, 3.5rem)</code> for h1?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> <code>clamp(min, preferred, max)</code> lets
+              the heading scale fluidly with the viewport (5vw) but never
+              collapses below 2 rem on phones nor explodes above 3.5 rem on
+              large screens. No media-query breakpoints needed for type.
+              See § 4 Technical Architecture.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why a base font size of 16 px?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> 16 px is the browser default and the
+              W3C-recommended baseline. Every <code>rem</code> value in the
+              stylesheet is a multiple of this single anchor, so a user who
+              raises their browser default automatically gets a larger UI.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why <code>line-height: 1.75</code> for body text?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> 1.5–1.8 is the typographic comfort range for
+              body prose (Bringhurst, <em>The Elements of Typographic Style</em>).
+              1.75 lands in that range and matches the slightly looser leading
+              of mid-century European book design — which the Heritage theme
+              is built around.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why uppercase + extra letter-spacing on labels and buttons?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Uppercase needs ~0.08 em–0.18 em of
+              letter-spacing to stay readable; this pairing is the standard
+              for small-caps labels and mirrors the running heads of mid-XX
+              century academic editions.
+            </p>
+          </div>
+        </div>
+
+        <!-- ─── Colour ───────────────────────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">8.2 Colour</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why these specific hex values for gold (#c9a55a) and steel-blue (#4a8bb5)?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> The two narrative dots had to be
+              (a) clearly distinct for colour-blind viewers and (b) anchored
+              to film-stock atmosphere. Gold #c9a55a evokes the warm halation
+              of tungsten-lit interiors; blue #4a8bb5 evokes the cool steel
+              of espionage cinematography. Each token is named for its
+              <em>function</em> (<code>--accent-gold</code>,
+              <code>--accent-blue</code>), not its hex — so the Heritage theme
+              redefines them to sienna and prussian blue without renaming.
+              See § 3.2 Cinematic palette.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why a dark Cinematic palette and a light Heritage palette?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Two reasons:
+              (1) Cinematic imitates a darkened cinema/projection room;
+              Heritage imitates a printed book on archival paper.
+              (2) Light versus dark is the most legible difference between
+              two themes at first glance — and the brief explicitly asks the
+              themes to differ on more than colour alone. See § 3.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why CSS custom properties for colour?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Themes are switched by setting
+              <code>data-theme="heritage"</code> on <code>&lt;html&gt;</code>;
+              the variables redefined under that selector cascade everywhere
+              automatically. No JavaScript walks the DOM to repaint.
+              Implemented in <code>css/style.css</code> § 28.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Are the colour pairings WCAG AA compliant?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Body text on the dark background passes WCAG
+              AA (≈ 13 : 1 contrast; required: 4.5 : 1). Muted text is
+              reserved for non-essential labels (timestamps, vocabulary tags)
+              where AA Large Text (3 : 1) is sufficient. See § 7.
+            </p>
+          </div>
+        </div>
+
+        <!-- ─── Spacing & layout ─────────────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">8.3 Spacing &amp; Layout</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why a six-step spacing scale (4 → 96 px)?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> A geometric progression
+              (<code>--space-xs</code> 4 px → <code>--space-3xl</code> 96 px)
+              prevents the "random margin" problem: every gap on the site
+              comes from one of seven values. Vertical rhythm stays
+              consistent automatically. Defined in <code>css/style.css:50</code>.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why a navigation bar exactly 60 px tall?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> 60 px is large enough for the brand mark and
+              ≥ 44 × 44 pt tap targets on mobile (Apple HIG), but small enough
+              that the cover-page hero still dominates above the fold on a
+              1080 p laptop. Token: <code>--nav-height</code>.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why image-left / narrative-right on the Explore page (Cinematic)?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Cinema is a visual medium — the still leads
+              the eye, the text supports it. Mirrors the convention in
+              printed art books (image on recto, caption on verso). Heritage
+              flips the order to echo a book where text introduces the figure
+              plate. See § 3.3 Heritage layout.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why is the cover hero left-anchored in Cinematic but centred in Heritage?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Asymmetric left-anchored layout dominates
+              21st-century cinema and streaming UIs (Netflix, Criterion
+              Channel). Centred title-pages dominate XIX-century print and
+              Tschichold's 1950s Penguin redesigns. The two heroes inherit
+              from two different historical typographic moments. See § 3.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why <code>clamp()</code> instead of media-query breakpoints for type?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> <code>clamp(min, preferred, max)</code>
+              produces a smooth curve between phone and desktop, with no
+              jump at the breakpoint. Saves dozens of lines of media-query
+              overrides for typography.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why a single <code>style.css</code> file (not multiple modules)?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Browsers cache one file better than many.
+              The file has a 29-section table of contents at the top so a
+              reader can jump to any section in seconds. Splitting would
+              require a build step, which the brief deliberately avoids.
+            </p>
+          </div>
+        </div>
+
+        <!-- ─── Themes ───────────────────────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">8.4 Two Themes</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why two themes at all?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> The brief asks for two themes that differ on
+              colours, fonts, layout, ordering, and look-and-feel — not just
+              colour. Each theme also serves a different reader: Cinematic
+              for casual browsers of the post-2010 pursuit narrative;
+              Heritage for scholars / heritage readers of the 1960s timeline.
+              See § 3.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. What exactly differs between the two themes?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Five axes:
+              (1) <strong>Colours</strong> (dark amber/blue → light sienna/prussian);
+              (2) <strong>Fonts</strong> (Playfair + Inter + JetBrains Mono → Cormorant + EB Garamond + Alegreya Sans SC);
+              (3) <strong>Layout</strong> (image-left → image-right, mirrored);
+              (4) <strong>Ordering</strong> (image → gallery → info → info → image → gallery in the visual column);
+              (5) <strong>Look-and-feel</strong> (filmstrip background, sharp shadows → ebru washes, double-rule borders, drop-cap on first paragraph).
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. How is the theme persisted across pages?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> <code>localStorage.theme</code> is read by
+              an early IIFE at the bottom of <code>app.js</code> and written
+              to <code>&lt;html data-theme="…"&gt;</code> <em>before</em> the
+              first paint, so there is no flash of unthemed content. See
+              <code>js/app.js</code>.
+            </p>
+          </div>
+        </div>
+
+        <!-- ─── JavaScript architecture ──────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">8.5 JavaScript Architecture</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why no framework (no React, no Vue)?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> The site has six static pages and one
+              stateful page (Explore). A framework would add ~150 KB of
+              runtime to deliver functionality that ~600 lines of vanilla JS
+              already provide. The simpler architecture is also more
+              defensible for a beginner-level course. See § 4.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why a single <code>App</code> module (revealing-module pattern)?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> One global namespace
+              (<code>window.App</code>) groups all state and helpers; nothing
+              else pollutes the global scope. Beginner-readable: one place
+              for state, one place for helpers, one place that decides what
+              is public. See <code>js/app.js</code>.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why <code>localStorage</code> for state instead of URL parameters?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> localStorage survives page navigation and
+              reload, matching user expectation: "I was on location 4; when
+              I come back I want to be on location 4 again." URL parameters
+              (<code>?n=pursuit&amp;loc=galata-tower</code>) were added on
+              top for shareable deep links.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why CustomEvents (<code>narrativeChanged</code>, <code>locationChanged</code>) instead of direct calls?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Each page binds its own listeners. The
+              Explore page redraws on <code>locationChanged</code>; the nav
+              badge updates on <code>narrativeChanged</code>. Decoupling
+              state mutations from UI updates means a new page can react to
+              the same events without touching <code>App.setNarrative()</code>.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why three audience levels (Young / Adult / Scholar)?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Reading level adapts the same factual
+              content to three audiences: simple-English narrative tone for
+              young visitors; informative tourist tone for general adults;
+              scholarly heritage register for academic readers. This is the
+              "Tailored" leg of RSTU. See § 6.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why short / medium length on top of the audience axis?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Audience is competence × tone; length is
+              independent. A young visitor might want a long friendly text,
+              a scholar might want a short dense text. Two axes × three
+              values give up to 6 versions of each text per location.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why the Haversine formula for the "walk to next" distance?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Haversine gives great-circle distance
+              between two <code>[lat, lon]</code> points on a sphere — exact
+              enough for distances under a few km in a single city. We are
+              not modelling street routing; we are giving the visitor a
+              "how far and which way" hint. See <code>js/explore.js</code>.
+            </p>
+          </div>
+        </div>
+
+        <!-- ─── Metadata & semantics ─────────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">8.6 Metadata &amp; Semantics</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why mix Schema.org, Dublin Core and Wikidata instead of one vocabulary?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Each vocabulary covers a different facet:
+              Schema.org for places/buildings/coordinates; Dublin Core for
+              editorial provenance (source, rights, date, language);
+              Wikidata for unique global IDs of named entities (Hagia Sophia
+              = <code>Q12506</code>). Each row of the table tags itself with
+              the vocabulary in use, so the model is visible in the UI. See
+              § 6.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why JSON-LD in the <code>&lt;head&gt;</code> instead of injected by JS?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Search engines and accessibility tools
+              index the static HTML. JSON-LD blocks in
+              <code>&lt;head&gt;</code> are visible in View Source without
+              running any JavaScript. JSON-LD is the format Google
+              explicitly recommends. See § 6.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why five sections in the metadata table?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Each section answers one reader question:
+              <em>Location</em> (where), <em>Heritage</em> (what kind of
+              building, when, by whom), <em>Scene</em> (which film, which
+              shot), <em>Tourism</em> (how do I visit), <em>Project</em>
+              (who curated this and when). Same structure on every record →
+              the "Systematic" leg of RSTU. See § 6.
+            </p>
+          </div>
+        </div>
+
+        <!-- ─── Accessibility ────────────────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">8.7 Accessibility</p>
+        <div class="doc-grid">
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why arrow-key navigation between locations?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Keyboard navigation is a WCAG 2.1 success
+              criterion (2.1.1). Arrow keys are intuitive for previous/next
+              and don't conflict with browser shortcuts. See § 7.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why ARIA <code>role="tab"</code> on the dot navigation?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> The dots are not decorative; each targets a
+              specific location. Marking them as a tablist makes them
+              discoverable to screen readers, with
+              <code>aria-selected</code> announcing the current one.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why <code>position: sticky</code> on the details-panel close button?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> The details panel can scroll vertically
+              (<code>max-height: 60vh</code>). Sticky positioning keeps the
+              close button reachable from any scroll position, without
+              forcing the user to scroll back to the top.
+            </p>
+          </div>
+          <div class="doc-grid-item">
+            <p class="doc-grid-item-title">Q. Why <code>aria-hidden="true"</code> on glyph icons (◉, ❦)?</p>
+            <p class="doc-grid-item-body">
+              <strong>A.</strong> Glyph icons are decorative — they don't
+              carry meaning beyond what the visible text already says.
+              Hiding them from the screen-reader buffer prevents the same
+              word being announced twice.
+            </p>
+          </div>
+        </div>
+
+        <!-- ─── Quick numbers reference ──────────────────────────────── -->
+        <p class="label" data-mt="xl" data-mb="md">8.8 Quick numbers reference</p>
+        <div class="doc-grid-item meta-table-wrap">
+          <table class="meta-table meta-table-small">
+            <thead>
+              <tr><th>Token / Setting</th><th>Value</th><th>Section</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Base font size</td><td>16 px</td><td><a href="#doc-visual">§ 3</a></td></tr>
+              <tr><td>Body line-height</td><td>1.75</td><td><a href="#doc-visual">§ 3</a></td></tr>
+              <tr><td>h1 size</td><td><code>clamp(2rem, 5vw, 3.5rem)</code></td><td><a href="#doc-visual">§ 3</a></td></tr>
+              <tr><td>Spacing scale</td><td>4 → 8 → 16 → 24 → 40 → 64 → 96 px</td><td><a href="#doc-tech">§ 4</a></td></tr>
+              <tr><td>Navigation bar height</td><td>60 px</td><td><a href="#doc-tech">§ 4</a></td></tr>
+              <tr><td>Sidebar width</td><td>280 px</td><td><a href="#doc-tech">§ 4</a></td></tr>
+              <tr><td>Map default zoom</td><td>14</td><td><a href="#doc-tech">§ 4</a></td></tr>
+              <tr><td>Map centre</td><td>41.0082° N, 28.9784° E (Istanbul)</td><td><a href="#doc-tech">§ 4</a></td></tr>
+              <tr><td>Pursuit length</td><td>12 locations</td><td><a href="#doc-content">§ 5</a></td></tr>
+              <tr><td>Timeline length</td><td>16 locations</td><td><a href="#doc-content">§ 5</a></td></tr>
+              <tr><td>Audience levels</td><td>3 (young / adult / scholar)</td><td><a href="#doc-content">§ 5</a></td></tr>
+              <tr><td>Length levels</td><td>2 (short / medium)</td><td><a href="#doc-content">§ 5</a></td></tr>
+              <tr><td>Themes</td><td>2 (cinematic / heritage)</td><td><a href="#doc-visual">§ 3</a></td></tr>
+              <tr><td>Body text contrast</td><td>≈ 13 : 1 (AA: 4.5 : 1)</td><td><a href="#doc-a11y">§ 7</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
     </div>
 
-    <!-- Site-wide prev/next page navigation (PDF p.18) -->
-    <nav class="page-nav" role="navigation" aria-label="Previous and next pages">
+    <!-- Previous / next page links -->
+    <div class="page-nav" role="navigation" aria-label="Previous and next pages">
       <a href="about.html" class="page-nav-btn">
         <span class="page-nav-btn-label">← Previous Page</span>
         <span class="page-nav-btn-title">About</span>
@@ -388,31 +1258,35 @@ js/explore.js     ← Explore logic</p>
         <span class="page-nav-btn-label">Next Page →</span>
         <span class="page-nav-btn-title">Disclaimer</span>
       </a>
-    </nav>
-  </main>
+    </div>
+  </div>
 
   <!-- Footer -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="footer-brand">Istanbul: A Stage of Espionage and Global Conflict</div>
+  <div class="site-footer" role="contentinfo">
+    <div class="footer-brand">Istanbul on Film — Foreign Cinema in the City</div>
     <div class="footer-meta">University of Bologna · Digital Humanities · Information Modeling and Web Technologies</div>
-  </footer>
+  </div>
 
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+
+      // ---- 1. Mobile nav toggle ----
       const navToggle = document.getElementById("navToggle");
       const navLinks  = document.getElementById("navLinks");
       navToggle.addEventListener("click", () => {
         const open = navLinks.classList.toggle("open");
         navToggle.setAttribute("aria-expanded", String(open));
       });
+
+      // ---- 2. Narrative badge in the top nav ----
       const id = App.getNarrative();
       document.getElementById("navNarrativeDot").classList.toggle("timeline", id === "timeline");
       document.getElementById("navNarrativeName").textContent =
-        id === "espionage" ? "Espionage & Pursuit" : "Through Time";
+        id === "pursuit" ? "Pursuit & Passage" : "Through Time";
 
-      // Theme switcher wiring
+      // ---- 3. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {
@@ -429,16 +1303,6 @@ js/explore.js     ← Explore logic</p>
       });
       syncThemeButtons();
 
-      // Page JSON-LD: Docs page
-      App.injectJSONLD("jsonld-page", {
-        "@context": "https://schema.org",
-        "@type":    "TechArticle",
-        "name":     "Documentation — Istanbul Cinema Tourism",
-        "description": "Design decisions, technical architecture, typographic and UX principles.",
-        "isPartOf": { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
-        "author":   { "@type": "Person", "name": "Kübra Topçuoğlu" },
-        "about":    ["Typography", "Information Architecture", "Accessibility", "Schema.org metadata"]
-      });
     });
   </script>
 

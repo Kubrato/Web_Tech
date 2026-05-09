@@ -4,6 +4,212 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explore — Istanbul Cinema Tourism</title>
+
+  <!-- ─── STANDARD METADATA ──────────────────────────────────────────────── -->
+  <meta name="description" content="Explore 16 Istanbul filming locations from From Russia with Love, Taken 2, Skyfall, The Water Diviner, and Inferno — through two narratives.">
+  <meta name="author"      content="Kübra Topçuoğlu">
+  <meta name="keywords"    content="Istanbul, film locations, Hagia Sophia, Basilica Cistern, Grand Bazaar, Galata Bridge, Sirkeci, narrative, cinema tourism">
+
+  <!-- Dublin Core -->
+  <meta name="DC.title"     content="Explore — Istanbul Cinema Tourism">
+  <meta name="DC.creator"   content="Kübra Topçuoğlu">
+  <meta name="DC.subject"   content="Istanbul filming locations; cinema narrative">
+  <meta name="DC.publisher" content="University of Bologna — Digital Humanities and Digital Knowledge">
+  <meta name="DC.date"      content="2026">
+  <meta name="DC.language"  content="en">
+  <meta name="DC.rights"    content="Editorial selection © 2026 Kübra Topçuoğlu — academic use">
+  <meta name="DC.type"      content="InteractiveResource">
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Explore Istanbul Film Locations">
+  <meta property="og:description" content="Walk Istanbul through five international films across two narratives.">
+  <meta property="og:type"        content="website">
+
+  <!-- ─── SCHEMA.ORG JSON-LD (static, all 16 locations in one CollectionPage) ─
+       CollectionPage is exactly the Schema.org type for "a page that lists
+       many items". Each LandmarksOrHistoricalBuildings entry below is an
+       independent valid Schema.org Place — search engines, validators and
+       screen readers can read every record without running any JavaScript. -->
+  <script type="application/ld+json">
+  {
+    "@context":   "https://schema.org",
+    "@type":      "CollectionPage",
+    "name":       "Explore — Istanbul Cinema Tourism",
+    "description":"Sixteen Istanbul filming locations across five international films (1963–2016), organised into two narratives.",
+    "isPartOf":   { "@type": "WebSite", "name": "Istanbul Cinema Tourism — LMML" },
+    "author":     { "@type": "Person",  "name": "Kübra Topçuoğlu" },
+    "inLanguage": "en",
+    "dateModified": "2026-05-07",
+    "license":    "Editorial selection © 2026 Kübra Topçuoğlu — academic use",
+    "hasPart": [
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Hagia Sophia",
+        "identifier": "hagia-sophia",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Sultan Ahmet, Ayasofya Meydanı No: 1", "postalCode": "34122", "addressLocality": "Sultanahmet, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0086, "longitude": 28.9802 },
+        "dateCreated":"0537",
+        "architect": [{ "@type": "Person", "name": "Anthemius of Tralles" }, { "@type": "Person", "name": "Isidore of Miletus" }],
+        "sameAs":     ["https://www.wikidata.org/wiki/Q12506", "https://en.wikipedia.org/wiki/Hagia_Sophia", "https://whc.unesco.org/en/list/356"],
+        "subjectOf":  { "@type": "Movie", "name": "Inferno", "datePublished": "2016", "director": { "@type": "Person", "name": "Ron Howard" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Basilica Cistern",
+        "identifier": "basilica-cistern",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Alemdar, Yerebatan Cd. 1/3", "postalCode": "34110", "addressLocality": "Sultanahmet, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0083, "longitude": 28.9783 },
+        "dateCreated":"0532",
+        "sameAs":     ["https://www.wikidata.org/wiki/Q189301", "https://en.wikipedia.org/wiki/Basilica_Cistern", "https://yerebatan.com/"],
+        "subjectOf":  { "@type": "Movie", "name": "Inferno", "datePublished": "2016", "director": { "@type": "Person", "name": "Ron Howard" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Sultan Ahmet Mosque",
+        "identifier": "sultan-ahmet-mosque",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Binbirdirek, Atmeydanı Cd. 7", "postalCode": "34122", "addressLocality": "Sultanahmet, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0054, "longitude": 28.9768 },
+        "dateCreated":"1617",
+        "architect":  { "@type": "Person", "name": "Sedefkâr Mehmed Ağa" },
+        "sameAs":     ["https://www.wikidata.org/wiki/Q170825", "https://en.wikipedia.org/wiki/Sultan_Ahmed_Mosque"],
+        "subjectOf":  { "@type": "Movie", "name": "The Water Diviner", "datePublished": "2014", "director": { "@type": "Person", "name": "Russell Crowe" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Grand Bazaar",
+        "identifier": "grand-bazaar",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Beyazıt, Kalpakçılar Cd.", "postalCode": "34126", "addressLocality": "Beyazıt, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0107, "longitude": 28.9681 },
+        "dateCreated":"1461",
+        "sameAs":     ["https://www.wikidata.org/wiki/Q189142", "https://en.wikipedia.org/wiki/Grand_Bazaar,_Istanbul"],
+        "subjectOf":  { "@type": "Movie", "name": "Skyfall", "datePublished": "2012", "director": { "@type": "Person", "name": "Sam Mendes" } }
+      },
+      {
+        "@type":      "Place",
+        "name":       "Grand Bazaar Rooftop",
+        "identifier": "skyfall-rooftop",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Lead-covered roofs above Kalpakçılar Cd.", "postalCode": "34126", "addressLocality": "Beyazıt, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0110, "longitude": 28.9685 },
+        "sameAs":     ["https://www.wikidata.org/wiki/Q189142"],
+        "subjectOf":  { "@type": "Movie", "name": "Skyfall", "datePublished": "2012", "director": { "@type": "Person", "name": "Sam Mendes" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Spice Bazaar",
+        "identifier": "spice-bazaar",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Rüstem Paşa, Erzak Ambarı Sk. 92", "postalCode": "34116", "addressLocality": "Eminönü, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0165, "longitude": 28.9704 },
+        "dateCreated":"1664",
+        "architect":  { "@type": "Person", "name": "Mustafa Ağa" },
+        "sameAs":     ["https://www.wikidata.org/wiki/Q1124673", "https://en.wikipedia.org/wiki/Spice_Bazaar"],
+        "subjectOf":  { "@type": "Movie", "name": "Taken 2", "datePublished": "2012", "director": { "@type": "Person", "name": "Olivier Megaton" } }
+      },
+      {
+        "@type":      "Place",
+        "name":       "Eminönü Square",
+        "identifier": "eminonu",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Rüstem Paşa, Yeni Cami Cd.", "postalCode": "34116", "addressLocality": "Eminönü, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0168, "longitude": 28.9742 },
+        "dateCreated":"1958",
+        "sameAs":     ["https://www.wikidata.org/wiki/Q1340519", "https://en.wikipedia.org/wiki/Emin%C3%B6n%C3%BC"],
+        "subjectOf":  { "@type": "Movie", "name": "Taken 2", "datePublished": "2012", "director": { "@type": "Person", "name": "Olivier Megaton" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Galata Bridge",
+        "identifier": "galata-bridge",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Galata Köprüsü (over the Golden Horn)", "postalCode": "34116", "addressLocality": "Eminönü ↔ Karaköy", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0173, "longitude": 28.9738 },
+        "dateCreated":"1994",
+        "sameAs":     ["https://www.wikidata.org/wiki/Q1146092", "https://en.wikipedia.org/wiki/Galata_Bridge"],
+        "subjectOf":  { "@type": "Movie", "name": "Taken 2", "datePublished": "2012", "director": { "@type": "Person", "name": "Olivier Megaton" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Legacy Ottoman Hotel",
+        "identifier": "legacy-ottoman",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Hocapaşa Sk. 5", "postalCode": "34110", "addressLocality": "Sirkeci, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0156, "longitude": 28.9742 },
+        "dateCreated":"1890",
+        "sameAs":     ["https://www.legacyottoman.com/"],
+        "subjectOf":  { "@type": "Movie", "name": "Taken 2", "datePublished": "2012", "director": { "@type": "Person", "name": "Olivier Megaton" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Deutsche Orientbank Hotel",
+        "identifier": "deutsche-orientbank",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Bankalar Cd. 11", "postalCode": "34421", "addressLocality": "Karaköy, Beyoğlu", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0220, "longitude": 28.9785 },
+        "dateCreated":"1906",
+        "sameAs":     ["https://en.wikipedia.org/wiki/Bankalar_Caddesi"],
+        "subjectOf":  { "@type": "Movie", "name": "Skyfall", "datePublished": "2012", "director": { "@type": "Person", "name": "Sam Mendes" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Sirkeci Railway Station",
+        "identifier": "sirkeci",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Hocapaşa, Sirkeci Garı", "postalCode": "34110", "addressLocality": "Sirkeci, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0133, "longitude": 28.9782 },
+        "dateCreated":"1890",
+        "architect":  { "@type": "Person", "name": "August Jachmund" },
+        "sameAs":     ["https://www.wikidata.org/wiki/Q801345", "https://en.wikipedia.org/wiki/Sirkeci_railway_station"],
+        "subjectOf":  { "@type": "Movie", "name": "From Russia with Love", "datePublished": "1963", "director": { "@type": "Person", "name": "Terence Young" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Maiden's Tower",
+        "identifier": "maidens-tower",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Salacak, Üsküdar Sahili (offshore islet)", "postalCode": "34668", "addressLocality": "Üsküdar", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0211, "longitude": 29.0042 },
+        "dateCreated":"1763",
+        "sameAs":     ["https://www.wikidata.org/wiki/Q1141280", "https://en.wikipedia.org/wiki/Maiden%27s_Tower"],
+        "subjectOf":  { "@type": "Movie", "name": "From Russia with Love", "datePublished": "1963", "director": { "@type": "Person", "name": "Terence Young" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Firuz Aga Mosque",
+        "identifier": "firuz-aga",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Binbirdirek, Divanyolu Cd.", "postalCode": "34122", "addressLocality": "Sultanahmet, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0072, "longitude": 28.9783 },
+        "dateCreated":"1491",
+        "sameAs":     ["https://www.wikidata.org/wiki/Q3072829", "https://en.wikipedia.org/wiki/Firuz_A%C4%9Fa_Mosque"],
+        "subjectOf":  { "@type": "Movie", "name": "From Russia with Love", "datePublished": "1963", "director": { "@type": "Person", "name": "Terence Young" } }
+      },
+      {
+        "@type":      "Place",
+        "name":       "Gülhane Park",
+        "identifier": "gulhane-park",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Cankurtaran, Kennedy Cd.", "postalCode": "34122", "addressLocality": "Sultanahmet, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0125, "longitude": 28.9810 },
+        "dateCreated":"1912",
+        "sameAs":     ["https://www.wikidata.org/wiki/Q1153403", "https://en.wikipedia.org/wiki/G%C3%BClhane_Park"],
+        "subjectOf":  { "@type": "Movie", "name": "The Water Diviner", "datePublished": "2014", "director": { "@type": "Person", "name": "Russell Crowe" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Haydarpaşa Train Station",
+        "identifier": "haydarpasa",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Haydarpaşa Garı, Rıhtım Cd.", "postalCode": "34716", "addressLocality": "Kadıköy", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 40.9967, "longitude": 29.0192 },
+        "dateCreated":"1908",
+        "architect": [{ "@type": "Person", "name": "Otto Ritter" }, { "@type": "Person", "name": "Helmut Cuno" }],
+        "sameAs":     ["https://www.wikidata.org/wiki/Q798842", "https://en.wikipedia.org/wiki/Haydarpa%C5%9Fa_railway_station"],
+        "subjectOf":  { "@type": "Movie", "name": "The Water Diviner", "datePublished": "2014", "director": { "@type": "Person", "name": "Russell Crowe" } }
+      },
+      {
+        "@type":      "LandmarksOrHistoricalBuildings",
+        "name":       "Istanbul University",
+        "identifier": "istanbul-uni",
+        "address":    { "@type": "PostalAddress", "streetAddress": "Beyazıt Meydanı (main gate)", "postalCode": "34452", "addressLocality": "Beyazıt, Fatih", "addressRegion": "Istanbul", "addressCountry": "Türkiye" },
+        "geo":        { "@type": "GeoCoordinates", "latitude": 41.0119, "longitude": 28.9633 },
+        "dateCreated":"1866",
+        "sameAs":     ["https://www.wikidata.org/wiki/Q629161", "https://en.wikipedia.org/wiki/Istanbul_University"],
+        "subjectOf":  { "@type": "Movie", "name": "Inferno", "datePublished": "2016", "director": { "@type": "Person", "name": "Ron Howard" } }
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,7 +217,7 @@
   <div class="grain-overlay" aria-hidden="true"></div>
 
   <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+  <div class="main-nav" role="navigation" aria-label="Main navigation">
     <a class="nav-brand" href="index.html" aria-label="Home">
       <span class="nav-brand-title">Istanbul</span>
       <span class="nav-brand-sub">Cinema Tourism</span>
@@ -39,7 +245,7 @@
       <div class="narrative-dot" id="navNarrativeDot"></div>
       <span class="nav-narrative-name" id="navNarrativeName"></span>
     </div>
-  </nav>
+  </div>
 
   <!-- ── EXPLORE APP ────────────────────────────────────────────────────── -->
   <div class="explore-wrapper" role="main">
@@ -48,10 +254,10 @@
     <div class="narrative-toggle-bar" role="toolbar" aria-label="Narrative selection and progress">
       <div class="narrative-toggle" role="group" aria-label="Select narrative">
         <button class="narrative-toggle-btn"
-                data-narrative="espionage"
+                data-narrative="pursuit"
                 id="toggleEspionage"
                 aria-pressed="false">
-          ◈ Espionage &amp; Pursuit
+          ◈ Pursuit &amp; Passage
         </button>
         <button class="narrative-toggle-btn"
                 data-narrative="timeline"
@@ -64,29 +270,40 @@
       <div class="progress-indicator" aria-live="polite" aria-label="Progress">
         <span id="progressText">1 / 8</span>
         <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressBarWrap">
-          <div class="progress-fill" id="progressFill" style="width:12.5%"></div>
+          <div class="progress-fill" id="progressFill"></div>
         </div>
       </div>
     </div>
 
-    <!-- Variant Toolbar (PDF p.15 — length × competence × mode switches) -->
+    <!-- Text controls: three groups (audience, length, mode) -->
     <div class="variant-toolbar" role="toolbar" aria-label="Text presentation controls">
+
+      <!-- Audience: Young / Adult / Scholar.
+           Use the easier/harder buttons to step up or down.
+           The current level is shown by the indicator on the right. -->
+      <div class="variant-group" role="group" aria-label="Audience">
+        <span class="variant-group-label">Audience</span>
+        <button class="variant-btn" id="btnEasier"
+                aria-label="This text is too difficult — show an easier variant">↓ Too difficult</button>
+        <button class="variant-btn" id="btnHarder"
+                aria-label="This text is too simple — show a more advanced variant">↑ Too simple</button>
+        <span class="variant-indicator" id="variantIndicator" aria-live="polite">Adult</span>
+      </div>
+
+      <!-- Length: short summary or full text -->
       <div class="variant-group" role="group" aria-label="Text length">
         <span class="variant-group-label">Length</span>
-        <button class="variant-btn" id="btnTellLess"  aria-label="Tell me less — shorter text">− Tell me less</button>
-        <span class="variant-indicator" id="variantIndicator" aria-live="polite">MID</span>
-        <button class="variant-btn" id="btnTellMore"  aria-label="Tell me more — longer text">+ Tell me more</button>
+        <button class="variant-btn" id="btnLenLess"
+                aria-label="Tell me less — show the very-brief summary">− Tell me less</button>
+        <button class="variant-btn" id="btnLenMore"
+                aria-label="Tell me more — show the full descriptive text">+ Tell me more</button>
+        <span class="variant-indicator" id="lengthIndicator" aria-live="polite">STANDARD</span>
       </div>
 
-      <div class="variant-group" role="group" aria-label="Text difficulty">
-        <span class="variant-group-label">Level</span>
-        <button class="variant-btn" id="btnSimpler"  aria-label="This text is too difficult — simpler version">↓ Too difficult</button>
-        <button class="variant-btn" id="btnHarder"   aria-label="This text is too simple — more advanced version">↑ Too simple</button>
-      </div>
-
+      <!-- Mode: story view or details + QR view -->
       <div class="variant-group" role="group" aria-label="Reading mode">
         <span class="variant-group-label">Mode</span>
-        <button class="variant-btn" id="btnModeStory"  data-mode="story"   aria-pressed="true">☰ Story</button>
+        <button class="variant-btn" id="btnModeStory"   data-mode="story"   aria-pressed="true">☰ Story</button>
         <button class="variant-btn" id="btnModeDetails" data-mode="details" aria-pressed="false">⊞ Details &amp; QR</button>
       </div>
     </div>
@@ -96,10 +313,16 @@
       <!-- Populated by JS -->
     </div>
 
-    <!-- Chapter Intro Banner — narrative transition prose (PDF p.9) -->
+    <!-- Chapter intro banner: shown on the first location of each chapter -->
     <div class="chapter-intro-banner hidden" id="chapterIntroBanner" role="region" aria-live="polite">
-      <strong id="chapterIntroChapter">Chapter</strong>
-      <span id="chapterIntroText"></span>
+      <p class="chapter-transition hidden" id="chapterTransitionLine">
+        <strong>Transition</strong>
+        <span id="chapterTransitionText"></span>
+      </p>
+      <p class="chapter-intro">
+        <strong id="chapterIntroChapter">Chapter</strong>
+        <span id="chapterIntroText"></span>
+      </p>
     </div>
 
     <!-- Location Viewer -->
@@ -108,10 +331,17 @@
       <!-- Left: Visual Panel -->
       <div class="location-visual" id="locationVisual">
         <div class="location-image-placeholder" id="locationImagePlaceholder" data-location="">
-          <img class="location-image" id="locationImage" alt="" style="display:none;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;" />
+          <img class="location-image" id="locationImage" alt="" />
           <span class="location-image-icon" id="locationImageIcon" aria-hidden="true">◉</span>
           <div class="location-film-tag" id="locationFilmTag" aria-label="Film"></div>
           <div class="location-coords mono" id="locationCoords" aria-label="Coordinates"></div>
+        </div>
+
+        <!-- Gallery: tabs (Real Location / Film Still) + thumbnail strip + caption -->
+        <div class="location-gallery" id="locationGallery" aria-label="Image gallery">
+          <div class="gallery-tabs" id="galleryTabs" role="tablist" aria-label="Gallery type"></div>
+          <div class="gallery-thumbs" id="galleryThumbs" role="list" aria-label="Image thumbnails"></div>
+          <p class="gallery-caption" id="galleryCaption" aria-live="polite"></p>
         </div>
 
         <div class="location-info-panel">
@@ -137,15 +367,17 @@
 
     </div>
 
-    <!-- Details Panel (QR code + camera specifications — PDF p.8 + p.15) -->
+    <!-- Details panel: QR code + camera info + metadata table -->
     <div class="details-panel hidden" id="detailsPanel" role="region" aria-label="Shot details and QR code">
+      <button type="button" class="details-close" id="detailsCloseBtn"
+              aria-label="Close details panel and return to story view">×</button>
       <div class="details-grid">
         <div class="details-qr">
           <div class="details-qr-box" id="detailsQRBox" aria-label="QR code linking to this location"></div>
           <div class="details-qr-label">Scan to share<br>this location</div>
         </div>
         <div>
-          <div class="variant-group-label" style="margin-bottom:var(--space-sm);">Shot Geometry &amp; Camera Orientation</div>
+          <div class="variant-group-label" data-mb="sm">Shot Geometry &amp; Camera Orientation</div>
           <div class="camera-specs">
             <div class="camera-spec">
               <div class="camera-spec-label">Facing</div>
@@ -167,6 +399,21 @@
           </div>
         </div>
       </div>
+
+      <!-- Catalogue metadata table.
+           Fields use Schema.org, Dublin Core (dcterms), and Wikidata. -->
+      <div class="meta-block" id="metaBlock" aria-label="Catalogue metadata">
+        <div class="meta-block-header">
+          <span class="variant-group-label">Catalogue Metadata</span>
+          <span class="meta-block-vocab" id="metaVocab" title="Active vocabularies">schema.org · dcterms · wikidata</span>
+        </div>
+        <table class="meta-table">
+          <tbody id="metaTableBody">
+            <!-- rows injected by explore.js renderMetaTable() -->
+          </tbody>
+        </table>
+        <p class="meta-block-footnote" id="metaSources"></p>
+      </div>
     </div>
 
     <!-- Navigation Controls -->
@@ -176,12 +423,15 @@
         Previous
       </button>
 
-      <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-sm);">
+      <div class="explore-controls-center">
         <div class="location-dots" id="locationDots" role="tablist" aria-label="Location dots"></div>
         <div class="location-counter">
           <div class="location-counter-fraction" id="counterFraction">1 / 8</div>
           <div class="location-counter-label">Locations</div>
         </div>
+        <!-- Walking distance + compass direction to the next location.
+             Hidden on the last location of a narrative. -->
+        <div class="location-directions" id="locationDirections" aria-live="polite"></div>
       </div>
 
       <button class="explore-nav-btn" id="btnNext" aria-label="Next location">
@@ -193,17 +443,14 @@
   </div>
 
   <!-- Scripts -->
-  <!-- qrcode.js (davidshimjs/qrcodejs, MIT) — for per-location QR codes.
-       Hosted on cdnjs for stability. Falls back gracefully if the CDN is blocked:
-       the Details panel will show the camera data only and a minimal notice. -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/explore.js"></script>
 
   <script>
-    // Mobile nav toggle + theme switcher wiring
     document.addEventListener("DOMContentLoaded", () => {
+
+      // ---- 1. Mobile nav toggle ----
       const navToggle = document.getElementById("navToggle");
       const navLinks  = document.getElementById("navLinks");
       navToggle.addEventListener("click", () => {
@@ -211,6 +458,7 @@
         navToggle.setAttribute("aria-expanded", String(open));
       });
 
+      // ---- 2. Theme switcher buttons ----
       function syncThemeButtons() {
         const active = App.getTheme();
         document.querySelectorAll(".theme-btn").forEach(btn => {
@@ -226,6 +474,7 @@
         });
       });
       syncThemeButtons();
+
     });
   </script>
 
