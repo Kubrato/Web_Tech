@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Istanbul on Film — Foreign Cinema in the City</title>
 
-  <!-- ─── STANDARD METADATA (visible, simple) ─────────────────────────────── -->
+  <!-- ─── STANDARD METADATA (simple, classic tags) ────────────────────── -->
   <meta name="description"  content="A cinematic tourism web experience exploring real Istanbul film locations across five foreign productions: From Russia with Love, Taken 2, Skyfall, The Water Diviner, Inferno.">
   <meta name="author"       content="Kübra Topçuoğlu">
   <meta name="keywords"     content="Istanbul, film locations, cinema tourism, Digital Humanities, LMML, Bond, Skyfall, Taken 2, Inferno">
@@ -20,15 +21,15 @@
   <meta name="DC.rights"       content="Editorial selection © 2026 Kübra Topçuoğlu — academic use">
   <meta name="DC.type"         content="InteractiveResource">
 
-  <!-- Open Graph (when shared on social media / messaging apps) -->
+  <!-- Open Graph (used when the link is shared on social media or chat apps) -->
   <meta property="og:title"       content="Istanbul on Film — Foreign Cinema in the City">
   <meta property="og:description" content="A Live Museum of Movie Locations: walk Istanbul through five international films.">
   <meta property="og:type"        content="website">
   <meta property="og:locale"      content="en_GB">
 
-  <!-- ─── SCHEMA.ORG JSON-LD (machine-readable, in the <head>) ───────────────
-       Two static blocks: site-wide WebSite + this page's CreativeWork.
-       The Explore page also adds a third block dynamically (active location). -->
+  <!-- ─── SCHEMA.ORG JSON-LD (machine-readable data, placed in <head>) ─────
+       Two static blocks: a site-wide WebSite and this page as a CreativeWork.
+       The Explore page also adds a third block dynamically (the active location). -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -52,6 +53,7 @@
     "dateModified":  "2026"
   }
   </script>
+
   <script type="application/ld+json">
   {
     "@context":          "https://schema.org",
@@ -67,16 +69,18 @@
 
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-  <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-  <div class="main-nav" role="navigation" aria-label="Main navigation">
-    <a class="nav-brand" href="index.html" aria-label="Istanbul Cinema Tourism home">
+  <!-- ── NAVIGATION ──────────────────────────────────────────────────── -->
+  <div class="main-nav" role="navigation">
+
+    <a class="nav-brand" href="index.html">
       <span class="nav-brand-title">Istanbul</span>
       <span class="nav-brand-sub">Cinema Tourism</span>
     </a>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <button class="nav-toggle" id="navToggle">
       <span></span><span></span><span></span>
     </button>
 
@@ -89,21 +93,25 @@
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
 
-    <div class="theme-switcher" role="group" aria-label="Select visual theme">
-      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Mid-Century Cinema theme (Second half of XX Century print)" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
-      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme (XIX Century print)"                      title="Heritage — XIX Century print">❦</button>
+    <div class="theme-switcher" role="group">
+      <button class="theme-btn" data-theme-choice="cinematic" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"                      title="Heritage — XIX Century print">❦</button>
     </div>
 
   </div>
 
-  <!-- ── HERO / COVER ───────────────────────────────────────────────────── -->
+
+  <!-- ── HERO / COVER ────────────────────────────────────────────────── -->
   <div role="main">
-    <div class="hero" aria-label="Exhibition introduction">
-      <div class="hero-bg" aria-hidden="true">
+
+    <div class="hero">
+
+      <div class="hero-bg">
         <div class="hero-bg-gradient"></div>
       </div>
 
       <div class="hero-content">
+
         <div class="hero-eyebrow">
           <div class="hero-eyebrow-line"></div>
           <span class="hero-eyebrow-text">Cinematic Tourism Exhibition</span>
@@ -122,6 +130,7 @@
         </p>
 
         <div class="hero-meta">
+
           <div class="hero-meta-item">
             <span class="hero-meta-value">5</span>
             <span class="hero-meta-label">Films</span>
@@ -141,6 +150,7 @@
         </div>
 
         <div class="hero-actions">
+
           <a href="explore.html" class="btn btn-primary" id="heroExploreBtn">
             <span class="btn-icon">▶</span>
             Begin Journey
@@ -153,21 +163,25 @@
       </div>
     </div>
 
-    <!-- ── NARRATIVE SELECTION ────────────────────────────────────────────── -->
-    <div class="narrative-cards" aria-label="Choose your narrative">
+
+    <!-- ── NARRATIVE SELECTION ────────────────────────────────────── -->
+    <div class="narrative-cards">
+
       <a href="explore.html"
          class="narrative-card espionage"
          data-narrative="pursuit"
-         id="cardEspionage"
-         aria-label="Begin Pursuit and Passage narrative">
-        <span class="narrative-card-icon" aria-hidden="true">◈</span>
+         id="cardEspionage">
+
+        <span class="narrative-card-icon">◈</span>
         <h2 class="narrative-card-title">Pursuit &amp; Passage</h2>
         <p class="narrative-card-subtitle">Action-Driven Cinematic Journey</p>
+
         <p class="narrative-card-desc">
           Walk in the footsteps of spies, fugitives and seekers. From the bazaar chase
           to a quiet mosque courtyard, from a Bosphorus tour to an underground cistern —
           twelve locations, four chapters, one journey through the city as a stage.
         </p>
+
         <div class="narrative-card-meta">
           <div class="narrative-card-stat">
             <span class="narrative-card-stat-value">12</span>
@@ -187,9 +201,9 @@
       <a href="explore.html"
          class="narrative-card timeline"
          data-narrative="timeline"
-         id="cardTimeline"
-         aria-label="Begin Istanbul Through Time narrative">
-        <span class="narrative-card-icon" aria-hidden="true">◇</span>
+         id="cardTimeline">
+
+        <span class="narrative-card-icon">◇</span>
         <h2 class="narrative-card-title">Istanbul Through Time in Cinema</h2>
         <p class="narrative-card-subtitle">Analytical Comparative Journey</p>
         <p class="narrative-card-desc">
@@ -215,23 +229,28 @@
       </a>
     </div>
 
-    <!-- ── FILMS GRID ─────────────────────────────────────────────────────── -->
-    <div class="films-section" aria-label="Featured films">
+
+    <!-- ── FILMS GRID ──────────────────────────────────────────────── -->
+    <div class="films-section">
+
       <div class="section-header">
         <h2 class="section-title">Featured Films</h2>
-        <div class="section-line" aria-hidden="true"></div>
+        <div class="section-line"></div>
         <span class="section-count">5 FILMS</span>
       </div>
       <div class="films-grid" id="filmsGrid" role="list">
-        <!-- Populated by JS -->
+        <!-- cards injected by inline script below from APP_DATA.films -->
       </div>
     </div>
 
-    <!-- ── ABOUT STRIP ─────────────────────────────────────────────────────── -->
+
+    <!-- ── ABOUT STRIP ────────────────────────────────────────────────── -->
     <div class="about-strip">
+
       <div class="about-strip-card">
         <div>
           <p class="label" data-accent="gold" data-mb="sm">About this Exhibition</p>
+
           <p class="about-strip-text">
             This web experience was created as a final project for the
             <strong>Information Modeling and Web Technologies</strong> course of the
@@ -248,8 +267,9 @@
       </div>
     </div>
 
+
     <!-- Previous / next page links -->
-    <div class="page-nav" role="navigation" aria-label="Previous and next pages">
+    <div class="page-nav" role="navigation">
       <a href="disclaimer.html" class="page-nav-btn">
         <span class="page-nav-btn-label">↺ Loop back</span>
         <span class="page-nav-btn-title">Disclaimer</span>
@@ -261,7 +281,8 @@
     </div>
   </div>
 
-  <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
   <div class="site-footer" role="contentinfo">
     <div class="footer-brand">Istanbul on Film — Foreign Cinema in the City</div>
     <div class="footer-meta">
@@ -269,74 +290,127 @@
     </div>
   </div>
 
+
   <!-- Scripts -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+
   <script>
     document.addEventListener("DOMContentLoaded", function() {
 
       // ----- mobile nav toggle button -----
       var navToggle = document.getElementById("navToggle");
+      // Get a reference to the hamburger button.
+
       var navLinks  = document.getElementById("navLinks");
+      // Get a reference to the menu <ul>.
+
       navToggle.addEventListener("click", function() {
-        var isOpen = navLinks.classList.toggle("open");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
+      // Attach a click event to the button.
+
+        navLinks.classList.toggle("open");
+        // Add or remove the "open" class.
+
       });
 
       // ----- narrative cards: set the narrative, then go to Explore -----
       document.getElementById("cardEspionage").addEventListener("click", function(e) {
+      // The click event for the espionage card.
+
         e.preventDefault();
+        // Stop the default behavior of the link (which would change the page). We want to set the state first.
+
         App.setNarrative("pursuit");
+        // Save "pursuit" as the current narrative using the App object. It is stored in localStorage.
+
         window.location.href = "explore.html";
+        // Now go to the Explore page manually.
+
       });
       document.getElementById("cardTimeline").addEventListener("click", function(e) {
         e.preventDefault();
         App.setNarrative("timeline");
+        // Same logic, but "timeline" is saved this time.
         window.location.href = "explore.html";
       });
 
-      // hero "Explore" button: just go to Explore (keep current narrative)
+      // The hero "Explore" button: just go to the Explore page (keep the current narrative)
       document.getElementById("heroExploreBtn").addEventListener("click", function(e) {
         e.preventDefault();
         window.location.href = "explore.html";
+        // We do not change the narrative here. The saved one will be used.
       });
 
       // ----- build the films grid from APP_DATA.films -----
       var grid = document.getElementById("filmsGrid");
+      // The reference to the empty <div id="filmsGrid"> we left above.
+
       for (var i = 0; i < APP_DATA.films.length; i++) {
+      // Loop over each film in the array.
+
         var film = APP_DATA.films[i];
+        // The current film object (it has title, year, director, etc.).
+
         var card = document.createElement("div");
+        // Create a new <div> element.
+
         card.className = "film-card";
+        // Add a CSS class to it.
+
         card.setAttribute("role", "listitem");
+        // Mark this card as a list item.
+
         card.innerHTML =
           '<div class="film-card-year">' + film.year + '</div>' +
           '<h3 class="film-card-title">' + film.title + '</h3>' +
           '<div class="film-card-director">Dir. ' + film.director + '</div>';
+        // Build the inner HTML with string concatenation. Important: innerHTML can be dangerous if the data is not trusted (XSS risk). Here our data comes from our own data.js, so it is safe.
+
         grid.appendChild(card);
+        // Add the card to the grid. This updates the DOM and forces the browser to render the new element.
+
       }
 
       // ----- theme switcher buttons -----
       function syncThemeButtons() {
+      // Helper function: find the active theme and update the look of the buttons.
+
         var active = App.getTheme();
+        // Read the current theme from the App object.
+
         var btns = document.querySelectorAll(".theme-btn");
+        // Select all theme buttons (returns a NodeList).
+
         for (var i = 0; i < btns.length; i++) {
-          if (btns[i].dataset.themeChoice === active) {
+          if (btns[i].getAttribute("data-theme-choice") === active) {
+          // getAttribute reads the data-theme-choice attribute from the HTML.
+
             btns[i].classList.add("active");
-            btns[i].setAttribute("aria-pressed", "true");
+            // Add the "active" class to the active button.
+
+            // Tell assistive tech the toggle button is pressed.
+
           } else {
             btns[i].classList.remove("active");
-            btns[i].setAttribute("aria-pressed", "false");
+            // The other buttons are not pressed.
           }
         }
       }
       var themeBtns = document.querySelectorAll(".theme-btn");
       for (var t = 0; t < themeBtns.length; t++) {
         themeBtns[t].addEventListener("click", function() {
-          App.setTheme(this.dataset.themeChoice);
+        // Add a click event to each button.
+
+          App.setTheme(this.getAttribute("data-theme-choice"));
+          // Apply the theme from data-theme-choice. "this" is the button that was clicked.
+
           syncThemeButtons();
+          // Update the visual state of all buttons.
+
         });
       }
       syncThemeButtons();
+      // Run it once at the start so the correct button is active when the page loads.
 
     });
   </script>

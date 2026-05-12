@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explore — Istanbul Cinema Tourism</title>
 
-  <!-- ─── STANDARD METADATA ──────────────────────────────────────────────── -->
+  <!-- ─── STANDARD METADATA ──────────────────────────────────────── -->
   <meta name="description" content="Explore 16 Istanbul filming locations from From Russia with Love, Taken 2, Skyfall, The Water Diviner, and Inferno — through two narratives.">
   <meta name="author"      content="Kübra Topçuoğlu">
   <meta name="keywords"    content="Istanbul, film locations, Hagia Sophia, Basilica Cistern, Grand Bazaar, Galata Bridge, Sirkeci, narrative, cinema tourism">
@@ -26,10 +27,10 @@
   <meta property="og:type"        content="website">
 
   <!-- ─── SCHEMA.ORG JSON-LD (static, all 16 locations in one CollectionPage) ─
-       CollectionPage is exactly the Schema.org type for "a page that lists
-       many items". Each LandmarksOrHistoricalBuildings entry below is an
-       independent valid Schema.org Place — search engines, validators and
-       screen readers can read every record without running any JavaScript. -->
+       CollectionPage is the official Schema.org type for "a page that lists
+       many items". Each LandmarksOrHistoricalBuildings entry below is a
+       valid Place. Search engines, validators and screen readers can read
+       every record without running any JavaScript. -->
   <script type="application/ld+json">
   {
     "@context":   "https://schema.org",
@@ -212,16 +213,18 @@
 
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-  <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-  <div class="main-nav" role="navigation" aria-label="Main navigation">
-    <a class="nav-brand" href="index.html" aria-label="Home">
+
+  <!-- ── NAVIGATION ────────────────────────────────────────────── -->
+  <div class="main-nav" role="navigation">
+    <a class="nav-brand" href="index.html">
       <span class="nav-brand-title">Istanbul</span>
       <span class="nav-brand-sub">Cinema Tourism</span>
     </a>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <button class="nav-toggle" id="navToggle">
       <span></span><span></span><span></span>
     </button>
 
@@ -234,124 +237,154 @@
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
 
-    <div class="theme-switcher" role="group" aria-label="Select visual theme">
-      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Mid-Century Cinema theme" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
-      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"           title="Heritage — XIX Century print">❦</button>
+    <div class="theme-switcher" role="group">
+      <button class="theme-btn" data-theme-choice="cinematic" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"           title="Heritage — XIX Century print">❦</button>
     </div>
 
   </div>
 
-  <!-- ── EXPLORE APP ────────────────────────────────────────────────────── -->
+
+  <!-- ── EXPLORE APP ──────────────────────────────────────────── -->
   <div class="explore-wrapper" role="main">
 
     <!-- Narrative Toggle Bar -->
-    <div class="narrative-toggle-bar" role="toolbar" aria-label="Narrative selection and progress">
-      <div class="narrative-toggle" role="group" aria-label="Select narrative">
+    <div class="narrative-toggle-bar" role="toolbar">
+
+      <div class="narrative-toggle" role="group">
+
         <button class="narrative-toggle-btn"
                 data-narrative="pursuit"
-                id="toggleEspionage"
-                aria-pressed="false">
+                id="toggleEspionage">
           ◈ Pursuit &amp; Passage
         </button>
+
         <button class="narrative-toggle-btn"
                 data-narrative="timeline"
-                id="toggleTimeline"
-                aria-pressed="false">
+                id="toggleTimeline">
           ◇ Through Time
         </button>
+
       </div>
 
-      <div class="progress-indicator" aria-live="polite" aria-label="Progress">
+
+      <div class="progress-indicator">
+
         <span id="progressText">1 / 8</span>
-        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressBarWrap">
+
+        <div class="progress-bar" role="progressbar" id="progressBarWrap">
           <div class="progress-fill" id="progressFill"></div>
         </div>
       </div>
     </div>
 
+
     <!-- Text controls: three groups (audience, length, mode) -->
-    <div class="variant-toolbar" role="toolbar" aria-label="Text presentation controls">
+    <div class="variant-toolbar" role="toolbar">
+
 
       <!-- Audience: Young / Adult / Scholar.
            Use the easier/harder buttons to step up or down.
            The current level is shown by the indicator on the right. -->
-      <div class="variant-group" role="group" aria-label="Audience">
+      <div class="variant-group" role="group">
         <span class="variant-group-label">Audience</span>
-        <button class="variant-btn" id="btnEasier"
-                aria-label="This text is too difficult — show an easier variant">↓ Too difficult</button>
-        <button class="variant-btn" id="btnHarder"
-                aria-label="This text is too simple — show a more advanced variant">↑ Too simple</button>
-        <span class="variant-indicator" id="variantIndicator" aria-live="polite">Adult</span>
+
+        <button class="variant-btn" id="btnEasier">↓ Too difficult</button>
+        <button class="variant-btn" id="btnHarder">↑ Too simple</button>
+
+        <span class="variant-indicator" id="variantIndicator">Adult</span>
       </div>
+
 
       <!-- Length: short summary or full text -->
-      <div class="variant-group" role="group" aria-label="Text length">
+      <div class="variant-group" role="group">
         <span class="variant-group-label">Length</span>
-        <button class="variant-btn" id="btnLenLess"
-                aria-label="Tell me less — show the very-brief summary">− Tell me less</button>
-        <button class="variant-btn" id="btnLenMore"
-                aria-label="Tell me more — show the full descriptive text">+ Tell me more</button>
-        <span class="variant-indicator" id="lengthIndicator" aria-live="polite">STANDARD</span>
+        <button class="variant-btn" id="btnLenLess">− Tell me less</button>
+        <button class="variant-btn" id="btnLenMore">+ Tell me more</button>
+        <span class="variant-indicator" id="lengthIndicator">STANDARD</span>
       </div>
+
 
       <!-- Mode: story view or details + QR view -->
-      <div class="variant-group" role="group" aria-label="Reading mode">
+      <div class="variant-group" role="group">
         <span class="variant-group-label">Mode</span>
-        <button class="variant-btn" id="btnModeStory"   data-mode="story"   aria-pressed="true">☰ Story</button>
-        <button class="variant-btn" id="btnModeDetails" data-mode="details" aria-pressed="false">⊞ Details &amp; QR</button>
+        <button class="variant-btn" id="btnModeStory"   data-mode="story">☰ Story</button>
+        <button class="variant-btn" id="btnModeDetails" data-mode="details">⊞ Details &amp; QR</button>
       </div>
     </div>
 
+
     <!-- Chapter Strip -->
-    <div class="chapter-strip" role="navigation" aria-label="Chapters" id="chapterStrip">
-      <!-- Populated by JS -->
+    <div class="chapter-strip" role="navigation" id="chapterStrip">
+      <!-- chapters injected by explore.js for the active narrative -->
     </div>
 
+
     <!-- Chapter intro banner: shown on the first location of each chapter -->
-    <div class="chapter-intro-banner hidden" id="chapterIntroBanner" role="region" aria-live="polite">
+    <div class="chapter-intro-banner hidden" id="chapterIntroBanner" role="region">
+
       <p class="chapter-transition hidden" id="chapterTransitionLine">
         <strong>Transition</strong>
         <span id="chapterTransitionText"></span>
       </p>
+
       <p class="chapter-intro">
         <strong id="chapterIntroChapter">Chapter</strong>
         <span id="chapterIntroText"></span>
       </p>
     </div>
 
+
     <!-- Location Viewer -->
-    <div class="location-viewer" id="locationViewer" aria-label="Location detail">
+    <div class="location-viewer" id="locationViewer">
+
 
       <!-- Left: Visual Panel -->
       <div class="location-visual" id="locationVisual">
-        <div class="location-image-placeholder" id="locationImagePlaceholder" data-location="">
+        <div class="location-image-placeholder" id="locationImagePlaceholder">
+
           <img class="location-image" id="locationImage" alt="" />
-          <span class="location-image-icon" id="locationImageIcon" aria-hidden="true">◉</span>
-          <div class="location-film-tag" id="locationFilmTag" aria-label="Film"></div>
-          <div class="location-coords mono" id="locationCoords" aria-label="Coordinates"></div>
+          <span class="location-image-icon" id="locationImageIcon">◉</span>
+
+          <div class="location-film-tag" id="locationFilmTag"></div>
+          <!-- Bottom-right badge: says what kind of media is currently shown
+               (Film Still / Real Location / Video). Replaces the old tabs. -->
+          <div class="location-type-tag" id="locationTypeTag"></div>
         </div>
 
-        <!-- Gallery: tabs (Real Location / Film Still) + thumbnail strip + caption -->
-        <div class="location-gallery" id="locationGallery" aria-label="Image gallery">
-          <div class="gallery-tabs" id="galleryTabs" role="tablist" aria-label="Gallery type"></div>
-          <div class="gallery-thumbs" id="galleryThumbs" role="list" aria-label="Image thumbnails"></div>
-          <p class="gallery-caption" id="galleryCaption" aria-live="polite"></p>
+
+        <!-- Gallery: prev/next arrow buttons + counter + caption.
+             All film, location and video items are merged into one list.
+             The user steps through them with the arrow buttons. -->
+        <div class="location-gallery" id="locationGallery">
+          <div class="gallery-nav" id="galleryNav">
+            <button class="gallery-arrow" id="galleryPrev" type="button" aria-label="Previous image">←</button>
+            <span class="gallery-counter" id="galleryCounter">1 / 1</span>
+            <button class="gallery-arrow" id="galleryNext" type="button" aria-label="Next image">→</button>
+          </div>
+          <p class="gallery-caption" id="galleryCaption"></p>
         </div>
+
 
         <div class="location-info-panel">
+
           <h1 class="location-name-large" id="locationName"></h1>
           <div class="location-scene" id="locationScene"></div>
+
           <div class="location-chapter-row">
             <span class="chapter-badge" id="locationChapterBadge"></span>
           </div>
         </div>
       </div>
 
+
       <!-- Right: Narrative Panel -->
       <div class="location-narrative">
-        <div class="narrative-content" id="narrativeContent" role="region" aria-label="Narrative text" aria-live="polite">
+        <div class="narrative-content" id="narrativeContent" role="region">
+
           <blockquote class="narrative-quote" id="narrativeQuote"></blockquote>
           <p class="narrative-body" id="narrativeBody"></p>
+
           <div class="narrative-note-block" id="narrativeNoteBlock">
             <div class="narrative-note-label">Narrative Note</div>
             <p class="narrative-note-text" id="narrativeNoteText"></p>
@@ -361,18 +394,22 @@
 
     </div>
 
+
     <!-- Details panel: QR code + camera info + metadata table -->
-    <div class="details-panel hidden" id="detailsPanel" role="region" aria-label="Shot details and QR code">
-      <button type="button" class="details-close" id="detailsCloseBtn"
-              aria-label="Close details panel and return to story view">×</button>
+    <div class="details-panel hidden" id="detailsPanel" role="region">
+
+      <button type="button" class="details-close" id="detailsCloseBtn">×</button>
+
       <div class="details-grid">
         <div class="details-qr">
-          <div class="details-qr-box" id="detailsQRBox" aria-label="QR code linking to this location"></div>
+          <div class="details-qr-box" id="detailsQRBox"></div>
           <div class="details-qr-label">Scan to share<br>this location</div>
         </div>
         <div>
           <div class="variant-group-label" data-mb="sm">Shot Geometry &amp; Camera Orientation</div>
+
           <div class="camera-specs">
+
             <div class="camera-spec">
               <div class="camera-spec-label">Facing</div>
               <div class="camera-spec-value" id="camFacing"></div>
@@ -394,9 +431,10 @@
         </div>
       </div>
 
+
       <!-- Catalogue metadata table.
            Fields use Schema.org, Dublin Core (dcterms), and Wikidata. -->
-      <div class="meta-block" id="metaBlock" aria-label="Catalogue metadata">
+      <div class="meta-block" id="metaBlock">
         <div class="meta-block-header">
           <span class="variant-group-label">Catalogue Metadata</span>
           <span class="meta-block-vocab" id="metaVocab" title="Active vocabularies">schema.org · dcterms · wikidata</span>
@@ -410,35 +448,40 @@
       </div>
     </div>
 
+
     <!-- Navigation Controls -->
-    <div class="explore-controls" role="navigation" aria-label="Location navigation">
-      <button class="explore-nav-btn" id="btnPrev" aria-label="Previous location" disabled>
-        <span class="arrow" aria-hidden="true">←</span>
+    <div class="explore-controls" role="navigation">
+
+      <button class="explore-nav-btn" id="btnPrev" disabled>
+        <span class="arrow">←</span>
         Previous
       </button>
 
       <div class="explore-controls-center">
+
         <div class="location-counter">
           <div class="location-counter-fraction" id="counterFraction">1 / 8</div>
           <div class="location-counter-label">Locations</div>
         </div>
         <!-- Walking direction to the next location (text from data.js).
              Hidden on the last location of a narrative. -->
-        <div class="location-directions" id="locationDirections" aria-live="polite"></div>
+        <div class="location-directions" id="locationDirections"></div>
       </div>
 
-      <button class="explore-nav-btn" id="btnNext" aria-label="Next location">
+      <button class="explore-nav-btn" id="btnNext">
         Next
-        <span class="arrow" aria-hidden="true">→</span>
+        <span class="arrow">→</span>
       </button>
     </div>
 
   </div>
 
+
   <!-- Scripts -->
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/explore.js"></script>
+
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -447,8 +490,7 @@
       var navToggle = document.getElementById("navToggle");
       var navLinks  = document.getElementById("navLinks");
       navToggle.addEventListener("click", function() {
-        var isOpen = navLinks.classList.toggle("open");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
+        navLinks.classList.toggle("open");
       });
 
       // ----- theme switcher buttons -----
@@ -456,19 +498,17 @@
         var active = App.getTheme();
         var btns = document.querySelectorAll(".theme-btn");
         for (var i = 0; i < btns.length; i++) {
-          if (btns[i].dataset.themeChoice === active) {
+          if (btns[i].getAttribute("data-theme-choice") === active) {
             btns[i].classList.add("active");
-            btns[i].setAttribute("aria-pressed", "true");
           } else {
             btns[i].classList.remove("active");
-            btns[i].setAttribute("aria-pressed", "false");
           }
         }
       }
       var themeBtns = document.querySelectorAll(".theme-btn");
       for (var t = 0; t < themeBtns.length; t++) {
         themeBtns[t].addEventListener("click", function() {
-          App.setTheme(this.dataset.themeChoice);
+          App.setTheme(this.getAttribute("data-theme-choice"));
           syncThemeButtons();
         });
       }

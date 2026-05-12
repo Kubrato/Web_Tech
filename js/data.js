@@ -1,34 +1,73 @@
 /*
   data.js — application data (read-only).
+  =============================================================================
 
-  Top-level objects on APP_DATA:
-    - narratives[]        narrative definitions and chapter intros
-    - pursuitLocations[]  12 stops for "Pursuit & Passage"
-    - timelineLocations[] 16 stops for "Through Time"
-    - mapLocations[]      16 unique physical locations (used on the map)
-    - films[]             5 films featured in the project
+  HOW TO READ THIS FILE
+  ---------------------
+  This file is mostly DATA, not logic. It defines three big JS objects and
+  one big array, then groups them together into a single global called
+  APP_DATA. The HTML pages and the other JS files read from APP_DATA, but
+  no one writes to it.
 
-  Each location has:
+  Object structure:
+
+   1) LOC_META    →  catalogue metadata, one entry per location.
+                     Keyed by slug (e.g. "hagia-sophia").
+
+   2) LOC_IMG     →  the image gallery for each location.
+                     Two lists per location: "location" (real photos),
+                     "film" (movie stills), and sometimes "video" (YouTube).
+
+   3) APP_DATA    →  the final object that the rest of the app uses.
+                     Inside it:
+                       narratives[]        narrative definitions and chapter intros
+                       pursuitLocations[]  12 stops for "Pursuit & Passage"
+                       timelineLocations[] 16 stops for "Through Time"
+                       mapLocations[]      16 unique physical locations (for the map)
+                       films[]             5 films featured in the project
+
+  Each location object has:
     - camera         exact shot info (facing, elevation, focal length, shot type)
-    - images         { location: [...], film: [...] } for the two-tab gallery
-    - texts          { young, adult, scholar } long versions
-    - textsShort     { young, adult, scholar } short versions
+    - images         from LOC_IMG (the gallery shown in Explore)
+    - texts          long versions: { young, adult, scholar }
+    - textsShort     short versions: { young, adult, scholar }
     - quote          short atmospheric pull-quote
-    - narrativeNote  editorial annotation
-    - meta           catalogue metadata (linked to LOC_META below)
+    - narrativeNote  editorial annotation by the author
+    - meta           catalogue metadata (from LOC_META below)
 
-  LOC_META splits each catalogue record into 5 groups: LOCATION, HERITAGE,
-  SCENE, TOURISM, PROJECT.
+  LOC_META splits each catalogue record into 5 groups:
+    LOCATION (address, GPS, district), HERITAGE (year built, architect),
+    SCENE (film, scene description, camera), TOURISM (visit time, ticket),
+    PROJECT (rights, language, sources, last_updated).
 
-  Vocabularies used in the metadata table:
-    - Schema.org (schema:*)        Place / TouristAttraction / etc.
+  Vocabularies used by the metadata table on Explore:
+    - f (schema:*)        Place / TouristAttraction / etc.
     - Dublin Core (dcterms:*)      source, rights, language, dates
-    - Wikidata Q-IDs               authority control
+    - Wikidata Q-IDs               authority control (one global ID per place)
     - GeoNames                     city / country hierarchy
+
+  KEY JAVASCRIPT TECHNIQUES YOU WILL SEE IN THIS FILE
+  ---------------------------------------------------
+   - const NAME = {...}     →  declare a constant. Cannot be reassigned.
+   - Object.freeze(obj)     →  makes the object read-only (cannot add/change keys).
+   - { ..._META_COMMON,     →  the "..." is the SPREAD operator. It copies all
+       address: "..." }        keys from _META_COMMON into the new object.
+                               So we do not write city / country / rights every time.
+   - "key-with-dashes":     →  keys can be strings. Required when the key has
+       value                    a dash or a space (like "hagia-sophia").
+   - Arrays of objects      →  [...], each element { ... } is one record.
+
+  =============================================================================
 */
+
 
 // Country, language and rights are the same for every record, so we
 // define them once and spread them into each record below.
+//
+// Object.freeze(...) prevents any code from modifying this object after it is
+// created. This is a defensive choice: if any line later tried to write
+// _META_COMMON.city = "Ankara", that line would silently fail (or throw an
+// error in strict mode). We want shared constants to STAY constant.
 const _META_COMMON = Object.freeze({
   city:         "Istanbul",
   country:      "Türkiye",
@@ -37,6 +76,13 @@ const _META_COMMON = Object.freeze({
   last_updated: "2026-05-07"
 });
 
+
+// LOC_META  →  the big metadata dictionary.
+// Keys are location slugs (URL-safe ids like "hagia-sophia").
+// Each value is one full catalogue record.
+// Inside each record we use { ..._META_COMMON, ... } to copy the shared fields
+// (city, country, language, rights, last_updated) and then add the specific
+// fields. This is the SPREAD pattern: it reduces repetition.
 const LOC_META = {
 
   // ── 1. HAGIA SOPHIA ───────────────────────────────────────────────────────
@@ -456,10 +502,22 @@ const LOC_META = {
   }
 };
 
-// ─── IMAGE GALLERY MAP ────────────────────────────────────────────────────────
-// Centralised so a single physical location can be referenced from both narratives.
-// `location[]` = real-location photographs (img/locations/...)
-// `film[]`     = stills from the film itself (img/films/...)
+// ============================================================================
+// IMAGE GALLERY MAP
+// ============================================================================
+// Centralised so a single physical location can be referenced from both
+// narratives without duplicating the image list. For example, "grand-bazaar"
+// appears in both Pursuit (under the chase chapter) and Through Time (under
+// 2012). Both pull their gallery from LOC_IMG["grand-bazaar"], so updating an
+// image in one place updates it in both narratives.
+//
+// Structure for each location:
+//   location[]  →  real-location photographs (img/locations/...)
+//   film[]      →  stills taken from the actual film (img/films/...)
+//   video[]     →  optional list of YouTube clip references (id + title + caption)
+//
+// Each image record has:  src (path), alt (for screen readers), caption (text).
+// Each video record has:  youtubeId (the YouTube video id), title, caption.
 const LOC_IMG = {
   "spice-bazaar": {
     location: [
@@ -630,9 +688,26 @@ const LOC_IMG = {
   }
 };
 
+// ============================================================================
+// APP_DATA  →  the single top-level object that the rest of the app reads.
+// ============================================================================
+// The other JS files (app.js, map.js, explore.js) only read from APP_DATA.
+// They never read from LOC_META or LOC_IMG directly; the values are pulled
+// into the per-location records below using  meta: LOC_META["..."]  and
+// images: LOC_IMG["..."].
+//
+// This separation matters:
+//   - LOC_META is shaped like a database (one row per location).
+//   - APP_DATA.pursuitLocations and APP_DATA.timelineLocations are shaped like
+//     a story (an ordered list with chapters, transitions, and rich text).
+//   - Same location appears in both lists with the SAME metadata, but
+//     different ordering, different chapter and different narrative notes.
 const APP_DATA = {
 
   // ─── NARRATIVES ──────────────────────────────────────────────────────────────
+  // narratives[]  →  two records that describe each narrative (id, title,
+  // chapters, accent color, chapter intros, transition lines).
+  // app.js calls getNarrativeData() to read these strings.
   narratives: [
     {
       id: "pursuit",
@@ -684,6 +759,24 @@ const APP_DATA = {
   ],
 
   // ─── NARRATIVE 1: PURSUIT & PASSAGE (12 locations) ───────────────────────────
+  // An ordered array of 12 location objects. The order matters: the Explore
+  // page steps through them in this exact sequence.
+  // Each object has:
+  //   id           unique slug, lower-case with dashes (kebab-case).
+  //   name         human-readable location name.
+  //   coordinates  [latitude, longitude] in decimal degrees. Used by Leaflet
+  //                map and by formatCoords() in app.js to show the GPS overlay.
+  //   chapter      one of: Surveillance / The Chase / The Search / Confrontation.
+  //                Used to group locations into chapters and pick the badge color.
+  //   film, year, director, scene, filmTag  →  film attribution.
+  //   camera       sub-object: facing, elevation, focalLength, shotType, angleNote.
+  //   images       LOC_IMG["..."]    (gallery, see definition above).
+  //   meta         LOC_META["..."]   (catalogue metadata, see definition above).
+  //   quote        short atmospheric pull-quote shown above the body text.
+  //   texts        { young, adult, scholar }  →  long versions of the text.
+  //   textsShort   { young, adult, scholar }  →  brief versions of the text.
+  //   narrativeNote  short editorial comment by the author.
+  //   nextDirection  human walking instruction to the next stop (e.g. "Walk 2.9 km").
   pursuitLocations: [
     {
       id: "spice-bazaar",
@@ -1083,6 +1176,11 @@ const APP_DATA = {
   ],
 
   // ─── NARRATIVE 2: ISTANBUL THROUGH TIME (16 locations) ───────────────────────
+  // Same shape as pursuitLocations[], but ordered by FILM ERA (1963 → 2012 →
+  // 2014 → 2016) instead of action chapter. The chapter field here is the era
+  // year ("1960s", "2012", "2014", "2016"). Some locations appear in both
+  // pursuit and timeline arrays, but with DIFFERENT chapter and DIFFERENT
+  // narrative notes — the same place reads differently in each story.
   timelineLocations: [
     // ── 1960s — From Russia with Love (3) ──
     {
@@ -1621,6 +1719,13 @@ const APP_DATA = {
   ],
 
   // ─── MAP LOCATIONS (16 unique physical locations) ─────────────────────────────
+  // A FLAT list of every unique physical place — no duplicates. Used by map.js
+  // to draw 16 markers on the Leaflet map. Each item is very small: just id,
+  // name, coordinates, the films it appears in, and which narratives include it.
+  // The "narratives" array drives the marker color:
+  //   ["pursuit"]            →  blue marker.
+  //   ["timeline"]           →  gold marker.
+  //   ["pursuit", "timeline"] →  mid-tone (both).
   mapLocations: [
     { id: "grand-bazaar",        name: "Grand Bazaar",                  coordinates: [41.0107, 28.9681], films: ["Skyfall"],                                          narratives: ["pursuit", "timeline"] },
     { id: "skyfall-rooftop-loc", name: "Grand Bazaar Rooftop",          coordinates: [41.0110, 28.9685], films: ["Skyfall"],                                          narratives: ["pursuit", "timeline"] },
@@ -1641,6 +1746,11 @@ const APP_DATA = {
   ],
 
   // ─── FILMS ────────────────────────────────────────────────────────────────────
+  // The 5 films featured in the project. Used by:
+  //   index.html  →  small "featured films" grid (only title, year, director).
+  //   about.html  →  detailed film cards with synopsis and Istanbul role.
+  // The sources sub-object holds the external links (IMDb, Wikipedia,
+  // distributor) — these are used by the disclaimer page.
   films: [
     {
       id: "from-russia-with-love",
@@ -1720,6 +1830,9 @@ const APP_DATA = {
   ],
 
   // ─── TEAM / ABOUT ─────────────────────────────────────────────────────────────
+  // Solo project, but the team[] array keeps a record of the academic context:
+  // institution, supervisor, course name. The about.html page can read this to
+  // build its institution card.
   team: [
     {
       name: "Project Team",
@@ -1731,3 +1844,6 @@ const APP_DATA = {
   ]
 
 };
+// End of APP_DATA. Because APP_DATA is declared with "const" at the top level
+// of this file (no module wrapping), it becomes a GLOBAL variable. All other
+// scripts in this project can access it as window.APP_DATA or just APP_DATA.

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Istanbul Cinema Tourism</title>
 
-  <!-- ─── STANDARD METADATA ──────────────────────────────────────────────── -->
+  <!-- ─── STANDARD METADATA ──────────────────────────────────────── -->
   <meta name="description" content="About this Digital Humanities project: Istanbul as a recurring foreign-cinema location across six decades, presented through two narratives.">
   <meta name="author"      content="Kübra Topçuoğlu">
   <meta name="keywords"    content="Istanbul, cinema tourism, Digital Humanities, University of Bologna, foreign cinema">
@@ -25,7 +26,7 @@
   <meta property="og:description" content="A Digital Humanities project on Istanbul filming locations across five international films.">
   <meta property="og:type"        content="article">
 
-  <!-- ─── SCHEMA.ORG JSON-LD (static AboutPage descriptor) ───────────────── -->
+  <!-- ─── SCHEMA.ORG JSON-LD (type AboutPage) ───────────────────────── -->
   <script type="application/ld+json">
   {
     "@context":   "https://schema.org",
@@ -42,15 +43,17 @@
 
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-  <!-- ── NAVIGATION ──────────────────────────────────────────────────────── -->
-  <div class="main-nav" role="navigation" aria-label="Main navigation">
-    <a class="nav-brand" href="index.html" aria-label="Home">
+
+  <!-- ── NAVIGATION ──────────────────────────────────────────────── -->
+  <div class="main-nav" role="navigation">
+    <a class="nav-brand" href="index.html">
       <span class="nav-brand-title">Istanbul</span>
       <span class="nav-brand-sub">Cinema Tourism</span>
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <button class="nav-toggle" id="navToggle">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks" role="list">
@@ -61,19 +64,21 @@
       <li><a class="nav-link" href="docs.html">Documentation</a></li>
       <li><a class="nav-link" href="disclaimer.html">Disclaimer</a></li>
     </ul>
-    <div class="theme-switcher" role="group" aria-label="Select visual theme">
-      <button class="theme-btn" data-theme-choice="cinematic" aria-label="Mid-Century Cinema theme" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
-      <button class="theme-btn" data-theme-choice="heritage"  aria-label="Heritage theme"           title="Heritage — XIX Century print">❦</button>
+    <div class="theme-switcher" role="group">
+      <button class="theme-btn" data-theme-choice="cinematic" title="Mid-Century Cinema — Second half of XX Century print">◉</button>
+      <button class="theme-btn" data-theme-choice="heritage"           title="Heritage — XIX Century print">❦</button>
     </div>
 
   </div>
 
-  <!-- ── CONTENT ────────────────────────────────────────────────────────── -->
+
+  <!-- ── CONTENT ──────────────────────────────────────────────────── -->
   <div class="text-page" role="main">
 
     <div class="text-page-header">
       <p class="text-page-eyebrow">About This Project</p>
       <h1 class="text-page-title">Istanbul on Film:<br>Foreign Cinema in the City</h1>
+
       <p class="text-page-intro">
         This is a web-based cinematic tourism project. It was built as the
         final project for the Master's Degree in Digital Humanities and
@@ -84,13 +89,18 @@
       </p>
     </div>
 
+
     <div class="text-page-body">
 
-      <!-- Project Overview & Author -->
-      <div class="doc-section" aria-labelledby="section-overview">
+
+      <!-- 01. Project Overview & Author -->
+      <div class="doc-section">
+
         <p class="doc-section-number">01</p>
         <h2 class="doc-section-title" id="section-overview">Project Overview &amp; Author</h2>
+
         <div class="doc-section-body">
+
           <p>
             This project shows Istanbul not just as a background for films, but
             as a real partner. Its streets, buildings, and history shape some of
@@ -113,6 +123,7 @@
           </p>
         </div>
 
+
         <p class="author-row-text">
           This is a <strong>1-person individual project</strong>. The
           two-theme design (<em>Mid-Century Cinema</em> / <em>Heritage</em>) and the
@@ -122,12 +133,16 @@
           compromise.
         </p>
 
+
         <div class="team-card author-card">
-          <div class="team-card-avatar" aria-hidden="true">◈</div>
+
+          <div class="team-card-avatar">◈</div>
+
           <div class="author-card-identity">
             <div class="team-card-name">Kübra Topçuoğlu</div>
             <div class="team-card-role">Author — sole creator</div>
           </div>
+
           <div class="author-card-affiliation">
             From Türkiye · Master's student in Digital Humanities and Digital Knowledge · University of Bologna
             <br><em>1-person individual project</em> · Information Modeling and Web Technologies
@@ -135,8 +150,9 @@
         </div>
       </div>
 
-      <!-- Selected Films -->
-      <div class="doc-section" aria-labelledby="section-films">
+
+      <!-- 02. Selected Films -->
+      <div class="doc-section">
         <p class="doc-section-number">02</p>
         <h2 class="doc-section-title" id="section-films">Selected Films</h2>
         <div class="doc-section-body">
@@ -148,18 +164,22 @@
           </p>
         </div>
 
+
         <!-- Film detail cards -->
         <div class="films-detail-grid" id="filmsDetailGrid">
-          <!-- Populated by JS -->
+          <!-- cards injected by inline script below from APP_DATA.films -->
         </div>
       </div>
 
-      <!-- Narratives -->
-      <div class="doc-section" aria-labelledby="section-narratives">
+
+      <!-- 03. Narratives -->
+      <div class="doc-section">
         <p class="doc-section-number">03</p>
         <h2 class="doc-section-title" id="section-narratives">The Two Narratives</h2>
 
+
         <div class="doc-grid">
+
           <div class="doc-grid-item">
             <p class="doc-grid-item-title" data-accent="blue">◈ Pursuit &amp; Passage</p>
             <p class="doc-grid-item-body">
@@ -191,8 +211,9 @@
         </div>
       </div>
 
-      <!-- Academic Context -->
-      <div class="doc-section" aria-labelledby="section-academic">
+
+      <!-- 04. Academic Context -->
+      <div class="doc-section">
         <p class="doc-section-number">04</p>
         <h2 class="doc-section-title" id="section-academic">Academic Context</h2>
         <div class="doc-section-body">
@@ -218,8 +239,9 @@
         </div>
       </div>
 
-      <!-- Suggested One-Day Itinerary -->
-      <div class="doc-section" aria-labelledby="section-itinerary">
+
+      <!-- 05. Suggested One-Day Itinerary -->
+      <div class="doc-section">
         <p class="doc-section-number">05</p>
         <h2 class="doc-section-title" id="section-itinerary">Suggested One-Day Itinerary</h2>
         <div class="doc-section-body">
@@ -242,6 +264,7 @@
           </p>
         </div>
 
+
         <ul class="timeline-list" data-mt="lg">
           <li><strong>09:00 — Hagia Sophia</strong> · <em>Inferno</em> · arrive at opening to skip the queue (≈ 30 min inside).</li>
           <li><strong>09:45 — Basilica Cistern</strong> · <em>Inferno</em> · directly across Sultanahmet Square (≈ 30 min underground).</li>
@@ -262,7 +285,8 @@
         </ul>
       </div>
 
-      <!-- Navigation -->
+
+      <!-- Navigation (CTA row at the bottom of the page) -->
       <div class="page-actions-row">
         <a href="explore.html" class="btn btn-primary">Begin Exploration</a>
         <a href="map.html"     class="btn btn-secondary">View Map</a>
@@ -271,8 +295,9 @@
 
     </div>
 
+
     <!-- Previous / next page links -->
-    <div class="page-nav" role="navigation" aria-label="Previous and next pages">
+    <div class="page-nav" role="navigation">
       <a href="explore.html" class="page-nav-btn">
         <span class="page-nav-btn-label">← Previous Page</span>
         <span class="page-nav-btn-title">Explore</span>
@@ -284,11 +309,13 @@
     </div>
   </div>
 
+
   <!-- Footer -->
   <div class="site-footer" role="contentinfo">
     <div class="footer-brand">Istanbul on Film — Foreign Cinema in the City</div>
     <div class="footer-meta">University of Bologna · Digital Humanities · Information Modeling and Web Technologies</div>
   </div>
+
 
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
@@ -299,16 +326,25 @@
       var navToggle = document.getElementById("navToggle");
       var navLinks  = document.getElementById("navLinks");
       navToggle.addEventListener("click", function() {
-        var isOpen = navLinks.classList.toggle("open");
-        navToggle.setAttribute("aria-expanded", String(isOpen));
+        navLinks.classList.toggle("open");
       });
 
       // ----- build the films detail grid -----
       var grid = document.getElementById("filmsDetailGrid");
+      // Reference to the empty grid div.
+
       for (var i = 0; i < APP_DATA.films.length; i++) {
+      // A loop for each film.
+
         var film = APP_DATA.films[i];
+        // The current film object (comes from data.js).
+
         var card = document.createElement("div");
+        // Create a new div.
+
         card.className = "film-detail-card";
+        // CSS class.
+
         card.innerHTML =
           '<div class="film-detail-year-block">' +
             '<div class="film-detail-year">' + film.year + '</div>' +
@@ -320,7 +356,10 @@
             '<p class="film-detail-synopsis">' + film.synopsis + '</p>' +
             '<p class="film-detail-role">' + film.istanbulRole + '</p>' +
           '</div>';
+        // Build the inner HTML with string concatenation: year/genre block + title/director/synopsis/Istanbul role.
+
         grid.appendChild(card);
+        // Add the card to the grid.
       }
 
       // ----- theme switcher buttons -----
@@ -328,19 +367,17 @@
         var active = App.getTheme();
         var btns = document.querySelectorAll(".theme-btn");
         for (var i = 0; i < btns.length; i++) {
-          if (btns[i].dataset.themeChoice === active) {
+          if (btns[i].getAttribute("data-theme-choice") === active) {
             btns[i].classList.add("active");
-            btns[i].setAttribute("aria-pressed", "true");
           } else {
             btns[i].classList.remove("active");
-            btns[i].setAttribute("aria-pressed", "false");
           }
         }
       }
       var themeBtns = document.querySelectorAll(".theme-btn");
       for (var t = 0; t < themeBtns.length; t++) {
         themeBtns[t].addEventListener("click", function() {
-          App.setTheme(this.dataset.themeChoice);
+          App.setTheme(this.getAttribute("data-theme-choice"));
           syncThemeButtons();
         });
       }
