@@ -15,8 +15,8 @@
                      Keyed by slug (e.g. "hagia-sophia").
 
    2) LOC_IMG     →  the image gallery for each location.
-                     Two lists per location: "location" (real photos),
-                     "film" (movie stills), and sometimes "video" (YouTube).
+                     Two lists per location: "location" (real photos)
+                     and "film" (movie stills).
 
    3) APP_DATA    →  the final object that the rest of the app uses.
                      Inside it:
@@ -514,10 +514,8 @@ const LOC_META = {
 // Structure for each location:
 //   location[]  →  real-location photographs (img/locations/...)
 //   film[]      →  stills taken from the actual film (img/films/...)
-//   video[]     →  optional list of YouTube clip references (id + title + caption)
 //
 // Each image record has:  src (path), alt (for screen readers), caption (text).
-// Each video record has:  youtubeId (the YouTube video id), title, caption.
 const LOC_IMG = {
   "spice-bazaar": {
     location: [
@@ -527,9 +525,6 @@ const LOC_IMG = {
     film: [
       { src: "img/films/Taken2/SpiceBazaarTaken2.jpg",       alt: "Spice Bazaar in Taken 2",          caption: "Taken 2 (2012) — Mills surveys the bazaar" },
       { src: "img/films/Taken2/taken-2-Spicebazaar.webp",    alt: "Spice Bazaar Taken 2 alternate",   caption: "Taken 2 (2012) — interior surveillance, alternate angle" }
-    ],
-    video: [
-      { youtubeId: "q8eE5T6iMsg", title: "Taken 2 — Official Trailer", caption: "Taken 2 (2012) — official trailer, Istanbul pursuit sequence" }
     ]
   },
   "maidens-tower": {
@@ -557,9 +552,6 @@ const LOC_IMG = {
     ],
     film: [
       { src: "img/films/Skyfall/skyfallRooftop.jpg", alt: "Skyfall rooftop chase", caption: "Skyfall (2012) — rooftop motorcycle finale" }
-    ],
-    video: [
-      { youtubeId: "6kw1UVovByw", title: "Skyfall — Official Trailer", caption: "Skyfall (2012) — official trailer, opening Istanbul rooftop chase" }
     ]
   },
   "deutsche-orientbank": {
@@ -618,9 +610,6 @@ const LOC_IMG = {
       { src: "img/films/theWaterDiviner/Haydarpasa.jpg",  alt: "Water Diviner Haydarpaşa 1", caption: "The Water Diviner (2014) — train departure" },
       { src: "img/films/theWaterDiviner/Haydarpasa2.jpg", alt: "Water Diviner Haydarpaşa 2", caption: "The Water Diviner (2014) — platform scene" },
       { src: "img/films/theWaterDiviner/Haydarpaşa1.jpg", alt: "Water Diviner Haydarpaşa 3", caption: "The Water Diviner (2014) — station facade" }
-    ],
-    video: [
-      { youtubeId: "XlgGxg_r0B0", title: "The Water Diviner — Official Trailer", caption: "The Water Diviner (2014) — official trailer; Connor's search begins at Haydarpaşa" }
     ]
   },
   "hagia-sophia": {
@@ -639,10 +628,6 @@ const LOC_IMG = {
     film: [
       { src: "img/films/Inferno/BasilicaCistern.png",  alt: "Inferno cistern climax",     caption: "Inferno (2016) — the underground climax" },
       { src: "img/films/Inferno/BasilicaCistern2.png", alt: "Inferno cistern alternate",  caption: "Inferno (2016) — alternate angle" }
-    ],
-    video: [
-      { youtubeId: "U6uW7Jb-PU4", title: "Inferno — Official Trailer",                  caption: "Inferno (2016) — official trailer; the cistern is the film's final stage" },
-      { youtubeId: "HQ3ASPaO9R0", title: "Inferno — The Locations of Inferno (featurette)", caption: "Inferno (2016) — official featurette on the film's Istanbul locations" }
     ]
   },
   "sirkeci": {
@@ -655,9 +640,6 @@ const LOC_IMG = {
       { src: "img/films/FromRussiawithLove/SirkeciRailwayFromRussion.jpg", alt: "FRWL Sirkeci alt 2",                       caption: "From Russia with Love (1963) — station exterior" },
       { src: "img/films/FromRussiawithLove/SirkeciRailwayFroRussion.jpg",  alt: "FRWL Sirkeci alt 3",                       caption: "From Russia with Love (1963) — platform" },
       { src: "img/films/FromRussiawithLove/SirkeciStationInsideRussia.jpg", alt: "From Russia with Love Sirkeci interior", caption: "From Russia with Love (1963) — Orient Express boarding" }
-    ],
-    video: [
-      { youtubeId: "t9AeIdMQqR8", title: "From Russia with Love — Official Trailer", caption: "From Russia with Love (1963) — official trailer; Sirkeci hosts the Orient Express finale" }
     ]
   },
   "firuz-aga": {

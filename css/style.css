@@ -1,37 +1,51 @@
-/* ============================================================================
-   Istanbul Cinema Tourism — main stylesheet
-   ============================================================================
+/*
+  KEY CSS IDEAS I USED IN THIS PROJECT
+  ------------------------------------
+  These are the main CSS tools you will see again and again in this file.
+  I list them here so a reader (or me, in a few months) can open the file
+  and remember what each thing means.
 
-   ABOUT THE STYLE OF COMMENTS IN THIS FILE
-   ----------------------------------------
-   Each big section starts with a comment block that explains what it does.
-   Inside each rule, the comment ABOVE the rule says:
-     - what HTML element / class the selector targets,
-     - what visual result the rule produces,
-     - the unusual / advanced properties that are good to remember for the exam.
-   Common properties (color, padding, margin, etc.) are not commented one by
-   one: the exam questions are not "what is padding?", they are "what does
-   THIS RULE do?". So the comments stay at the rule level.
+  - CSS variables: I write --space-md on :root and read it with var(--space-md).
+    Why: I can change one number in one place and the whole site updates.
 
-   KEY CSS CONCEPTS USED ON THIS PROJECT
-   -------------------------------------
-   - CSS custom properties (variables) declared on :root  → --space-md, etc.
-   - var(--name) reads a variable.
-   - clamp(min, ideal, max) gives fluid sizing: never below min, never above max.
-   - rem  = relative to the root font size (16px by default). 1.5rem = 24px.
-   - vw   = 1% of the viewport WIDTH; vh = 1% of the viewport HEIGHT.
-   - %    = relative to the parent's size.
-   - rgba(r,g,b,alpha) lets us set transparency (alpha 0 = invisible, 1 = solid).
-   - display: flex / display: grid → modern layout systems.
-   - Pseudo-classes: :hover, :focus, :active, :disabled, :nth-child(...).
-   - Pseudo-elements: ::before, ::after, ::selection — they generate fake
-     children of an element, so we can add decorations without HTML.
-   - Media queries: @media (max-width: 900px) { ... } change rules at small widths.
-   - [data-theme="heritage"] is an ATTRIBUTE SELECTOR. The Heritage theme reuses
-     the same HTML but overrides variables when <html data-theme="heritage">.
-   - * = the universal selector (every element).
-   - Box model: every element has content + padding + border + margin.
-     box-sizing: border-box (in the reset) makes width include padding+border.
+  - clamp(min, ideal, max): a size that grows with the screen but stops at
+    the min and max. Example: font-size: clamp(1rem, 2vw, 1.5rem).
+    Why: the text feels good on both a phone and a wide monitor without
+    writing many media queries.
+
+  - rem: a size based on the root font size (1rem = 16px here).
+    Why: if a user makes their browser text bigger, my layout grows with it.
+
+  - vw / vh: 1% of the screen width / height.
+    Why: useful when I want a section to fill the screen (100vh).
+
+  - rgba(r,g,b,alpha): a color with transparency (alpha 0 = invisible).
+    Why: I use it for soft overlays and shadows over photos.
+
+  - display: flex and display: grid: the two main layout systems.
+    Why: flex is great for a row of items; grid is great for full 2D layouts.
+
+  - Pseudo-classes (:hover, :focus, :active, :disabled): style based on state.
+    Why: I can show a hover effect without any JavaScript.
+
+  - Pseudo-elements (::before, ::after, ::selection): a fake child element
+    that I can style. It is not in the HTML.
+    Why: I add decorations (lines, dots, glows) without making the HTML messy.
+
+  - Media queries (@media (max-width: 900px) { ... }): different rules at
+    different screen sizes.
+    Why: the layout must work on mobile too.
+
+  - [data-theme="heritage"]: an attribute selector. When the <html> tag has
+    data-theme="heritage", a second set of variables is loaded.
+    Why: the same HTML can become a totally different visual theme.
+
+  - The universal selector *: matches every element.
+    Why: I use it once at the top to reset browser defaults.
+
+  - Box model: every element is content + padding + border + margin.
+    box-sizing: border-box makes width include padding and border.
+    Why: a "300px wide" card stays 300px even after I add padding inside.
 
    TABLE OF CONTENTS (numbers match the original sections)
 
@@ -51,7 +65,6 @@
     16.  Map page
     17.  Content pages (About, Docs, Disclaimer)
     18.  Footer
-    19.  Animations
     20.  Responsive breakpoints
     21.  Print
     22.  Audience / length / mode toolbar
@@ -65,21 +78,26 @@
    ============================================================================ */
 
 /* 1. Imports
-   @import url(...) loads another stylesheet (here: Google Fonts). It must come
-   at the top of the file, before any rules.
-   The URL asks for six font families. Each "family=Name:ital,wght@..." part
-   selects which italic and weight variations to download (smaller download).
-   "display=swap" tells the browser to use a fallback font while the web font
-   is still loading (no invisible text). */
+   What: @import loads another CSS file inside this one. Here I load six
+   font families from Google Fonts.
+   Why I put it at the top: @import must come before any rule, otherwise
+   the browser ignores it.
+   Why "display=swap": while a web font is loading, the browser shows a
+   normal system font first. The text is never invisible. */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Alegreya+Sans+SC:wght@400;500;700&display=swap');
 
 
-/* 2. Design tokens — variables for both themes
-   :root is a special selector. It is the same as <html> but has higher
-   specificity. CSS custom properties (--name) defined on :root are
-   available everywhere in the file. Read them with var(--name).
-   The Heritage theme will override the SAME variable names later, so any rule
-   that uses var(--bg-primary) gets a different value automatically. */
+/* 2. Design tokens — my project's variables
+   What: a long list of CSS variables (colors, fonts, spacing, etc.).
+   :root means the <html> element, so every rule in the file can read them.
+
+   Why I keep all my values in one place:
+   - I can change one color here and the whole site updates.
+   - I never have to remember exact hex codes; I just write
+     var(--accent-gold).
+   - The Heritage theme later in this file overrides these SAME names.
+     So when the user switches theme, every component changes color
+     without me touching any other rule. */
 :root {
   /* Colors */
   --bg-primary:      #0a0a12;
@@ -126,11 +144,6 @@
   --space-2xl: 64px;
   --space-3xl: 96px;
 
-  /* Transitions */
-  --transition-fast:   0.15s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow:   0.5s ease;
-
   /* Layout */
   --nav-height: 60px;
   --sidebar-width: 280px;
@@ -138,59 +151,69 @@
 
 /* 3. Reset and base */
 
-/* Universal selector reset.
-   "*, *::before, *::after" selects EVERY element and every ::before/::after.
-   - box-sizing: border-box  → width/height include padding and border (very
-     useful: a "100px width" stays 100px even if you add padding).
-   - margin: 0; padding: 0   → remove the default browser spacing so layouts
-     start from a clean state. */
+/* What: this rule matches EVERY element on the page, including ::before
+   and ::after pseudo-elements.
+
+   Why I do this at the start:
+   - Different browsers add their own default margins and paddings.
+     If I do not reset them, my layout looks different in each browser.
+   - box-sizing: border-box makes width and height include padding and
+     border. So a "200px" box stays 200px even after I add padding.
+     Without this line, sizing math becomes very painful. */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Base on the root <html> element.
-   - font-size: 16px sets the root font size. 1rem now equals 16px.
-   - scroll-behavior: smooth makes "go to anchor" links animate scroll. */
+/* What: base rules for the <html> tag.
+   Why font-size: 16px: this fixes 1rem at 16px, so all my rem values
+   are predictable.
+   Why scroll-behavior: smooth: when the user clicks a link like #section2,
+   the page slides to it instead of jumping. It feels more polished. */
 html {
   font-size: 16px;
   scroll-behavior: smooth;
 }
 
-/* Base styles for <body>.
-   - font-family uses our --font-sans variable (Inter).
-   - min-height: 100vh makes the body at least the full viewport height.
-   - overflow-x: hidden hides any horizontal scroll bar caused by decorations.
-   - -webkit-font-smoothing / -moz-osx-font-smoothing  smooth the font edges
-     on macOS browsers.
-   - isolation: isolate creates a new stacking context. It keeps the body::before
-     background isolated so it does not bleed through z-index from fixed nav. */
+/* What: base look of the <body>.
+   Why min-height: 100vh: the body always fills at least one screen,
+   so the footer never floats in the middle on short pages.
+   Why overflow-x: hidden: my decorative background uses wide gradients;
+   without this, the user could see a horizontal scroll bar.
+   Why isolation: isolate: it creates a "new layer" for the body. My
+   decorative background below uses z-index: -1; without this line, that
+   background could slip behind the page color and disappear. */
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   isolation: isolate;
 }
 
-/* Cinematic background: two filmstrip perforation columns + a soft vignette.
-   ::before is a PSEUDO-ELEMENT — it generates a fake child element of <body>
-   that we can style. It does not exist in the HTML.
-   - content: ''   →  required for ::before/::after to appear.
-   - position: fixed  → stays in place when the user scrolls.
-   - inset: 0      →  shortcut for top:0; right:0; bottom:0; left:0.
-   - pointer-events: none → clicks pass through to elements below.
-   - z-index: -1   →  behind everything else in the body.
-   - The background is THREE layered gradients separated by commas:
-       1) left perforation column (8px gold dots, every 28px)
-       2) right perforation column (same pattern, on the right edge)
-       3) a soft dark vignette like a cinema-room corner.
-   - Each layer uses the form: gradient-function(...) position / size no-repeat.
-   The Heritage override at the end of the file swaps this for warm paper washes. */
+/* What: the cinema-style background of the whole page.
+   It draws two "film perforation" columns on the left and right edges,
+   plus a soft dark vignette in the middle.
+
+   Why ::before: ::before is a fake child element of <body>. I can style
+   it like a normal element but it is not in the HTML. So my HTML stays
+   clean and the decoration is pure CSS.
+   Why content: ''  : without content, ::before does not appear at all.
+   Why position: fixed + inset: 0: the background covers the full screen
+   and stays in place when the user scrolls (like a movie screen).
+   Why pointer-events: none: the user can still click links and buttons
+   "through" the decoration.
+   Why z-index: -1: the decoration sits behind the real content.
+
+   How I build the picture: I stack THREE gradients in one background
+   property (separated by commas). The browser draws them top-to-bottom:
+     1) left column of small gold dots (film perforations)
+     2) right column of the same dots
+     3) a soft GOLD oval in the middle (cinema vignette)
+   The Heritage theme later in the file replaces this with warm paper
+   colors. */
 body::before {
   content: '';
   position: fixed;
@@ -201,47 +224,38 @@ body::before {
     /* left filmstrip perforation column */
     repeating-linear-gradient(
       180deg,
-      rgba(201,165,90,0.07) 0,
-      rgba(201,165,90,0.07) 8px,
+      rgba(201,165,90,0.15) 0,
+      rgba(201,165,90,0.15) 8px,
       transparent 8px,
       transparent 28px
     ) left top / 14px 100% no-repeat,
     /* right filmstrip perforation column (mirrored) */
     repeating-linear-gradient(
       180deg,
-      rgba(201,165,90,0.07) 0,
-      rgba(201,165,90,0.07) 8px,
+      rgba(201,165,90,0.15) 0,
+      rgba(201,165,90,0.15) 8px,
       transparent 8px,
       transparent 28px
     ) right top / 14px 100% no-repeat,
     /* soft vignette — like screen falloff in a dark room */
     radial-gradient(
-      ellipse 100% 70% at 50% 50%,
-      transparent 55%,
-      rgba(0,0,0,0.45) 100%
+    ellipse 100% 70% at 50% 50%,
+    rgba(201,165,90,0.2) 0%,    /* ortada hafif altın ışıltı */
+    transparent 60%
     ) center / 100% 100% no-repeat;
 }
 
-/* ::selection is a pseudo-element that styles the text the user selects with
-   the mouse. Here selected text becomes gold-on-dark instead of the default
-   blue-on-white. A small but nice cinematic detail. */
+/* What: ::selection styles the text that the user highlights with the
+   mouse. By default it is blue on white.
+   Why I change it: I use gold on dark to match the film theme. It is a
+   small detail but it makes the page feel custom-made. */
 
 ::selection {
   background: var(--accent-gold);
   color: var(--text-inverse);
 }
 
-/* 5. Scrollbar
-   The ::-webkit-scrollbar pseudo-elements style the scrollbar in Chrome /
-   Safari / Edge (WebKit-based browsers). Firefox uses different properties.
-   - "track" is the bar itself; "thumb" is the small handle the user drags. */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-secondary); }
-::-webkit-scrollbar-thumb { background: var(--border-accent); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--accent-gold-dim); }
-
-
-/* 6. Typography
+/* 5. Typography
    Headings share the serif font with bold weight 600 and tight line-height.
    The font-size uses clamp(min, ideal, max) — the heading scales smoothly
    between min and max as the viewport grows. No media queries needed. */
@@ -256,9 +270,8 @@ h4 { font-size: 1.1rem; }
    size — a comfortable spacing for reading long text. */
 p { line-height: 1.75; color: var(--text-secondary); }
 
-/* Default link style. text-decoration: none removes the underline.
-   The transition makes the color change smooth on hover. */
-a { color: var(--accent-gold); text-decoration: none; transition: color var(--transition-fast); }
+/* Default link style. text-decoration: none removes the underline. */
+a { color: var(--accent-gold); text-decoration: none; }
 a:hover { color: #e8c880; }
 /* :hover is a pseudo-class: applies when the mouse is over the element. */
 
@@ -276,8 +289,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 /* 7. Navigation bar
    The top menu bar is FIXED (it stays visible while you scroll).
    - position: fixed + top/left/right: 0  →  pinned to the top, full width.
-   - backdrop-filter: blur(12px) makes the area behind the bar slightly blurred
-     (only works on modern browsers; ignored otherwise).
    - z-index: 1000 makes sure it sits above all normal content.
    - display: flex + align-items: center + gap: ...  →  horizontal row of items
      vertically centered, with consistent gaps between them. */
@@ -286,7 +297,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   top: 0; left: 0; right: 0;
   height: var(--nav-height);
   background: rgba(10, 10, 18, 0.95);
-  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   z-index: 1000;
   display: flex;
@@ -332,7 +342,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   color: var(--text-secondary);
   padding: var(--space-xs) var(--space-sm);
   border-radius: 4px;
-  transition: all var(--transition-fast);
   white-space: nowrap;
 }
 .nav-link:hover { color: var(--text-primary); background: var(--bg-card); }
@@ -351,7 +360,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   display: block;
   width: 22px; height: 2px;
   background: var(--text-secondary);
-  transition: all var(--transition-fast);
 }
 
 /* ============================================================================
@@ -360,8 +368,6 @@ strong { color: var(--text-primary); font-weight: 600; }
    to vertically center the content. min-height: 100vh = at least one screen
    tall. The eyebrow / title / subtitle / meta / buttons stack with vertical
    margins from the spacing scale.
-   The hero-bg-gradient under it uses three layered radial/linear gradients
-   to suggest a dark cityscape atmosphere.
    ============================================================================ */
 .hero {
   position: relative;
@@ -378,16 +384,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   position: absolute;
   inset: 0;
   z-index: 0;
-}
-
-/* Layered gradient background simulating a cityscape atmosphere */
-.hero-bg-gradient {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(74,139,181,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(201,165,90,0.06) 0%, transparent 50%),
-    linear-gradient(180deg, rgba(10,10,18,0.3) 0%, rgba(10,10,18,0.7) 60%, var(--bg-primary) 100%);
 }
 
 .hero-content {
@@ -477,7 +473,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   text-transform: uppercase;
   cursor: pointer;
   border: none;
-  transition: all var(--transition-normal);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -489,8 +484,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 .btn-primary:hover {
   background: #e0bc6e;
   color: var(--text-inverse);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(201,165,90,0.3);
 }
 
 .btn-secondary {
@@ -502,7 +495,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   background: var(--bg-card);
   color: var(--accent-gold);
   border-color: var(--accent-gold);
-  transform: translateY(-1px);
 }
 
 .btn-ghost {
@@ -525,18 +517,15 @@ strong { color: var(--text-primary); font-weight: 600; }
 .btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
-  transform: none !important;
 }
 
 /* ============================================================================
    12. Narrative cards (cover page)
    Two large cards side by side: "Pursuit" and "Through Time".
    - Layout: CSS Grid with grid-template-columns: 1fr 1fr  →  two equal columns.
-   - Each card has a thin colored line on top that animates in on hover.
-     The line is a ::before pseudo-element with transform: scaleX(0) at rest
-     and scaleX(1) on hover. transform-origin: left makes it grow from the left.
-   - .narrative-card.espionage and .narrative-card.timeline override
-     --card-accent on each card so the same rules render in different colors.
+   - On hover the border color and background swap to the "accent" variant.
+   - .narrative-card.espionage and .narrative-card.timeline set a per-card
+     accent variable so each card can use a different color later if needed.
    ============================================================================ */
 .narrative-cards {
   display: grid;
@@ -553,24 +542,12 @@ strong { color: var(--text-primary); font-weight: 600; }
   border-radius: 8px;
   padding: var(--space-xl);
   cursor: pointer;
-  transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
   text-decoration: none;
   display: block;
 }
-.narrative-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--card-accent, var(--accent-gold));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--transition-normal);
-}
-.narrative-card:hover { border-color: var(--border-accent); transform: translateY(-3px); background: var(--bg-card-hover); }
-.narrative-card:hover::before { transform: scaleX(1); }
+.narrative-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
 
 .narrative-card.espionage { --card-accent: var(--accent-blue); }
 .narrative-card.timeline  { --card-accent: var(--accent-gold); }
@@ -659,7 +636,8 @@ strong { color: var(--text-primary); font-weight: 600; }
 
 .films-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+  /* Create as many columns as can fit in the container. Each column is at least 160px wide, but it can grow to fill the empty space. */
   gap: var(--space-md);
 }
 
@@ -668,7 +646,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: var(--space-md);
-  transition: all var(--transition-normal);
 }
 .film-card:hover { border-color: var(--border-accent); background: var(--bg-card-hover); }
 
@@ -695,8 +672,6 @@ strong { color: var(--text-primary); font-weight: 600; }
    A small colored pill used to show which chapter a location belongs to.
    - display: inline-flex makes it sit inline (like a span) but uses flexbox
      inside to align the dot + text.
-   - The dot is a ::before pseudo-element. background: currentColor reuses
-     the badge's text color, so changing the badge color changes the dot too.
    - Each .chapter-* modifier (e.g. .chapter-chase) sets a different color set
      (background tinted, full color for text, slightly stronger border).
    ============================================================================ */
@@ -711,12 +686,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.chapter-badge::before {
-  content: '';
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: currentColor;
-}
 
 .chapter-surveillance { background: rgba(74,139,181,0.15); color: var(--surveillance-color); border: 1px solid rgba(74,139,181,0.3); }
 .chapter-chase        { background: rgba(154,106,42,0.15); color: var(--chase-color);        border: 1px solid rgba(154,106,42,0.3); }
@@ -728,21 +697,42 @@ strong { color: var(--text-primary); font-weight: 600; }
 .chapter-2016         { background: rgba(201,165,90,0.15); color: var(--c-2016);             border: 1px solid rgba(201,165,90,0.3); }
 
 /* ============================================================================
-   15. Explore page
-   The Explore page is one of the most complex layouts:
-     - .explore-wrapper takes the full viewport (position: fixed, inset:0).
-     - It is a column flex (top toolbars stack vertically, then the viewer
-       takes the rest with flex: 1).
-     - .location-viewer is a 2-column CSS grid (image left | narrative right).
-     - Each panel has its own overflow-y: auto so content scrolls inside the
-       panel — never the whole page.
-   IMPORTANT: min-height: 0 on flex/grid items is needed so they can shrink
-   below the size of their content. Without it, overflow does not work.
+   15. Explore page — how the layout works
+
+   WHAT we are building:
+     The Explore page fills the whole browser window. At the top there are
+     small toolbars (buttons, switches). The big area below shows two panels
+     side by side: a picture on the LEFT and the story text on the RIGHT.
+
+   WHY we do it this way:
+     We do NOT want the whole page to scroll. If the story is long, only the
+     story panel should scroll. The picture and the toolbars must stay in
+     place. This feels more like an app and less like a normal web page.
+
+   HOW each part helps (read this together with the CSS below):
+
+     1) .explore-wrapper
+        - position: fixed + inset:0  -> it covers the full screen, always.
+        - display: flex + flex-direction: column
+              -> children stack from top to bottom (toolbars, then viewer).
+        - The toolbars keep their natural small height. The viewer below
+          uses "flex: 1" to take all the space that is left.
+
+     2) .location-viewer
+        - display: grid with 2 columns -> picture LEFT, story RIGHT.
+        - Each column is its own panel and has overflow-y: auto.
+          That means: if the content is too long, only THAT panel scrolls.
+
+     3) min-height: 0 (the famous flex/grid trick)
+        - By default, a flex or grid child refuses to become smaller than
+          its content. So a long story would push the panel and break the
+          layout. min-height: 0 says "yes, you are allowed to shrink", and
+          then overflow-y: auto can finally show the scrollbar.
+
+     Short version: the wrapper = the whole window. Toolbars keep their
+     size. The viewer takes the rest. Long content scrolls INSIDE its own
+     panel, not on the page.
    ============================================================================ */
-/* Canvas = viewport. Toolbars/controls keep their natural height; the location
-   viewer takes the rest. Any narrative or metadata that doesn't fit scrolls
-   inside its own container — never the page. The wrapper falls back to
-   overflow-y:auto only for pathologically short viewports. */
 .explore-wrapper {
   position: fixed;
   inset: 0;
@@ -787,7 +777,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   border: none;
   background: transparent;
   color: var(--text-muted);
-  transition: all var(--transition-fast);
   white-space: nowrap;
 }
 .narrative-toggle-btn.active {
@@ -816,7 +805,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   height: 100%;
   background: var(--accent-gold);
   border-radius: 2px;
-  transition: width var(--transition-normal);
 }
 
 /* Chapter Strip */
@@ -839,7 +827,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   color: var(--text-muted);
   cursor: pointer;
   white-space: nowrap;
-  transition: all var(--transition-fast);
 }
 .chapter-strip-item.active { color: var(--text-primary); background: var(--bg-card); }
 .chapter-strip-sep { color: var(--text-muted); opacity: 0.3; font-size: 0.6rem; }
@@ -873,7 +860,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /*İçerik kutudan taşarsa, taşan kısmı kes ve gizle
   /* Fixed-ish image area sized to a film aspect ratio so the panels below
      (gallery + info) are always visible without forcing scroll on tall screens. */
   flex: 0 0 auto;
@@ -882,8 +869,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 
 /* Main image: object-fit: contain shows the full photo (with letterbox)
-   so portrait stills aren't cropped. The chapter-coloured gradient fills
-   any blank space behind the image. z-index:1 keeps it under the tag/coords. */
+   so portrait stills aren't cropped. */
 .location-image {
   display: none;
   position: absolute;
@@ -895,22 +881,11 @@ strong { color: var(--text-primary); font-weight: 600; }
   z-index: 1;
 }
 
-/* YouTube embed: shares the same fixed image-area box as .location-image. */
-.location-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: #000;
-  z-index: 2;
-}
-
 /* ----------------------------------------------------------------------------
    Gallery (per-location: arrow buttons + counter + caption)
-   The gallery sits below the main image. Film, real-location and video items
+   The gallery sits below the main image. Film and real-location items
    are merged into one flat list — the user steps through them with ← / →.
-   The current item's type (Film Still / Real Location / Video) is shown as
+   The current item's type (Film Still / Real Location) is shown as
    a small badge in the bottom-right corner of the image (.location-type-tag).
    ---------------------------------------------------------------------------- */
 .location-gallery {
@@ -938,7 +913,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   font-size: 0.9rem;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
 }
 .gallery-arrow:hover {
   color: var(--text-primary);
@@ -957,37 +931,7 @@ strong { color: var(--text-primary); font-weight: 600; }
   margin: 0;
   font-style: italic;
 }
-.gallery-video-link {
-  display: inline-block;
-  margin-left: 4px;
-  font-style: normal;
-  color: var(--accent-blue);
-  text-decoration: none;
-  border-bottom: 1px dotted currentColor;
-  white-space: nowrap;
-}
-.gallery-video-link:hover { color: var(--accent-gold); }
 .gallery-caption:empty { display: none; }
-
-/* Cinematic placeholder using CSS gradients.
-   When a location has no real image, we still need a nice colored area.
-   ::before draws a soft radial color (chapter-tinted) + a dark gradient. */
-.location-image-placeholder::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 40%, var(--location-color, rgba(74,139,181,0.12)) 0%, transparent 70%),
-    linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-}
-
-.location-image-icon {
-  position: relative;
-  z-index: 1;
-  font-size: 3.5rem;
-  opacity: 0.2;
-  filter: blur(0.5px);
-}
 
 .location-film-tag {
   position: absolute;
@@ -1006,14 +950,12 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 
 /* Media-type badge: sits in the bottom-right of the image and tells the
-   viewer whether the current item is a Film Still, a Real Location photo,
-   or a Video. Replaces the old tab buttons. */
+   viewer whether the current item is a Film Still or a Real Location photo.*/
 .location-type-tag {
   position: absolute;
   bottom: var(--space-md);
   right: var(--space-md);
   background: rgba(10,10,18,0.8);
-  backdrop-filter: blur(8px);
   border: 1px solid var(--border-accent);
   border-radius: 4px;
   padding: 4px 10px;
@@ -1061,8 +1003,7 @@ strong { color: var(--text-primary); font-weight: 600; }
    The grid cell itself is the scroll container so the body text and any
    sibling blocks (note block, metadata viewer in details mode) share one
    scrollbar instead of nesting scrolls.
-   .narrative-quote uses border-left + padding-left as a "pull quote" style
-   (one of the classic typographic effects on the web).
+   .narrative-quote uses border-left + padding-left as a pull-quote style.
    .narrative-note-block uses border-left in a different color to mark it as
    a side comment from the author. The .timeline variants change the accent
    to blue when the timeline narrative is active.
@@ -1147,7 +1088,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   border: 1px solid var(--border);
   background: var(--bg-card);
   color: var(--text-secondary);
-  transition: all var(--transition-fast);
 }
 .explore-nav-btn:hover:not(:disabled) {
   color: var(--text-primary);
@@ -1230,7 +1170,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   padding: var(--space-sm) var(--space-md);
   border-radius: 6px;
   cursor: pointer;
-  transition: all var(--transition-fast);
   margin-bottom: 2px;
   border: 1px solid transparent;
 }
@@ -1265,7 +1204,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent-gold);
-  transition: color var(--transition-fast);
 }
 .map-detail-link:hover { color: #e8c880; }
 
@@ -1399,16 +1337,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   border: 1px solid var(--border);
   border-radius: 2px;
 }
-.doc-figure-caption {
-  margin-top: var(--space-xs);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  line-height: 1.55;
-  color: var(--text-muted);
-  letter-spacing: 0.02em;
-  text-align: center;
-}
-
 /* Two-column doc grid */
 .doc-grid {
   display: grid;
@@ -1603,7 +1531,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 .copyright-link {
   font-size: 0.78rem;
   color: var(--text-muted);
-  transition: color var(--transition-fast);
 }
 .copyright-link:hover { color: var(--accent-gold); }
 
@@ -1774,7 +1701,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   border: 1px solid var(--border);
   background: var(--bg-card);
   color: var(--text-secondary);
-  transition: all var(--transition-fast);
   white-space: nowrap;
   font-family: var(--font-sans);
 }
@@ -1835,14 +1761,12 @@ strong { color: var(--text-primary); font-weight: 600; }
   line-height: 28px;
   text-align: center;
   cursor: pointer;
-  transition: all var(--transition-fast);
   z-index: 5;
 }
 .details-close:hover {
   background: var(--accent-red);
   color: var(--text-primary);
   border-color: var(--accent-red);
-  transform: scale(1.05);
 }
 .details-close:focus-visible {
   outline: 2px solid var(--accent-gold);
@@ -2108,7 +2032,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   font-size: 0.75rem;
   background: transparent;
   color: var(--text-muted);
-  transition: all var(--transition-fast);
   font-family: var(--font-sans);
 }
 .theme-btn:hover { color: var(--text-primary); }
@@ -2137,14 +2060,12 @@ strong { color: var(--text-primary); font-weight: 600; }
   background: var(--bg-card);
   color: var(--text-secondary);
   text-decoration: none;
-  transition: all var(--transition-fast);
   min-width: 180px;
 }
 .page-nav-btn:hover {
   color: var(--accent-gold);
   border-color: var(--border-accent);
   background: var(--bg-card-hover);
-  transform: translateY(-1px);
 }
 .page-nav-btn.align-end { text-align: right; align-items: flex-end; }
 .page-nav-btn-label {
@@ -2162,9 +2083,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 
 /* ============================================================================
    28. Heritage theme overrides
-   Inspired by XIX-century European print + 1960s academic title cards.
-   Differs from the Cinematic default in colours, fonts, layout, ordering,
-   and overall look and feel (see docs.html for the full justification).
 
    HOW THE THEME OVERRIDE WORKS:
    The JS adds  data-theme="heritage"  to the <html> tag.
@@ -2173,14 +2091,6 @@ strong { color: var(--text-primary); font-weight: 600; }
      1. The CSS variables (so colors and fonts change everywhere at once).
      2. Layout and ordering of specific elements (grid order, text alignment).
      3. Decorations (ornaments, double rules, drop caps).
-
-   Quick summary:
-     - 1960s narrative chapter (From Russia with Love) belongs to mid-century
-       European cinema + academic publishing — black "spy" theme is wrong.
-     - Light ivory palette suggests acid-free archival paper.
-     - Cormorant + EB Garamond are transitional serifs used by Harvard UP,
-       Princeton UP and other scholarly presses since the 1950s.
-     - Centred / book-style measure echoes Tschichold's 1950s Penguin redesigns.
    ============================================================================ */
 /* [data-theme="heritage"] is an attribute selector. It matches any element
    with that exact attribute. In our case, the JS adds data-theme="heritage"
@@ -2237,11 +2147,11 @@ strong { color: var(--text-primary); font-weight: 600; }
 [data-theme="heritage"] body::before {
   background:
     /* warm cloud — top left */
-    radial-gradient(ellipse 45% 32% at 18% 22%, rgba(138,90,46,0.10) 0%, transparent 65%) center / 100% 100% no-repeat,
+    radial-gradient(ellipse 45% 32% at 18% 22%, rgba(138,90,46,0.4) 0%, transparent 65%) center / 100% 100% no-repeat,
     /* warm cloud — bottom right */
-    radial-gradient(ellipse 40% 30% at 82% 75%, rgba(122,46,46,0.08) 0%, transparent 65%) center / 100% 100% no-repeat,
+    radial-gradient(ellipse 40% 30% at 82% 75%, rgba(122,46,46,0.3) 0%, transparent 65%) center / 100% 100% no-repeat,
     /* warm cloud — bottom centre */
-    radial-gradient(ellipse 35% 28% at 50% 92%, rgba(138,90,46,0.06) 0%, transparent 65%) center / 100% 100% no-repeat,
+    radial-gradient(ellipse 35% 28% at 50% 92%, rgba(138,90,46,0.2) 0%, transparent 65%) center / 100% 100% no-repeat,
     /* faint ebru-like diagonal weave */
     repeating-linear-gradient(
       135deg,
@@ -2285,7 +2195,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 }
 [data-theme="heritage"] .nav-link.active { color: var(--accent-red); }
 
-/* Buttons: thin single-stroke borders, no transforms */
+/* Buttons: thin single-stroke borders */
 [data-theme="heritage"] .btn {
   border-radius: 2px;
   font-family: var(--font-sans);
@@ -2300,7 +2210,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 [data-theme="heritage"] .btn-primary:hover {
   background: var(--accent-gold-dim);
   box-shadow: 0 2px 4px rgba(42,35,27,0.15);
-  transform: none;
 }
 [data-theme="heritage"] .btn-secondary {
   border: 1px solid var(--accent-red);
@@ -2317,11 +2226,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 [data-theme="heritage"] .hero-eyebrow { justify-content: center; }
 [data-theme="heritage"] .hero-eyebrow-line { background: var(--accent-red); }
 [data-theme="heritage"] .hero-eyebrow-text { color: var(--accent-red); font-family: var(--font-sans); }
-[data-theme="heritage"] .hero-bg-gradient {
-  background:
-    radial-gradient(ellipse 80% 50% at 50% 40%, rgba(138,90,46,0.08) 0%, transparent 70%),
-    linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-}
 [data-theme="heritage"] .hero-meta { justify-content: center; }
 
 /* Ornamental rule under hero title */
@@ -2354,7 +2258,6 @@ strong { color: var(--text-primary); font-weight: 600; }
 [data-theme="heritage"] .narrative-card::before { display: none; }
 [data-theme="heritage"] .narrative-card:hover {
   background: var(--bg-card);
-  transform: none;
 }
 [data-theme="heritage"] .narrative-card-icon {
   font-size: 1.5rem;
@@ -2389,14 +2292,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   color: var(--accent-red);
 }
 
-/* Chapter badges: more restrained — pill border only */
-[data-theme="heritage"] .chapter-badge {
-  background: transparent !important;
-  border: 1px solid currentColor !important;
-  font-family: var(--font-sans);
-  letter-spacing: 0.15em;
-}
-
 /* Explore page: FLIPPED grid order — narrative LEFT, visual RIGHT
    This is a deliberate ordering change between the two themes.
    We swap columns using the "order" property in flexbox/grid:
@@ -2422,7 +2317,7 @@ strong { color: var(--text-primary); font-weight: 600; }
 /* Drop-cap on narrative body in heritage theme.
    ::first-letter is a pseudo-element that targets only the first letter of
    the text. With float: left we make that letter sit on the left while the
-   rest of the paragraph flows around it — a classic XIX-century book device. */
+   rest of the paragraph flows around it. */
 [data-theme="heritage"] .narrative-body::first-letter {
   font-family: var(--font-serif);
   font-weight: 600;
@@ -2494,12 +2389,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   border-top: 1px solid var(--border);
 }
 
-/* Image placeholder: parchment tint */
-[data-theme="heritage"] .location-image-placeholder::before {
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 40%, rgba(138,90,46,0.12) 0%, transparent 70%),
-    linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-}
 [data-theme="heritage"] .location-film-tag,
 [data-theme="heritage"] .location-type-tag {
   background: rgba(245,239,226,0.94);
@@ -2607,10 +2496,6 @@ strong { color: var(--text-primary); font-weight: 600; }
   font-style: italic;
   font-size: 1.1rem;
 }
-
-/* Heritage scrollbar */
-[data-theme="heritage"] ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-[data-theme="heritage"] ::-webkit-scrollbar-thumb { background: var(--accent-gold-dim); }
 
 /* Heritage map styling */
 [data-theme="heritage"] .map-sidebar {

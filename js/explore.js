@@ -40,16 +40,12 @@ document.addEventListener("DOMContentLoaded", function() {
   // The "X / Y" text near the navigation buttons.
 
   // location display
-  var locationImagePlaceholder = document.getElementById("locationImagePlaceholder");
-  // The container around the image.
   var locationImageEl          = document.getElementById("locationImage");
   // The <img> element for the location.
-  var locationImageIcon        = document.getElementById("locationImageIcon");
-  // The fallback icon (shown when there is no image).
   var locationFilmTag          = document.getElementById("locationFilmTag");
   // The film label in the top-left corner.
   var locationTypeTag          = document.getElementById("locationTypeTag");
-  // The media-type label (Film Still / Real Location / Video) in the bottom-right corner.
+  // The media-type label (Film Still / Real Location) in the bottom-right corner.
   var locationName             = document.getElementById("locationName");
   // The h1 with the location name.
   var locationScene            = document.getElementById("locationScene");
@@ -69,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var galleryCaption = document.getElementById("galleryCaption");
   // The caption under the gallery.
   var galleryItems   = [];
-  // Flat list of all media for the current location, in order: film stills, real-location photos, then videos.
+  // Flat list of all media for the current location, in order: film stills, then real-location photos.
   var galleryIndex   = 0;
   // Position in galleryItems. The arrow buttons move this index.
 
@@ -122,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // The sources footnote under the table.
 
 
-  // ===== 2. Icon and colour for each chapter =====
+  // ===== 2. Icon for each chapter =====
   // I use a simple object as a lookup table.
   // An object in JavaScript is like a dictionary: key -> value.
 
@@ -137,18 +133,6 @@ document.addEventListener("DOMContentLoaded", function() {
     "2014":          "◈",
     "2016":          "◉"
     // Timeline era icons.
-  };
-
-  var chapterColorMap = {
-    "Surveillance":  "rgba(74,139,181,0.15)",
-    "The Chase":     "rgba(154,106,42,0.15)",
-    "The Search":    "rgba(106,58,122,0.15)",
-    "Confrontation": "rgba(154,53,53,0.15)",
-    // rgba(R, G, B, alpha) — alpha is transparency (0 = invisible, 1 = solid).
-    "1960s":         "rgba(90,138,90,0.15)",
-    "2012":          "rgba(74,139,181,0.15)",
-    "2014":          "rgba(176,106,106,0.15)",
-    "2016":          "rgba(201,165,90,0.15)"
   };
 
 
@@ -406,19 +390,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   // ===== 8. Image gallery =====
-  // All media (film stills + real-location photos + videos) is flattened into
+  // All media (film stills + real-location photos) is flattened into
   // one list. The user steps through it with the ← → buttons. A small badge
   // in the bottom-right corner of the image says what type the current item is.
-
-  // Remove the YouTube iframe so the audio stops when leaving a video item.
-  function clearVideoFrame() {
-    var placeholder = locationImageEl && locationImageEl.parentNode;
-    // && short-circuit: if locationImageEl is null, do not try to access parentNode.
-    if (!placeholder) return;
-    var existing = placeholder.querySelector(".location-video");
-    if (existing) existing.remove();
-    // Remove the iframe from the DOM. This also stops the YouTube audio.
-  }
 
   // Build the flat media list for a location. Each entry carries its type
   // label so we can show it in the corner badge without extra lookups.
@@ -428,17 +402,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var filmImgs = loc.images.film     || [];
     var locImgs  = loc.images.location || [];
-    var videos   = loc.images.video    || [];
     // || [] fallback: if the array is missing, use an empty one.
 
     for (var i = 0; i < filmImgs.length; i++) {
-      items.push({ kind: "image", label: "Film Still",    data: filmImgs[i] });
+      items.push({ label: "Film Still",    data: filmImgs[i] });
     }
     for (var j = 0; j < locImgs.length; j++) {
-      items.push({ kind: "image", label: "Real Location", data: locImgs[j] });
-    }
-    for (var k = 0; k < videos.length; k++) {
-      items.push({ kind: "video", label: "Video",         data: videos[k] });
+      items.push({ label: "Real Location", data: locImgs[j] });
     }
     return items;
   }
@@ -453,7 +423,6 @@ document.addEventListener("DOMContentLoaded", function() {
       locationTypeTag.textContent = "";
       locationTypeTag.style.display = "none";
       galleryNav.style.display = "none";
-      clearVideoFrame();
       return;
     }
 
@@ -468,17 +437,10 @@ document.addEventListener("DOMContentLoaded", function() {
     locationTypeTag.textContent = current.label;
     locationTypeTag.style.display = "block";
 
-    if (current.kind === "video") {
-      renderVideoItem(loc, current.data);
-    } else {
-      renderImageItem(loc, current.data);
-    }
+    renderImageItem(loc, current.data);
   }
 
   function renderImageItem(loc, img) {
-    clearVideoFrame();
-    // Make sure no leftover video frame is around.
-
     locationImageEl.src = img.src;
     locationImageEl.alt = img.alt || loc.name;
     // Set the src and alt. If alt is missing, use the location name (for accessibility).
@@ -487,43 +449,6 @@ document.addEventListener("DOMContentLoaded", function() {
     locationImageEl.onerror = function() { locationImageEl.style.display = "none"; };
 
     galleryCaption.textContent = img.caption || "";
-  }
-
-  function renderVideoItem(loc, video) {
-    // hide the still image, then build (or reuse) the iframe
-    locationImageEl.style.display = "none";
-    var placeholder = locationImageEl.parentNode;
-    var frame = placeholder.querySelector(".location-video");
-    if (!frame) {
-    // No frame yet — create it.
-      frame = document.createElement("iframe");
-      frame.className = "location-video";
-      frame.setAttribute("allow", "accelerometer; encrypted-media; picture-in-picture");
-      // "allow" lists which browser features the iframe is allowed to use.
-      frame.setAttribute("allowfullscreen", "");
-      frame.setAttribute("loading", "lazy");
-      // Lazy-load the iframe — better performance.
-      placeholder.appendChild(frame);
-    }
-    var newSrc = "https://www.youtube.com/embed/" + encodeURIComponent(video.youtubeId) + "?rel=0&modestbranding=1";
-    if (frame.src !== newSrc) frame.src = newSrc;
-    // Only change src if it is different (avoids restarting the video).
-    frame.title = video.title || (loc.name + " — video");
-
-    // caption + a fallback link in case the embed gets blocked
-    var watchUrl = "https://www.youtube.com/watch?v=" + encodeURIComponent(video.youtubeId);
-    galleryCaption.innerHTML = "";
-    if (video.caption) {
-      galleryCaption.appendChild(document.createTextNode(video.caption + " "));
-      // createTextNode is a safe way to add plain text (no HTML).
-    }
-    var link = document.createElement("a");
-    link.href = watchUrl;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.className = "gallery-video-link";
-    link.textContent = "Open on YouTube ↗";
-    galleryCaption.appendChild(link);
   }
 
   // ← / → button wiring. Both wrap around the ends of the list.
@@ -743,12 +668,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!loc) return;
 
     var isTimeline = (App.getNarrative() === "timeline");
-
-    // image placeholder colour and icon
-    var locColor = chapterColorMap[loc.chapter] || "rgba(74,139,181,0.1)";
-    locationImagePlaceholder.style.setProperty("--location-color", locColor);
-    // setProperty sets a CSS custom property (variable). The CSS uses var(--location-color).
-    locationImageIcon.textContent = chapterIcons[loc.chapter] || "◉";
 
     // reset gallery to the first media item when changing location
     galleryIndex = 0;

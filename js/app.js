@@ -7,22 +7,28 @@
 // If nothing was saved before, I use a default value.
 // The OR operator (||) takes the first "truthy" value. If localStorage returns null, we use the default.
 
-var activeNarrative     = localStorage.getItem("activeNarrative")     || "pursuit";
+// I use different names for the JS variable and the localStorage key.
+// The variable is plain camelCase (textVariant). The storage key wraps the
+// same name with a "localS_" prefix and a "_key" suffix (localS_textVariant_key).
+// This way it is easy to see in the code which name lives "in memory"
+// and which name lives "in the browser storage".
+
+var activeNarrative     = localStorage.getItem("localS_activeNarrative_key")     || "pursuit";
 // "var" declares a variable. localStorage.getItem reads a saved value (a string). The default is "pursuit".
 
-var activeLocationIndex = parseInt(localStorage.getItem("activeLocationIndex") || "0");
+var activeLocationIndex = parseInt(localStorage.getItem("localS_activeLocationIndex_key") || "0");
 // localStorage only stores strings, so we use parseInt to turn it into a number.
 
-var textVariant         = localStorage.getItem("textVariant")         || "adult";   // young / adult / scholar
+var textVariant         = localStorage.getItem("localS_textVariant_key")         || "adult";   // young / adult / scholar
 // The audience level for the text. Three options: young, adult, scholar.
 
-var textLength          = localStorage.getItem("textLength")          || "medium";  // short / medium
+var textLength          = localStorage.getItem("localS_textLength_key")          || "medium";  // short / medium
 // The text length. Two options: short, medium.
 
-var readingMode         = localStorage.getItem("readingMode")         || "story";   // story / details
+var readingMode         = localStorage.getItem("localS_readingMode_key")         || "story";   // story / details
 // The reading mode. Two options: story (narrative text) or details (QR + metadata).
 
-var theme               = localStorage.getItem("theme")               || "cinematic"; // cinematic / heritage
+var theme               = localStorage.getItem("localS_theme_key")               || "cinematic"; // cinematic / heritage
 // The visual theme. Two options: cinematic, heritage.
 
 // audience levels in order
@@ -31,7 +37,7 @@ var VARIANT_ORDER = ["young", "adult", "scholar"];
 
 
 // ----- 2. Narrative (pursuit / timeline) -----
-function setNarrative(id) {
+function setNarrative(id) { // the "id" parameter holds the narrative the user clicked ("pursuit" or "timeline" in explore.js) 
 // This function changes the active narrative. The parameter "id" is "pursuit" or "timeline".
 
   activeNarrative = id;
@@ -40,10 +46,12 @@ function setNarrative(id) {
   activeLocationIndex = 0;
   // When we change the narrative, we start at location 0 (the first one).
 
-  localStorage.setItem("activeNarrative", id);
+  localStorage.setItem("localS_activeNarrative_key", id);
+  // setItem takes two arguments: the storage key (left) and the value (right).
+  // The key here is "localS_activeNarrative_key"; the value is the parameter "id".
   // Save to localStorage so the choice stays after a reload.
 
-  localStorage.setItem("activeLocationIndex", "0");
+  localStorage.setItem("localS_activeLocationIndex_key", "0");
   // Save the index too (it must be a string).
 
   // tell other parts of the page that the narrative changed
@@ -92,7 +100,7 @@ function setLocationIndex(i) {
   // If the index is too big, set it to the last position.
 
   activeLocationIndex = i;
-  localStorage.setItem("activeLocationIndex", String(i));
+  localStorage.setItem("localS_activeLocationIndex_key", String(i));
   // Save the new index. String() turns the number into a string.
 
   document.dispatchEvent(new CustomEvent("locationChanged"));
@@ -109,6 +117,21 @@ function getActiveLocation() {
   // Return the location object at the current index.
 }
 
+// ----- 8. Previous / Next location -----
+function goNext() {
+  var locs = getLocations();
+  if (activeLocationIndex < locs.length - 1) {
+    // Only go forward if we are not at the last location.
+    setLocationIndex(activeLocationIndex + 1);
+  }
+}
+
+function goPrev() {
+  if (activeLocationIndex > 0) {
+    // Only go back if we are not at the first location.
+    setLocationIndex(activeLocationIndex - 1);
+  }
+}
 
 // ----- 4. Text variant (Young / Adult / Scholar) -----
 function setTextVariant(v) {
@@ -117,7 +140,7 @@ function setTextVariant(v) {
   // If the value is not one of the three valid ones, exit the function.
 
   textVariant = v;
-  localStorage.setItem("textVariant", v);
+  localStorage.setItem("localS_textVariant_key", v);
   document.dispatchEvent(new CustomEvent("textVariantChanged"));
   // Send a custom event.
 }
@@ -127,10 +150,15 @@ function getTextVariant() {
 }
 
 // "Too simple" button: go one step harder
-function nudgeVariantHarder() {
-  if (textVariant === "young")  setTextVariant("adult");
-  else if (textVariant === "adult") setTextVariant("scholar");
-  // If we are already at scholar, do nothing (no else branch).
+function nudgeVariantHarder() {//ilk başta bu explore sayfasındaki to simple butona tıklayınca bu fonksiyon triggerlanıyor.
+  if (textVariant === "young")  setTextVariant("adult"); //burası text vari
+  else if (textVariant === "adult") setTextVariant("scholar"); 
+  //ilk kez başlanıyorsa textVariat burada adult olur.
+  //var textVariant = localStorage.getItem("localS_textVariant_key")         || "adult";
+  //çünkü local storage localstarage.getItem tuttuğu keydan bir şey dönmez ve adult olur.
+  //steTextVariant fonksiyonun aldığı v variablenı scholar yap der.
+  //böylelikle textVariantChanged triggerlanmış olur.
+  //If we are already at scholar, do nothing (no else branch).
 }
 
 // "Too difficult" button: go one step easier
@@ -147,7 +175,7 @@ function setTextLength(len) {
   // Only accept "short" or "medium".
 
   textLength = len;
-  localStorage.setItem("textLength", len);
+  localStorage.setItem("localS_textLength_key", len);
   document.dispatchEvent(new CustomEvent("textLengthChanged"));
 }
 
@@ -167,7 +195,7 @@ function setReadingMode(mode) {
   // Only accept "story" or "details".
 
   readingMode = mode;
-  localStorage.setItem("readingMode", mode);
+  localStorage.setItem("localS_readingMode_key", mode);
   document.dispatchEvent(new CustomEvent("readingModeChanged"));
 }
 
@@ -180,7 +208,7 @@ function getReadingMode() {
 // I just put a data-theme attribute on <html> and the CSS does the rest.
 function setTheme(t) {
   theme = t;
-  localStorage.setItem("theme", t);
+  localStorage.setItem("localS_theme_key", t);
   document.documentElement.setAttribute("data-theme", t);
   // document.documentElement is the <html> element. We set data-theme="cinematic" or "heritage". The CSS uses [data-theme="..."] to change colors.
 }
@@ -192,23 +220,6 @@ function getTheme() {
 function applyTheme() {
   document.documentElement.setAttribute("data-theme", theme);
   // Set the data-theme attribute again (used after page reload, for example).
-}
-
-
-// ----- 8. Previous / Next location -----
-function goNext() {
-  var locs = getLocations();
-  if (activeLocationIndex < locs.length - 1) {
-    // Only go forward if we are not at the last location.
-    setLocationIndex(activeLocationIndex + 1);
-  }
-}
-
-function goPrev() {
-  if (activeLocationIndex > 0) {
-    // Only go back if we are not at the first location.
-    setLocationIndex(activeLocationIndex - 1);
-  }
 }
 
 
@@ -331,7 +342,6 @@ var App = {
   getLocationIndex:    getLocationIndex,
   getActiveLocation:   getActiveLocation,
 
-  setTextVariant:      setTextVariant,
   getTextVariant:      getTextVariant,
   VARIANT_ORDER:       VARIANT_ORDER,
   nudgeVariantHarder:  nudgeVariantHarder,
@@ -376,7 +386,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (activeLocationIndex >= locs.length) {
     // If a saved index is too big for the new narrative (for example, the user changed narrative), reset to 0.
     activeLocationIndex = 0;
-    localStorage.setItem("activeLocationIndex", "0");
+    localStorage.setItem("localS_activeLocationIndex_key", "0");
   }
   highlightActiveNav();
   // Highlight the current page in the top menu.

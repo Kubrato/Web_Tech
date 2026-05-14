@@ -226,12 +226,6 @@
             <img src="img/predesign/sketches.png"
                  alt="Hand-drawn A5 sketches of the six site pages — Cover, Map, Explore, About, Documentation, and Disclaimer — showing the fixed top navigation, page layouts, and element order before any code was written."
                  loading="lazy">
-            <figcaption class="doc-figure-caption">
-              Hand-drawn A5 sketches — one per site page. Used to lock
-              the navigation position, page layout (one column / two
-              columns / sidebar + canvas) and element order before
-              moving to Figma.
-            </figcaption>
           </figure>
 
           <p>
@@ -248,13 +242,6 @@
             <img src="img/predesign/figma-frames.png"
                  alt="Two Figma frames side by side: a desktop Cover page at 1440 × 900 in the Heritage (cream) theme on the left, and a mobile Explore page at 375 × 812 in the Cinematic (dark) theme on the right."
                  loading="lazy">
-            <figcaption class="doc-figure-caption">
-              Figma reference frames — desktop Cover (1440 × 900,
-              Heritage theme) and mobile Explore (375 × 812, Cinematic
-              theme). Both viewport sizes were laid out in Figma before
-              any HTML was written; the same spacing scale and theme
-              switch points were carried into the live CSS.
-            </figcaption>
           </figure>
 
           <p>
@@ -297,8 +284,8 @@
             <strong>Mode</strong> switch (<em>Story</em> or
             <em>Details &amp; QR</em>), the camera details (Facing,
             Elevation, Focal Length, Shot Type, plus a short note),
-            the image gallery with two tabs (<em>Real Location</em>
-            and <em>Film Still</em>), the QR code, the GPS
+            the image gallery (with <em>Real Location</em> and
+            <em>Film Still</em> images), the QR code, the GPS
             coordinates, and the two narratives.
           </p>
         </div>
@@ -402,9 +389,10 @@
               <li>Checks the recommended time of day, so the natural light
                 matches the film — for example, late afternoon for the warm
                 light inside the Basilica Cistern.</li>
-              <li>Uses the image gallery: switches between the
-                <em>Real Location</em> tab and the <em>Film Still</em> tab
-                to match the framing before they take the photo.</li>
+              <li>Uses the image gallery: clicks the arrow buttons to
+                step through the <em>Real Location</em> and
+                <em>Film Still</em> images and match the framing before
+                they take the photo.</li>
               <li>Scans the QR code in the Details panel to save the page
                 link on a phone, so they can come back to it later or share
                 it with friends.</li>
@@ -414,8 +402,9 @@
               narrative · Audience tool set to <em>Scholar</em> · Length set
               to <em>Full</em> · Details &amp; QR mode · camera specs
               (Facing, Elevation, Focal Length, Shot Type, note) · QR code ·
-              image gallery (<em>Real Location</em> and <em>Film Still</em>
-              tabs) · GPS coordinates · recommended time of day.
+              image gallery (<em>Real Location</em> and
+              <em>Film Still</em> images) · GPS coordinates ·
+              recommended time of day.
             </p>
           </div>
 
@@ -463,13 +452,6 @@
             if the ratio does not match the box. This way a 2.39:1
             scope still and a 4:3 lobby card both fit without being
             cropped.
-          </li>
-          <li>
-            <strong>Gallery thumbnails.</strong> 56&nbsp;×&nbsp;40&nbsp;px,
-            roughly 1.4:1, sized to look like a small contact-sheet
-            card. They use <code>background-size: cover</code> so the
-            preview is filled (cropping is acceptable on a thumb but
-            not on the main image).
           </li>
           <li>
             <strong>Theme switcher and color swatches.</strong> 1:1
@@ -610,11 +592,6 @@
                 <td>Explore image area</td>
                 <td><code>height: clamp(280px, 40vh, 440px)</code></td>
                 <td>40% of viewport height by default; can never be smaller than 280&nbsp;px (so a still is recognisable on a phone) nor bigger than 440&nbsp;px (so the gallery and info panel below are always visible without scrolling).</td>
-              </tr>
-              <tr>
-                <td>Gallery thumbnail</td>
-                <td>56&nbsp;×&nbsp;40&nbsp;px</td>
-                <td>Big enough to recognise the image at a glance, small enough to fit four to six thumbs in one row on the visual column.</td>
               </tr>
               <tr>
                 <td>Color / theme swatch</td>
@@ -817,10 +794,11 @@
             <p class="doc-grid-item-body">
               Top stripes: nav, narrative toggle bar, chapter strip,
               variant toolbar. Body: 50/50 grid. Visual column has a
-              fixed-height image area (clamp 280–440&nbsp;px), then
-              gallery thumbs, then info panel. Narrative column has
-              the quote, then the body, then the narrative note.
-              Bottom: Previous / Next, a counter, dot navigation.
+              fixed-height image area (clamp 280–440&nbsp;px), then a
+              gallery row with arrow buttons and a counter, then the
+              info panel. Narrative column has the quote, then the
+              body, then the narrative note. Bottom: Previous / Next,
+              a counter, dot navigation.
             </p>
           </div>
           <div class="doc-grid-item">
@@ -858,24 +836,23 @@
         <h2 class="doc-section-title" id="doc-visual">Visual Design System &amp; Themes</h2>
         <div class="doc-section-body">
           <p>
-            Following the LMML brief, this individual project ships
-            <strong>two switchable themes</strong>. The two themes
-            are not just different fonts and colours: they differ in
-            font family, palette, background imagery, layout,
-            ordering and overall look &amp; feel — so the same
-            content reads as two visually different exhibitions.
-            One theme reflects the late-XX / XXI-century screen;
-            the other reflects XIX-century / mid-XX-century print.
+            The course brief asks for <strong>two themes</strong> that
+            the user can switch between. The two themes are very
+            different. They use different fonts, different colours,
+            different background pictures, different layouts and a
+            different order of elements. So the same content looks
+            like two different exhibitions. One theme feels like a
+            modern screen. The other feels like an old printed book.
           </p>
           <p>
-            Both themes share one design system. Tokens (colours,
-            fonts, spacing) live as CSS custom properties on
-            <code>:root</code>; the Heritage theme overrides them
-            through a <code>[data-theme="heritage"]</code> selector.
-            The active theme is chosen with the round button pair in
-            the navigation bar (◉ / ❦) and saved in
-            <code>localStorage</code>, so it survives across pages
-            and reloads.
+            Both themes share one design system. Colours, fonts and
+            spacing are saved as CSS variables on <code>:root</code>.
+            The Heritage theme changes these values through a
+            <code>[data-theme="heritage"]</code> selector. The user
+            picks the theme with the two round buttons in the top bar
+            (◉ / ❦). The choice is saved in
+            <code>localStorage</code>, so it stays the same on every
+            page and after a reload.
           </p>
         </div>
 
@@ -883,27 +860,25 @@
         <p class="label" data-mt="xl" data-mb="md">Theme A — Mid-Century Cinema (Second half of XX Century print)</p>
         <div class="doc-section-body">
           <p>
-            <strong>Why this theme exists.</strong> The project opens
-            in 1963 with <em>From Russia with Love</em> — the Bond
-            film that defined mid-century cinematic Istanbul. This
-            theme anchors the site in the print culture of that era:
-            the bold dark-grounded film posters of the 1960s spy
-            cycle, the lobby cards distributed in cinema foyers, and
-            the design language of mid-century film-criticism
-            quarterlies (<em>Cahiers du Cinéma</em>, <em>Sight &amp;
-            Sound</em>, <em>Films and Filming</em>). A dark
-            "projection-room" ground, high-contrast title-card
-            typography, and an asymmetric left-anchored hero recall
-            the printed page of that period rather than a
-            contemporary screen interface.
+            <strong>Why this theme exists.</strong> The project starts
+            in 1963 with the Bond film <em>From Russia with Love</em>.
+            This film shaped the way Istanbul looked on screen at that
+            time. This theme is built to feel like the print design of
+            the 1960s: the dark film posters of the spy films, the
+            lobby cards in cinema halls, and the film magazines of
+            that era (<em>Cahiers du Cinéma</em>, <em>Sight &amp;
+            Sound</em>, <em>Films and Filming</em>). The dark
+            background, the strong title font and the left-aligned
+            hero remind the reader of a printed page from the 1960s,
+            not a modern website.
           </p>
           <p>
             <strong>Background image.</strong> A pure-CSS pattern on
-            <code>body::before</code>: two thin filmstrip-perforation
-            columns on the left and right edges, plus a soft radial
-            vignette. The 35&nbsp;mm perforation is a deliberate
-            historical reference — the medium on which all five
-            featured films were originally exhibited.
+            <code>body::before</code>. It shows two thin filmstrip
+            lines (with small holes) on the left and right edges, plus
+            a soft round shadow in the middle. The 35&nbsp;mm
+            filmstrip is a clear historical link — all five films in
+            the project were first shown on 35&nbsp;mm film.
           </p>
         </div>
 
@@ -923,41 +898,43 @@
             <p class="doc-grid-item-title">Playfair Display</p>
             <p class="type-sample-cinema-h">Headings &amp; Titles</p>
             <p class="doc-grid-item-body">
-              A high-contrast serif in the lineage of mid-XVIII-
-              century transitional types (Baskerville, Bodoni)
-              revived for poster and title-card use. The
-              high-contrast modulation matches the bold display
-              lettering of 1960s film one-sheets. Used for location
-              names, section titles and pull quotes.
+              A serif font with strong thick-and-thin contrast. It
+              follows the style of XVIII-century types like
+              Baskerville and Bodoni, brought back for posters and
+              title cards. It looks like the bold lettering on 1960s
+              film posters. Used for location names, section titles
+              and pull quotes.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Inter</p>
             <p class="type-sample-cinema-body">Body Text &amp; UI</p>
             <p class="doc-grid-item-body">
-              A neo-grotesque sans in the lineage of Helvetica (1957)
-              and Univers (1957) — the dominant body and signage
-              faces of the second half of the twentieth century,
-              including the long-form copy of the period's film-
-              criticism magazines. Used for body text and UI controls.
+              A clean sans-serif font in the family of Helvetica
+              (1957) and Univers (1957). These were the main fonts
+              for body text and signs in the second half of the XX
+              century — also in the film magazines of that time.
+              Used for body text and UI buttons.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">JetBrains Mono</p>
             <p class="type-sample-cinema-mono">Coordinates &amp; Data</p>
             <p class="doc-grid-item-body">
-              A monospaced face for GPS coordinates, years and
-              technical metadata. The code-like rhythm makes facts
-              visually distinct from prose at a glance.
+              A monospaced font for GPS coordinates, years and other
+              data. Every letter takes the same width, so the numbers
+              look different from the rest of the text and the reader
+              can see them quickly.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Layout signature</p>
             <p class="doc-grid-item-body">
-              Asymmetric, <strong>left-anchored</strong> hero with
-              deep negative space and a soft cinematic vignette.
-              Explore page: <strong>image left, narrative right</strong>.
-              Inside the visual column: <strong>image → gallery → info panel</strong>.
+              A <strong>left-aligned</strong> hero with a lot of
+              empty space and a soft cinema-like shadow. Explore
+              page: <strong>image on the left, text on the right</strong>.
+              Inside the image column the order is:
+              <strong>image → gallery → info panel</strong>.
             </p>
           </div>
         </div>
@@ -967,26 +944,26 @@
         <div class="doc-section-body">
           <p>
             <strong>Why this theme exists.</strong> Mid-Century Cinema
-            reads Istanbul as a screening to attend; Heritage reads
-            it as a printed book of the city. The reference is the
-            XIX-century European travel-book and architectural-
-            history publishing tradition — Murray's <em>Handbook for
-            Travellers in Constantinople</em> (first edition 1840)
-            and the great illustrated histories of Ottoman monuments.
-            The theme places the same exhibition on parchment, in a
-            transitional serif, with a centred book-style measure, a
-            drop-cap on the first paragraph, and ornamental section
-            breaks. It is the better register for long-form scholarly
-            reading.
+            shows Istanbul like a film screening. Heritage shows the
+            same city like an old printed book. The reference is the
+            XIX-century European travel book and the architectural
+            history book — for example Murray's <em>Handbook for
+            Travellers in Constantinople</em> (first edition, 1840)
+            and the big illustrated books about Ottoman monuments.
+            This theme puts the same content on paper that looks like
+            parchment, in a classic serif font, with a centred page
+            width, a large first letter on the first paragraph (drop
+            cap), and decorative section breaks. It is the better
+            choice for long reading.
           </p>
           <p>
             <strong>Background image.</strong> A pure-CSS pattern on
-            <code>body::before</code>: three soft sienna/oxblood
-            radial washes laid over a faint diagonal weave, evoking
-            <em>ebru</em> (Turkish marbled paper) endpapers — a
-            deliberate Ottoman/Levantine geographic anchor that ties
-            the XIX-century European typographic tradition to the
-            project's actual subject city.
+            <code>body::before</code>. It shows three soft brown-red
+            round colour washes on top of a light diagonal weave. The
+            look is similar to <em>ebru</em> (Turkish marbled paper)
+            used inside old books. This Ottoman touch links the
+            European book design of the XIX century to the real
+            subject of the project — Istanbul.
           </p>
         </div>
 
@@ -1006,40 +983,42 @@
             <p class="doc-grid-item-title">Cormorant Garamond</p>
             <p class="type-sample-heritage-h">Headings &amp; Titles</p>
             <p class="doc-grid-item-body">
-              A transitional serif descended from Garamond's mid-XVI-
-              century cuts and used widely by scholarly presses
-              (Harvard UP, Princeton UP) since the 1950s. Headings
-              drop to weight 500 and lean on italic for emphasis.
+              A classic serif font based on Garamond's XVI-century
+              designs. Many university presses (for example Harvard
+              and Princeton) have used it since the 1950s. Headings
+              use a medium weight (500) and italic for emphasis.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">EB Garamond</p>
             <p class="type-sample-heritage-body">Body Text</p>
             <p class="doc-grid-item-body">
-              An open-source revival of Claude Garamond's 1592
-              specimens, tuned for long reading. Used for the
-              narrative body, with a drop-cap on the first paragraph
-              — a direct quotation from XIX-century book design.
+              A free, open-source font based on Claude Garamond's
+              1592 type samples. It is made for long texts. Used for
+              the body of the narrative, with a drop cap on the first
+              paragraph — a direct quote from XIX-century book
+              design.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Alegreya Sans SC</p>
             <p class="type-sample-heritage-sc">SMALL CAPS · NAV &amp; LABELS</p>
             <p class="doc-grid-item-body">
-              Small-caps humanist sans-serif for navigation, labels
-              and chapter rubrics. Mirrors the small-caps running
-              heads of mid-XX-century academic editions.
+              A small-caps sans-serif font for navigation, labels and
+              chapter titles. It copies the small-caps running heads
+              at the top of pages in mid-XX-century academic books.
             </p>
           </div>
           <div class="doc-grid-item">
             <p class="doc-grid-item-title">Layout signature</p>
             <p class="doc-grid-item-body">
-              <strong>Centred</strong> hero with an ornamental rule
-              (❦) under the title; double-rule section breaks.
-              Explore page: <strong>narrative left, image right</strong>
-              (mirrored). Inside the visual column the order is
-              re-sequenced — <strong>info panel → image → gallery</strong>
-              — like a plate in a printed book.
+              A <strong>centred</strong> hero with a small decoration
+              (❦) under the title and double lines between sections.
+              Explore page: <strong>text on the left, image on the
+              right</strong> (the mirror of the Cinema theme). Inside
+              the image column the order changes to:
+              <strong>info panel → image → gallery</strong> — like a
+              picture plate in a printed book.
             </p>
           </div>
         </div>
@@ -1145,12 +1124,17 @@ js/explore.js     ← Explore logic</p>
             <p class="doc-grid-item-title">localStorage keys</p>
             <p class="doc-grid-item-body">
               Six keys are saved across reloads:
-              <code>activeNarrative</code>,
-              <code>activeLocationIndex</code>,
-              <code>textVariant</code>, <code>textLength</code>,
-              <code>readingMode</code>, <code>theme</code>. Reading
-              and writing happens through small accessor functions in
-              <code>js/app.js</code>.
+              <code>localS_activeNarrative_key</code>,
+              <code>localS_activeLocationIndex_key</code>,
+              <code>localS_textVariant_key</code>,
+              <code>localS_textLength_key</code>,
+              <code>localS_readingMode_key</code>,
+              <code>localS_theme_key</code>. The key names use a
+              <code>localS_..._key</code> wrapper so they are easy to
+              tell apart from the JavaScript variables that hold the
+              same values (<code>textVariant</code>, <code>theme</code>,
+              and so on). Reading and writing happens through small
+              accessor functions in <code>js/app.js</code>.
             </p>
           </div>
         </div>
