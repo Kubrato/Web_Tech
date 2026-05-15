@@ -289,25 +289,10 @@ function generateLocationQR(container, location) {
 // container = the HTML element where we put the QR image.
 // location = the location object.
 
-  // find a Wikipedia link in the metadata sources
-  var url = null;
-  if (location.meta && location.meta.sources) {
-  // Defensive check: make sure meta and sources exist before we read them.
-
-    for (var i = 0; i < location.meta.sources.length; i++) {
-      var s = location.meta.sources[i];
-      if (s.label && s.label.toLowerCase().indexOf("wikipedia") !== -1) {
-      // toLowerCase() so "Wikipedia" and "WIKIPEDIA" both match.
-        url = s.url;
-        break;
-        // break exits the for loop once we found one.
-      }
-    }
-    // if no wikipedia, just use the first source
-    if (!url && location.meta.sources[0]) {
-      url = location.meta.sources[0].url;
-    }
-  }
+  // In our data the first source is the Wikipedia link, so we just take it.
+  var url = location.meta && location.meta.sources && location.meta.sources[0]
+    ? location.meta.sources[0].url
+    : null;
 
   if (!url) {
     container.textContent = "Wikipedia link unavailable";
